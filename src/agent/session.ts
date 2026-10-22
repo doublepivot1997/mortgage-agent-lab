@@ -76,7 +76,9 @@ function defaultClient(): Anthropic {
   if (!key || key === "paste-your-key-here") {
     throw new Error("ANTHROPIC_API_KEY is not set. Paste your key into .env.local (see .env.example).");
   }
-  sharedClient ??= new Anthropic();
+  // Org-level keys (not scoped to a workspace) must name the workspace on every request.
+  const workspaceId = process.env.ANTHROPIC_WORKSPACE_ID?.trim();
+  sharedClient ??= new Anthropic(workspaceId ? { defaultHeaders: { "anthropic-workspace-id": workspaceId } } : {});
   return sharedClient;
 }
 
