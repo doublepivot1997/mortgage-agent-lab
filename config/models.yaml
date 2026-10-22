@@ -1,0 +1,21 @@
+# Which model plays each role. Change models here, never in code.
+roles:
+  agent:
+    model: claude-opus-5-5
+    effort: low          # chat replies should be fast; raise if quality drops in evals
+    max_tokens: 16000
+  simulator:             # plays the borrower in evals (milestone 2)
+    model: claude-opus-5-5
+    effort: low
+    max_tokens: 8000
+  judge:                 # LLM-as-judge scoring (milestone 2)
+    model: claude-opus-5-5
+    effort: medium
+    max_tokens: 16000
+
+# USD per 1M tokens. Used for the running cost estimate.
+# cache_write = 1.25x input (5-minute cache). Verify against current pricing before quoting.
+pricing:
+  claude-opus-5-5:   { input: 4.00, output: 20.00, cache_write: 5.00,  cache_read: 0.20 }
+  claude-sonnet-5-5: { input: 2.00, output: 10.00, cache_write: 2.50,  cache_read: 0.20 }
+  claude-haiku-5-5:  { input: 0.10, output: 0.50,  cache_write: 0.125, cache_read: 0.01 }

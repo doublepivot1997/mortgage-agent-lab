@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Secrets: never commit
+.env
+.env.*
+!.env.example
+
+# Local scratch chats (eval transcripts under data/runs are committed)
+data/chats/
+.vercel
