@@ -1,0 +1,498 @@
+{
+  "persona": {
+    "id": "stretch-cash-out",
+    "label": "Cash out at 92.5% LTV",
+    "description": "Wants cash out that would bring the loan to about 92.5% of the home's value. Inside a 95% limit, outside a 90% limit.",
+    "intake": {
+      "first_name": "Jesse",
+      "last_name": "Lin",
+      "form_answers": {
+        "What are you looking to do?": "Cash-out refinance"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": true,
+      "loan_goal": "cash_out",
+      "cash_out_amount": 30000,
+      "home_value": 400000,
+      "loan_balance": 340000,
+      "current_rate": 6.75,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months"
+    },
+    "behavior": "You want about $30k cash out to consolidate some credit card debt. You think the house is worth around $400k and you owe about $340k. You are a member of the credit union if asked. You're practical and a little guarded about the debt; don't volunteer why you need the cash unless asked. At some point ask \"is that going to be a problem?\" about the amount."
+  },
+  "result": {
+    "persona_id": "stretch-cash-out",
+    "run_index": 2,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Jesse",
+        "last_name": "Lin",
+        "form_answers": {
+          "What are you looking to do?": "Cash-out refinance"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Jesse, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Sure, now's fine."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Jesse. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, I've got checking and savings with you guys."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for being a member. Your web form mentioned a cash-out refinance. Is that still what you have in mind, and if so, about how much cash would you like to take out?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Yeah, still cash out. Looking for about $30k."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, about $30,000. What would you guess your home is worth today? A rough ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably around $400k."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Roughly how much do you still owe on your mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $340k. Is that going to be a problem with wanting $30k out?"
+        },
+        {
+          "role": "agent",
+          "text": "That's a fair question, and a licensed member loan officer is the right person to answer it. I'm not able to weigh in on that myself. I'll gather a few more details so they have the full picture. Do you know your current interest rate, even roughly?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": 340000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value, loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Jesse Lin, existing Bayview member (checking and savings), interested in a cash-out refinance. Estimates home value at about $400k with about $340k owed.",
+                "borrower_goal": "Cash-out refinance, taking out about $30k.",
+                "sentiment": "neutral",
+                "objections_raised": [],
+                "open_questions": [
+                  "Member asked whether owing about $340k would be a problem for taking $30k cash out.",
+                  "Still unknown: current rate, credit range, occupancy, timeline."
+                ],
+                "recommended_next_step": "Answer the member's question about the cash-out amount relative to their balance and home value, then confirm remaining details."
+              },
+              "result": "Not transferred. LTV 0.925 is above the 0.9 live-transfer limit. Do not end the conversation abruptly and do not say or imply they don't qualify. Keep going: acknowledge their situation without judgment, and finish collecting the remaining details so the loan officer is prepared. Then offer a call with a member loan officer to go over their options, in the same neutral way you would for anyone; do not suggest their situation is unusual or needs special review. Ask what time works and book it with schedule_callback (reason \"loan_officer_review\"). Do not imply that a lower rate, lower payment, or approval is available, and do not mention LTV or internal rules. Finish collecting any missing details first, then offer a call and use schedule_callback with reason \"loan_officer_review\".",
+              "is_error": true
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's 6.75%."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, 6.75% noted. Next, how would you describe your credit: excellent (740+), good (680-739), fair (620-679), below 620, or not sure? This is just your own estimate, and I'm not running any credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": 340000,
+                "current_rate": 6.75,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value, loan_balance, current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Good, somewhere in the 680-739 range."
+        },
+        {
+          "role": "agent",
+          "text": "Thank you. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": 340000,
+                "current_rate": 6.75,
+                "credit_band": "good_680_739",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value, loan_balance, current_rate, credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Primary residence."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Last question: how soon would you like to move forward? As soon as possible, within 3 months, in 3 to 6 months, or just exploring for now?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": 340000,
+                "current_rate": 6.75,
+                "credit_band": "good_680_739",
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value, loan_balance, current_rate, credit_band, occupancy. Still needed: timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Within 3 months."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Jesse, that's everything I needed. The next step is a call with a licensed member loan officer to go over your options and answer your question about the $30,000. What day and time would work best for that call?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": 400000,
+                "loan_balance": 340000,
+                "current_rate": 6.75,
+                "credit_band": "good_680_739",
+                "occupancy": "primary_residence",
+                "timeline": "within_3_months"
+              },
+              "result": "Saved: is_member, loan_goal, cash_out_amount, home_value, loan_balance, current_rate, credit_band, occupancy, timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Thursday afternoon works, maybe around 2pm?"
+        },
+        {
+          "role": "agent",
+          "text": "Jesse, your call is booked: a licensed member loan officer will call you Thursday around 2pm at the number you're texting from. They'll have everything you shared with me and may confirm a few details. Thanks for taking the time today.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "loan_officer_review",
+                "preferred_time": "Thursday around 2pm",
+                "immediate_call_offered": false,
+                "notes": "Existing member (checking and savings). Cash-out refi, wants about $30k out. Home value est. $400k, balance about $340k, current rate 6.75%, self-reported credit 680-739, primary residence, timeline within 3 months. Member asked whether owing $340k would be a problem for taking $30k out; please address that and go over options."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say who will call (a licensed loan officer, or Member Services for a membership call) (within one business day at the latest). Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": true,
+        "loan_goal": "cash_out",
+        "cash_out_amount": 30000,
+        "home_value": 400000,
+        "loan_balance": 340000,
+        "current_rate": 6.75,
+        "credit_band": "good_680_739",
+        "occupancy": "primary_residence",
+        "timeline": "within_3_months"
+      },
+      "handoff": null,
+      "callback": {
+        "reason": "loan_officer_review",
+        "preferred_time": "Thursday around 2pm",
+        "immediate_call_offered": false,
+        "notes": "Existing member (checking and savings). Cash-out refi, wants about $30k out. Home value est. $400k, balance about $340k, current rate 6.75%, self-reported credit 680-739, primary residence, timeline within 3 months. Member asked whether owing $340k would be a problem for taking $30k out; please address that and go over options."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 20,
+        "input_tokens": 62,
+        "output_tokens": 3509,
+        "cache_write_tokens": 4458,
+        "cache_read_tokens": 159915
+      },
+      "cost_usd": 0.1247
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 10,
+      "input_tokens": 40,
+      "output_tokens": 221,
+      "cache_write_tokens": 1256,
+      "cache_read_tokens": 7982
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "cash_out",
+          "captured": "cash_out",
+          "correct": true
+        },
+        {
+          "id": "cash_out_amount",
+          "truth": 30000,
+          "captured": 30000,
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 400000,
+          "captured": 400000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 340000,
+          "captured": 340000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.75,
+          "captured": 6.75,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": "good_680_739",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": "within_3_months",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 10
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 9,
+        "score": 5,
+        "rationale": "The borrower asked whether owing $340k would be a problem for taking $30k out. The agent said \"That's a fair question, and a licensed member loan officer is the right person to answer it.\" It routed the question without judgment and without implying any credit decision or that the situation was unusual. It kept momentum with the next question and later tied the callback back to it: \"answer your question about the $30,000.\""
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief and warm and acknowledge answers (\"Got it, about $30,000\", \"Thanks, 6.75% noted\"). The middle stretch reads somewhat like a form being filled out: back-to-back structured questions with listed options. That is efficient for text but a little scripted.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "Turn [20] gives a specific booked time, says who will call (\"a licensed member loan officer\") and how (\"at the number you're texting from\"). Turn [18] explicitly promises their $30k question will be answered. The only friction is that the direct question at [9] was deferred, which could leave mild uncertainty until the call.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "Discloses up front that Dana is an automated assistant, offers STOP opt-out, and checks whether now is a good time."
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "Handles the borderline-LTV question neutrally (\"I'm not able to weigh in on that myself\") with no hint of a credit decision or that the situation is unusual."
+      },
+      {
+        "turn_index": 12,
+        "kind": "strength",
+        "note": "Clarifies the credit question is a self-estimate (\"I'm not running any credit check\"), which reduces borrower anxiety."
+      },
+      {
+        "turn_index": 18,
+        "kind": "strength",
+        "note": "Frames the callback as the standard next step and links it to the borrower's open question, keeping it neutral per the refusal instructions."
+      },
+      {
+        "turn_index": 16,
+        "kind": "issue",
+        "note": "The run of rigid multiple-choice questions feels form-like; slightly more conversational phrasing would read more human."
+      },
+      {
+        "turn_index": 20,
+        "kind": "strength",
+        "note": "The confirmation is concise and specific: day, time, who calls, and how, with honest expectations (\"may confirm a few details\")."
+      }
+    ],
+    "overall_notes": "This was a clean, compliant conversation that handled an over-limit LTV situation neutrally, with no implied decision or promise, and ended with a concrete booked callback. The only minor weakness is a somewhat scripted questionnaire cadence in the middle turns."
+  },
+  "score": {
+    "persona_id": "stretch-cash-out",
+    "run_index": 2,
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 10,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1247,
+      "simulator": 0.0125,
+      "judge": 0.0495,
+      "total": 0.1867
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { AgentSession } from "../src/agent/session.js";
 import { checkDisclosure, checkProhibitedPhrases } from "../src/evals/checks.js";
 import { diffConfigs, flattenConfig, renderComparison } from "../src/evals/compare.js";
 import { buildJudgePrompt } from "../src/evals/judge.js";
-import { expectedOutcome, loadPersonas, validatePersonaForLender } from "../src/evals/personas.js";
+import { actualOutcome, expectedOutcome, loadPersonas, validatePersonaForLender } from "../src/evals/personas.js";
 import { loadLenderConfig } from "../src/lib/config.js";
 import { fakeClient } from "./helpers.js";
 
@@ -115,6 +115,40 @@ describe("Bayview handoff rules", () => {
     expect(r.events[1]).toMatchObject({ name: "transfer_to_loan_officer", is_error: true });
     expect(r.events[1]!.result).toMatch(/after_hours/);
     expect(r.status).toBe("callback_booked");
+  });
+});
+
+describe("non-members: stay and help (eval finding)", () => {
+  it("shares honest membership facts and never calls joining easy", () => {
+    const p = buildSystemPrompt(bayview);
+    expect(p).toContain("Membership facts you may share: Membership is open to people who live or work in the greater Bay County area");
+    expect(p).toContain("Do not say joining is easy or guaranteed");
+    expect(p).not.toMatch(/joining is simple/i);
+  });
+
+  it("keeps the conversation going and books a Member Services call instead of ending", async () => {
+    const nonMember = { ...member, is_member: false };
+    const { client } = fakeClient([
+      [{ type: "text", text: "Hi Robin, this is Dana, an automated assistant with Bayview Community Credit Union. Reply STOP to opt out." }],
+      [
+        { type: "tool_use", name: "record_lead_info", input: { cash_out_amount: null, ...nonMember } },
+        { type: "tool_use", name: "transfer_to_loan_officer", input: { reason: "qualified", borrower_summary: "", borrower_goal: "", sentiment: "positive", objections_raised: [], open_questions: [], recommended_next_step: "" } },
+      ],
+      [{ type: "text", text: "Thanks for telling me. Our mortgage loans are for members; Member Services can confirm eligibility. What time works for a call?" }],
+      [{ type: "tool_use", name: "schedule_callback", input: { reason: "membership_services", preferred_time: "tomorrow at noon", immediate_call_offered: false, notes: "" } }],
+      [{ type: "text", text: "Your call with Member Services is booked for tomorrow at noon." }],
+    ]);
+    const s = new AgentSession({ lender: bayview, intake: { first_name: "Robin", last_name: "Hale", form_answers: {} }, now: WED_11AM_PT, client });
+    await s.start();
+    const r = await s.send("not a member; here are my details");
+    expect(r.events[1]).toMatchObject({ name: "transfer_to_loan_officer", is_error: true });
+    expect(r.events[1]!.result).toMatch(/Do not end the conversation/);
+    expect(r.events[1]!.result).toMatch(/membership_services/);
+    expect(s.status).toBe("active");
+    const r2 = await s.send("tomorrow at noon");
+    expect(r2.status).toBe("callback_booked");
+    expect(r2.events[0]!.result).toMatch(/Member Services/);
+    expect(actualOutcome(s.toRecord())).toBe("follow_up");
   });
 });
 

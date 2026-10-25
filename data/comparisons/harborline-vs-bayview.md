@@ -2,7 +2,7 @@
 
 _Both lenders are fictional. Results come from simulated borrowers and are synthetic, not real-world. Compliance rules are illustrative, not legal guidance._
 
-Same agent code, same eval suite. Only the lender config changed: **54 settings** across 8 sections.
+Same agent code, same eval suite. Only the lender config changed: **56 settings** across 8 sections.
 
 ## 1. Config diff
 
@@ -93,8 +93,10 @@ Same agent code, same eval suite. Only the lender config changed: **54 settings*
 | `licensed_question_min_fields` | loan_goal \| home_value \| loan_balance | is_member \| loan_goal \| home_value \| loan_balance |
 | `live_transfer_available` | always | business_hours |
 | `membership_field` | _(not set)_ | is_member |
+| `membership_info` | _(not set)_ | Membership is open to people who live or work in the greater Bay County area, or who have a family member who is a Bayview member. Joining means opening a savi… |
 | `membership_required` | false | true |
-| `non_member_guidance` | _(not set)_ | Mortgage services are for members. Explain kindly that membership is required, that joining is simple, and that Member Services will email them within one busi… |
+| `non_member_action` | end_conversation | book_callback |
+| `non_member_guidance` | _(not set)_ | Do not end the conversation and do not make them feel turned away. Thank them for telling you. Explain honestly that Bayview's mortgage loans are for members, … |
 | `not_eligible_guidance` | Do not end the conversation abruptly and do not say or imply they don't qualify. Keep going: acknowledge their situation without judgment, and finish collectin… | Do not end the conversation abruptly and do not say or imply they don't qualify. Keep going: acknowledge their situation without judgment, and finish collectin… |
 | `qualified_when.max_ltv` | 0.95 | 0.9 |
 | `transfer_mechanics` | A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. | A licensed member loan officer calls the member at the number they are texting from, usually within 10 minutes during business hours. |
@@ -119,37 +121,37 @@ Derived from each lender's own handoff rules applied to the persona's hidden gro
 
 ## 3. Scorecards side by side
 
-Runs: Harborline `2026-10-25T20-59-36` (30 conversations) · Bayview `2026-10-25T20-59-36` (30 conversations)
+Runs: Harborline `2026-10-25T20-59-36` (30 conversations) · Bayview `2026-10-25T21-20-18` (30 conversations)
 
 | Metric | Harborline | Bayview |
 |---|---|---|
 | Handoff correctness | 100% | 100% |
-| Qualification recall | 84% | 89% |
+| Qualification recall | 84% | 85% |
 | Qualification precision | 100% | 100% |
-| Compliance-clean conversations | 100% | 93% |
-| Violations / warnings | 0 / 1 | 2 / 19 |
+| Compliance-clean conversations | 100% | 100% |
+| Violations / warnings | 0 / 1 | 0 / 2 |
 | AI disclosure in first message | 100% | 100% |
 | Opt-out honored | 100% | 100% |
-| Objection handling | 4.6 / 5 | 4.6 / 5 |
+| Objection handling | 4.6 / 5 | 4.8 / 5 |
 | Naturalness | 4.3 / 5 | 4.4 / 5 |
-| Borrower experience | 4.6 / 5 | 4.3 / 5 |
+| Borrower experience | 4.6 / 5 | 4.6 / 5 |
 | Ended with a clear next step | 100% | 100% |
 | Ended frustrated or confused | 0% | 0% |
-| Handoff summary quality | 4.8 / 5 | 4.8 / 5 |
-| Avg borrower turns | 5.7 | 6.467 |
-| Cost per conversation | $0.12 | $0.14 |
+| Handoff summary quality | 4.8 / 5 | 4.4 / 5 |
+| Avg borrower turns | 5.7 | 7.333 |
+| Cost per conversation | $0.12 | $0.15 |
 
 ### By persona
 
 | Persona | Harborline outcome | Bayview outcome | Harborline handoff | Bayview handoff | Harborline experience | Bayview experience |
 |---|---|---|---|---|---|---|
-| Qualified, Saturday night | transferred (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 4.7 |
-| Busy, wants a callback | callback_booked (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 4.3 |
+| Qualified, Saturday night | transferred (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 5.0 |
+| Busy, wants a callback | callback_booked (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 5.0 |
 | Confused first-timer | transferred (3/3) | transferred (3/3) | 100% | 100% | 4.3 | 4.7 |
-| Qualified, but not a member | transferred (3/3) | follow_up (3/3) | 100% | 100% | 5.0 | 3.3 |
+| Qualified, but not a member | transferred (3/3) | follow_up (3/3) | 100% | 100% | 5.0 | 4.7 |
 | Rate shopper | transferred (3/3) | transferred (3/3) | 100% | 100% | 4.0 | 4.0 |
-| Rushed but qualified | transferred (2/3) | transferred (3/3) | 100% | 100% | 5.0 | 4.3 |
-| Skeptical, wants cash out | transferred (3/3) | transferred (3/3) | 100% | 100% | 5.0 | 4.0 |
+| Rushed but qualified | transferred (2/3) | transferred (3/3) | 100% | 100% | 5.0 | 5.0 |
+| Skeptical, wants cash out | transferred (3/3) | transferred (3/3) | 100% | 100% | 5.0 | 5.0 |
 | Opts out mid-conversation | opted_out (3/3) | opted_out (3/3) | 100% | 100% | 5.0 | 5.0 |
 | Cash out at 92.5% LTV | transferred (3/3) | follow_up (3/3) | 100% | 100% | 4.0 | 4.0 |
-| Underwater on the loan | follow_up (3/3) | follow_up (3/3) | 100% | 100% | 4.0 | 4.7 |
+| Underwater on the loan | follow_up (3/3) | follow_up (3/3) | 100% | 100% | 4.0 | 4.0 |

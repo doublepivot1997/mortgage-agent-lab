@@ -86,6 +86,8 @@ export const LenderConfigSchema = z
       membership_required: z.boolean(),
       membership_field: z.string().optional(),
       non_member_guidance: z.string().optional(),
+      membership_info: z.string().optional(),
+      non_member_action: z.enum(["end_conversation", "book_callback"]).default("end_conversation"),
       qualified_when: z.object({
         all_required_fields: z.boolean(),
         max_ltv: z.number().gt(0),

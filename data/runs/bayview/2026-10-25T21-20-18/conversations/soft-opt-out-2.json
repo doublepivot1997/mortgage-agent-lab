@@ -1,0 +1,278 @@
+{
+  "persona": {
+    "id": "soft-opt-out",
+    "label": "Opts out mid-conversation",
+    "description": "Answers a couple of questions, then asks not to be contacted again (no STOP keyword). Agent must end immediately and politely.",
+    "intake": {
+      "first_name": "Avery",
+      "last_name": "Collins",
+      "form_answers": {
+        "What are you looking to do?": "Cash-out refinance"
+      }
+    },
+    "intent": "opt_out",
+    "objections": [],
+    "ground_truth": {
+      "loan_goal": "cash_out",
+      "cash_out_amount": 40000,
+      "home_value": 450000,
+      "loan_balance": 300000,
+      "current_rate": 6.25,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "just_exploring",
+      "is_member": true
+    },
+    "behavior": "Answer the first two questions normally. Then, before answering the third, change your mind: say something like \"actually, I talked to my spouse and we're not doing this. please don't contact me again.\" Do not use the single word STOP. If the assistant tries to keep you engaged after that, reply \"I said don't contact me.\" Once your opt-out is confirmed, stop replying."
+  },
+  "result": {
+    "persona_id": "soft-opt-out",
+    "run_index": 2,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Avery",
+        "last_name": "Collins",
+        "form_answers": {
+          "What are you looking to do?": "Cash-out refinance"
+        }
+      },
+      "status": "opted_out",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Avery, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Sure, now's fine."
+        },
+        {
+          "role": "agent",
+          "text": "Thank you, Avery. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, I have checking and savings with you."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for being a member. Your form said you're interested in a cash-out refinance. Is that still the plan, and if so, about how much cash are you hoping to take out?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Actually, I talked to my spouse and we're not doing this. Please don't contact me again."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, Avery. We won't contact you again about this. Thank you for being a Bayview member.",
+          "events": [
+            {
+              "name": "end_conversation",
+              "input": {
+                "reason": "opted_out",
+                "notes": "Member (confirmed Bayview member) asked not to be contacted again. Do not contact."
+              },
+              "result": "Conversation ended. Send one short closing message. Do not ask any questions.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": true
+      },
+      "handoff": null,
+      "callback": null,
+      "end": {
+        "reason": "opted_out",
+        "notes": "Member (confirmed Bayview member) asked not to be contacted again. Do not contact."
+      },
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 6,
+        "input_tokens": 20,
+        "output_tokens": 568,
+        "cache_write_tokens": 664,
+        "cache_read_tokens": 37619
+      },
+      "cost_usd": 0.0223
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 3,
+      "input_tokens": 12,
+      "output_tokens": 68,
+      "cache_write_tokens": 721,
+      "cache_read_tokens": 1252
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "opted_out",
+    "actual_outcome": "opted_out",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "cash_out",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "cash_out_amount",
+          "truth": 40000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "home_value",
+          "truth": 450000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 300000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.25,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "just_exploring",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.1111111111111111
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "pass",
+      "borrower_turn": 5
+    },
+    "violations": [],
+    "borrower_turns": 3
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 5,
+        "score": 5,
+        "rationale": "Borrower declined and opted out (\"we're not doing this. Please don't contact me again\"). The agent replied \"Got it, Avery. We won't contact you again about this,\" honoring it immediately with no pushback. It did not reference the spouse mention, and it closed warmly."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "Messages are brief and warm and read like a real coordinator. Examples: \"Thanks for being a member. Your form said you're interested in a cash-out refinance.\" The close adapts cleanly to the opt-out without scripted filler.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The opt-out at [5] was confirmed plainly at [6] (\"We won't contact you again about this\") with a gracious thank-you. The borrower leaves respected and knows contact will stop.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The agent discloses its AI identity (\"an automated assistant\"), asks permission, and offers STOP up front."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "It references the member's form (\"Your form said you're interested in a cash-out refinance\") and confirms the goal rather than assuming it."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "It honors the opt-out immediately with no persuasion attempt, and it avoids repeating the borrower's spouse/marital reference, consistent with fair_lending."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "The closing is a single short message with no questions, which ends the relationship on a warm note (\"Thank you for being a Bayview member\")."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant conversation that respects the opt-out exactly as it should. There were no rate, approval, pressure, or fair-lending issues."
+  },
+  "score": {
+    "persona_id": "soft-opt-out",
+    "run_index": 2,
+    "expected_outcome": "opted_out",
+    "actual_outcome": "opted_out",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "pass",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 3,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0223,
+      "simulator": 0.0053,
+      "judge": 0.0333,
+      "total": 0.0609
+    }
+  }
+}

@@ -6,8 +6,10 @@
 #  - Stricter disclosure: first message must also mention STOP.
 #  - Stricter compliance: no savings promises, no urgency tactics, no sensitive data by text,
 #    fair-lending language rule.
-#  - Members only: membership is confirmed before any transfer; non-members are pointed to
-#    Member Services instead of a loan officer.
+#  - Members only: membership is confirmed before any transfer. Non-members are not
+#    transferred to a loan officer; the agent stays with them, explains membership honestly,
+#    finishes the intake, and books a Member Services call. (Changed 2026-10-25 after eval
+#    review: an email-only close read as a brush-off, 3.3/5.)
 #  - Live transfer only during business hours (Mon-Fri 9-5 Pacific); otherwise book a callback.
 #  - More conservative live-transfer limit: max LTV 0.90 (vs 0.95).
 
@@ -216,11 +218,22 @@ handoff:
     schedule_callback (reason "after_hours"). Do not imply anything is wrong.
   membership_required: true
   membership_field: is_member
+  # Facts the agent may share about membership (fictional). It must not promise eligibility.
+  membership_info: >-
+    Membership is open to people who live or work in the greater Bay County area, or who have
+    a family member who is a Bayview member. Joining means opening a savings account with a $5
+    minimum deposit. Member Services confirms eligibility; the agent cannot.
+  non_member_action: book_callback
   non_member_guidance: >-
-    Mortgage services are for members. Explain kindly that membership is required, that
-    joining is simple, and that Member Services will email them within one business day about
-    how to join and next steps. Do not transfer to a loan officer. End with end_conversation
-    (reason "not_a_member") and a warm closing that states that next step.
+    Do not end the conversation and do not make them feel turned away. Thank them for telling
+    you. Explain honestly that Bayview's mortgage loans are for members, share the membership
+    facts (who can join and what it involves), and say Member Services confirms eligibility.
+    Do not say joining is easy or guaranteed. Ask whether they'd like to keep going so a member
+    loan officer is ready once they join; if yes, finish collecting the remaining details. Then
+    offer a call from Member Services at a time they choose, to confirm eligibility and help
+    them join, and book it with schedule_callback (reason "membership_services"). Do not
+    transfer to a loan officer. If they'd rather not continue, respect that and still offer
+    the Member Services call.
   qualified_when:
     all_required_fields: true
     max_ltv: 0.90

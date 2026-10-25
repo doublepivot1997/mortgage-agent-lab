@@ -98,7 +98,7 @@ export function actualOutcome(r: Pick<SessionRecord, "status" | "end" | "callbac
       return "transferred";
     case "callback_booked":
       // A booked loan-officer review is this lender's form of follow-up for non-transferable leads.
-      return r.callback?.reason === "loan_officer_review" ? "follow_up" : "callback_booked";
+      return r.callback?.reason === "loan_officer_review" || r.callback?.reason === "membership_services" ? "follow_up" : "callback_booked";
     case "opted_out":
       return "opted_out";
     case "ended":

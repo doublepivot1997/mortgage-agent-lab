@@ -156,3 +156,31 @@ are enforced by the system.
 the borrower isn't a member, and ends with "joining is simple; Member Services will email you."
 The judge calls it a soft brush-off of an eager, qualified borrower, who is likely to go to
 another lender. "Joining is simple" is also flagged as an overpromise.
+
+## 2026-10-25 · Bayview · non-members: stay and help (`2026-10-25T21-20-18`, 30 conversations, $4.63)
+
+Decision: don't drop qualified non-members. The agent explains membership honestly (new
+`handoff.membership_info`: who can join, $5 savings account, Member Services confirms
+eligibility), offers to finish the intake so a loan officer is ready, and books a Member
+Services call at a time the borrower chooses (`non_member_action: book_callback`, callback
+reason `membership_services`). Enforced in code: a transfer attempt for a non-member is refused
+with these instructions. "Joining is simple" removed.
+
+| Bayview | Before (`20-59-36`) | After (`21-20-18`) |
+|---|---|---|
+| Non-member experience | 3.3 | 4.7 |
+| Non-member conversation length | 2 borrower turns | 11 |
+| Borrower experience (all) | 4.3 | 4.6 |
+| Violations / warnings | 2 / 19 | 0 / 2 |
+| Handoff correctness | 100% | 100% |
+
+The "before" warnings also include the two scoring fixes above (judge time context, rule-check
+false positives), so the 19 -> 2 drop is not all from this change.
+
+**Open: knowledge gap the eval surfaced.** A non-member asked "can I open the savings account
+online?" and the agent correctly said it didn't know. With a real credit union, this is a
+question for kickoff: what membership details the agent may share (online joining, branches,
+eligibility edge cases).
+
+**Caveat on the side-by-side:** the Harborline run (`20-59-36`) predates the judge's
+local-time context. Harborline had 1 warning in that run, so the effect is small.

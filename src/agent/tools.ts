@@ -53,12 +53,12 @@ export function buildTools(cfg: LenderConfig): Tool[] {
 
   const callback: Tool = {
     name: "schedule_callback",
-    description: `Book a call from a loan officer when the ${who} is busy, asks for later, live transfer is unavailable, or their situation needs a loan officer's personal review.`,
+    description: `Book a call from a loan officer when the ${who} is busy, asks for later, live transfer is unavailable, their situation needs a loan officer's review, or a non-member needs a Member Services call.`,
     strict: true,
     input_schema: {
       type: "object",
       properties: {
-        reason: { type: "string", enum: ["borrower_busy", "borrower_request", "after_hours", "transfer_unavailable", "loan_officer_review"] },
+        reason: { type: "string", enum: ["borrower_busy", "borrower_request", "after_hours", "transfer_unavailable", "loan_officer_review", "membership_services"] },
         preferred_time: { type: "string", description: `When the ${who} wants the call, in their words (e.g. "tomorrow after 5pm").` },
         immediate_call_offered: { type: "boolean", description: `True only if you offered an immediate loan-officer call and the ${who} chose the later time instead.` },
         notes: { type: "string", description: "Anything the loan officer should know." },
@@ -97,7 +97,7 @@ export type TransferInput = {
 };
 
 export type CallbackInput = {
-  reason: "borrower_busy" | "borrower_request" | "after_hours" | "transfer_unavailable" | "loan_officer_review";
+  reason: "borrower_busy" | "borrower_request" | "after_hours" | "transfer_unavailable" | "loan_officer_review" | "membership_services";
   preferred_time: string;
   immediate_call_offered: boolean;
   notes: string;

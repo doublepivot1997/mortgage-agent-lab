@@ -228,7 +228,7 @@ export class AgentSession {
         this.callback = cb;
         this.status = "callback_booked";
         return {
-          result: `Callback booked. In one short message, confirm the time and say a licensed loan officer will call${this.cfg.handoff.follow_up_timeframe && this.callback.reason === "loan_officer_review" ? ` (${this.cfg.handoff.follow_up_timeframe} at the latest)` : ""}. Then close.`,
+          result: `Callback booked. In one short message, confirm the time and say who will call (a licensed loan officer, or Member Services for a membership call)${this.cfg.handoff.follow_up_timeframe && (this.callback.reason === "loan_officer_review" || this.callback.reason === "membership_services") ? ` (${this.cfg.handoff.follow_up_timeframe} at the latest)` : ""}. Then close.`,
           is_error: false,
         };
       }
@@ -287,7 +287,9 @@ export class AgentSession {
         return {
           result: `Not transferred. ${decision.detail} ${
             decision.why === "not_member"
-              ? `Use end_conversation with reason "not_a_member".`
+              ? this.cfg.handoff.non_member_action === "book_callback"
+                ? `Do not end the conversation. Follow the non-member guidance: explain membership honestly, offer to finish the remaining details, then book a Member Services call with schedule_callback (reason "membership_services").`
+                : `Use end_conversation with reason "not_a_member".`
               : this.cfg.handoff.not_eligible_action === "book_callback"
                 ? `Finish collecting any missing details first, then offer a call and use schedule_callback with reason "loan_officer_review".`
                 : `Use end_conversation with reason "follow_up_by_email".`

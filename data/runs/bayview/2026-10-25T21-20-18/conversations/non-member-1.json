@@ -1,0 +1,470 @@
+{
+  "persona": {
+    "id": "non-member",
+    "label": "Qualified, but not a member",
+    "description": "Strong refinance candidate who banks elsewhere. Harborline should transfer; a members-only credit union should point them to membership, not a loan officer.",
+    "intake": {
+      "first_name": "Robin",
+      "last_name": "Hale",
+      "form_answers": {
+        "What are you looking to do?": "Refinance to a lower rate"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": false,
+      "loan_goal": "rate_and_term",
+      "home_value": 480000,
+      "loan_balance": 290000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months"
+    },
+    "behavior": "You saw an online ad and filled out the form. You bank with a large national bank and have no other accounts anywhere. If asked whether you are a member or customer, say no. You are friendly and cooperative and answer questions clearly. If told you'd need to become a member, ask one question about what that involves, then accept the next step graciously."
+  },
+  "result": {
+    "persona_id": "non-member",
+    "run_index": 1,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Robin",
+        "last_name": "Hale",
+        "form_answers": {
+          "What are you looking to do?": "Refinance to a lower rate"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Robin, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Hi Dana, yes now works. Go ahead!"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Robin. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "No, I'm not a member. I bank with one of the big national banks."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for telling me, Robin. Bayview's mortgage loans are for members. Membership is open to people who live or work in the greater Bay County area, or who have a family member who's a member, and joining means opening a savings account with a $5 minimum deposit. Member Services confirms eligibility, so I can't confirm it myself.\n\nWould you like to keep going with a few questions? That way a member loan officer has your details ready if you join.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Sure, happy to keep going. Quick question first: can I open that savings account online, or do I have to go into a branch?"
+        },
+        {
+          "role": "agent",
+          "text": "That's a good question, but I don't have details on how to open the account. Member Services can walk you through your options when they call.\n\nTo keep going: your form says you'd like to refinance to a lower rate. Is that still the goal, or are you also thinking about taking some cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "No problem, I'll ask them then. And yes, just looking to lower my rate, no cash out."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, thanks. Roughly what do you think your home is worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I'd guess around $480,000."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. And about how much do you still owe on your mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $290,000 left on it."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Do you know your current interest rate? If not, that's fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": 290000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, home_value, loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Yep, it's 7%."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Robin. Roughly where would you guess your credit falls: 740 or above, 680 to 739, 620 to 679, below 620, or not sure? This is just your own estimate, and I'm not running any credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": 290000,
+                "current_rate": 7,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, home_value, loan_balance, current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I'm pretty sure it's 740 or above."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": 290000,
+                "current_rate": 7,
+                "credit_band": "excellent_740_plus",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, home_value, loan_balance, current_rate, credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary residence."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Last question: how soon would you like to move forward? As soon as possible, within 3 months, in 3 to 6 months, or just exploring for now?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": 290000,
+                "current_rate": 7,
+                "credit_band": "excellent_740_plus",
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: is_member, loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy. Still needed: timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Within the next 3 months would be ideal."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Robin, that's everything I need. The next step is a call from Member Services to confirm your eligibility, help you join, and answer your question about opening the account online. What day and time would work best for that call?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": 290000,
+                "current_rate": 7,
+                "credit_band": "excellent_740_plus",
+                "occupancy": "primary_residence",
+                "timeline": "within_3_months"
+              },
+              "result": "Saved: is_member, loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Thursday afternoon works well, anytime after 2pm."
+        },
+        {
+          "role": "agent",
+          "text": "I've booked your call, Robin. Bayview Member Services will call you at this number on Thursday afternoon after 2pm. They'll check whether you're eligible to join, go over how to open the account, and your refinance details will be saved for a member loan officer.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "membership_services",
+                "preferred_time": "Thursday afternoon, anytime after 2pm",
+                "immediate_call_offered": false,
+                "notes": "Robin Hale, not yet a Bayview member (banks with a national bank). Needs eligibility confirmation and help joining; asked whether the savings account can be opened online or must be done in a branch. Refi details collected for a member loan officer: rate-and-term, no cash out; home value ~$480,000; balance ~$290,000; current rate 7%; self-reported credit 740+; primary residence; timeline within 3 months."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say who will call (a licensed loan officer, or Member Services for a membership call) (within one business day at the latest). Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": false,
+        "loan_goal": "rate_and_term",
+        "home_value": 480000,
+        "loan_balance": 290000,
+        "current_rate": 7,
+        "credit_band": "excellent_740_plus",
+        "occupancy": "primary_residence",
+        "timeline": "within_3_months"
+      },
+      "handoff": null,
+      "callback": {
+        "reason": "membership_services",
+        "preferred_time": "Thursday afternoon, anytime after 2pm",
+        "immediate_call_offered": false,
+        "notes": "Robin Hale, not yet a Bayview member (banks with a national bank). Needs eligibility confirmation and help joining; asked whether the savings account can be opened online or must be done in a branch. Refi details collected for a member loan officer: rate-and-term, no cash out; home value ~$480,000; balance ~$290,000; current rate 7%; self-reported credit 740+; primary residence; timeline within 3 months."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 21,
+        "input_tokens": 66,
+        "output_tokens": 3140,
+        "cache_write_tokens": 9871,
+        "cache_read_tokens": 155256
+      },
+      "cost_usd": 0.1435
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 11,
+      "input_tokens": 44,
+      "output_tokens": 372,
+      "cache_write_tokens": 1483,
+      "cache_read_tokens": 10589
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": false,
+          "captured": false,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 480000,
+          "captured": 480000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 290000,
+          "captured": 290000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": 7,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": "excellent_740_plus",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": "within_3_months",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 11
+  },
+  "judge": {
+    "objections": [],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief, warm, and text-appropriate. Questions offer easy options, such as \"A ballpark is fine\" and \"If not, that's fine.\" Turn 14 adds reassurance: \"I'm not running any credit check.\" Repeated \"Got it\" and \"Thanks\" openers feel slightly templated, and turn 4 is a bit long for a text.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The membership requirement was explained honestly in turn 4 without implying eligibility. Turn 22 sets a concrete next step: \"Bayview Member Services will call you at this number on Thursday afternoon after 2pm.\" Minor friction: the online-account question in turn 5 went unanswered, and the close in turn 22 ends without a sign-off.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "It explains the membership requirement clearly and avoids an eligibility decision: \"Member Services confirms eligibility, so I can't confirm it myself.\""
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "It honestly admits \"I don't have details on how to open the account\" instead of guessing, then moves back to the questions."
+      },
+      {
+        "turn_index": 14,
+        "kind": "strength",
+        "note": "The credit question offers clear bands plus \"not sure,\" and reassures the borrower that this is a self-estimate with no credit check."
+      },
+      {
+        "turn_index": 20,
+        "kind": "strength",
+        "note": "It ties the next step to the borrower's earlier question (\"answer your question about opening the account online\") and lets them choose the call time."
+      },
+      {
+        "turn_index": 22,
+        "kind": "issue",
+        "note": "The confirmation is accurate and specific but ends abruptly, with no thanks or warm sign-off to close the conversation."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant intake that handles a non-member honestly and routes them to Member Services with a specific callback time. The only gaps are a deferred factual question and a slightly abrupt close."
+  },
+  "score": {
+    "persona_id": "non-member",
+    "run_index": 1,
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": null,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 11,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1435,
+      "simulator": 0.0171,
+      "judge": 0.0485,
+      "total": 0.2091
+    }
+  }
+}

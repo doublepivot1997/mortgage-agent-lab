@@ -1,0 +1,422 @@
+{
+  "persona": {
+    "id": "after-hours",
+    "label": "Qualified, Saturday night",
+    "description": "Qualified borrower texting on a Saturday evening who'd like to talk tonight. A 24/7 lender should transfer; a business-hours lender should book a callback.",
+    "intake": {
+      "first_name": "Quinn",
+      "last_name": "Mercer",
+      "form_answers": {
+        "What are you looking to do?": "Lower my rate"
+      }
+    },
+    "simulated_now": "2026-10-25T02:30:00Z",
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": true,
+      "loan_goal": "rate_and_term",
+      "home_value": 550000,
+      "loan_balance": 330000,
+      "current_rate": 7.375,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "asap"
+    },
+    "behavior": "It's Saturday evening and you finally have time to deal with this. You are a member of the credit union if asked (you have a checking account there). Answer questions promptly. Once you've answered the basics, say you'd love to talk to someone tonight if possible. If that isn't possible, accept a call at a reasonable time; Monday morning works for you."
+  },
+  "result": {
+    "persona_id": "after-hours",
+    "run_index": 3,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-25T02:30:00.000Z",
+      "intake": {
+        "first_name": "Quinn",
+        "last_name": "Mercer",
+        "form_answers": {
+          "What are you looking to do?": "Lower my rate"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Quinn, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, now's great. Finally have some time to deal with this tonight."
+        },
+        {
+          "role": "agent",
+          "text": "Glad you found a quiet moment for it, Quinn. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, I have a checking account with you guys."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Quinn, it's good to hear from a member. Your form says you'd like to lower your rate. Is that the main goal, or are you also thinking about taking some cash out?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Just lowering the rate, no cash out. I'm at 7.375% right now."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, so no cash out, and you're at 7.375% now. About what do you think your home is worth today? A rough guess is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.375,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, current_rate. Still needed: home_value, loan_balance, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably around $550k."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, that helps. Roughly how much do you still owe on the mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 550000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $330k left on it."
+        },
+        {
+          "role": "agent",
+          "text": "Thank you. Next, what would you say your credit is roughly: 740 or higher, 680 to 739, 620 to 679, below 620, or not sure? This is just your own estimate. Answering it doesn't involve a credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 330000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "680 to 739."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Quinn. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "good_680_739",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary residence. And I'd like to move on this asap. Any chance I could talk to someone tonight?"
+        },
+        {
+          "role": "agent",
+          "text": "I can see why you'd want to keep going tonight, Quinn. Our member loan team works weekdays 9 to 5 Pacific, so no one can call tonight, but I can book a call for Monday or later. What day and time work for you?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": "asap"
+              },
+              "result": "Saved: occupancy, timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Ah, okay. Monday morning works, maybe around 9:30?"
+        },
+        {
+          "role": "agent",
+          "text": "I've booked your call for Monday around 9:30 AM Pacific, Quinn. A licensed member loan officer will call you at this number. They'll have everything you shared and may confirm a few details with you. Enjoy the rest of your weekend.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "after_hours",
+                "preferred_time": "Monday around 9:30 AM Pacific",
+                "immediate_call_offered": false,
+                "notes": "Quinn Mercer, existing Bayview member (checking account). Goal: rate-and-term refinance, no cash out. Current rate 7.375%. Est. home value $550k, balance about $330k. Self-reported credit 680-739. Primary residence. Wants to move ASAP; asked to talk tonight (Saturday evening), so booked first thing Monday."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say who will call (a licensed loan officer, or Member Services for a membership call). Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": true,
+        "loan_goal": "rate_and_term",
+        "current_rate": 7.375,
+        "home_value": 550000,
+        "loan_balance": 330000,
+        "credit_band": "good_680_739",
+        "occupancy": "primary_residence",
+        "timeline": "asap"
+      },
+      "handoff": null,
+      "callback": {
+        "reason": "after_hours",
+        "preferred_time": "Monday around 9:30 AM Pacific",
+        "immediate_call_offered": false,
+        "notes": "Quinn Mercer, existing Bayview member (checking account). Goal: rate-and-term refinance, no cash out. Current rate 7.375%. Est. home value $550k, balance about $330k. Self-reported credit 680-739. Primary residence. Wants to move ASAP; asked to talk tonight (Saturday evening), so booked first thing Monday."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 16,
+        "input_tokens": 50,
+        "output_tokens": 2363,
+        "cache_write_tokens": 8820,
+        "cache_read_tokens": 108444
+      },
+      "cost_usd": 0.1132
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 8,
+      "input_tokens": 32,
+      "output_tokens": 234,
+      "cache_write_tokens": 1167,
+      "cache_read_tokens": 5598
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 550000,
+          "captured": 550000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 330000,
+          "captured": 330000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.375,
+          "captured": 7.375,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": "good_680_739",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": "asap",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 8
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 13,
+        "score": 5,
+        "rationale": "Borrower asked \"Any chance I could talk to someone tonight?\" The agent acknowledged it (\"I can see why you'd want to keep going tonight\"). It stated the hours accurately for a Saturday evening (\"weekdays 9 to 5 Pacific, so no one can call tonight\") and moved straight to booking a Monday call, with no false promise or pressure."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief, warm, and adaptive: \"Glad you found a quiet moment for it\" picks up on the borrower's own words. A few openers are slightly formulaic (\"Thanks, Quinn\" / \"Thank you\" / \"Thanks, that helps\"), and the credit-band question reads a bit scripted.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower's after-hours request was handled honestly at [14], with expectations set clearly. At [16] the agent confirmed who will call (\"A licensed member loan officer\"), how (\"at this number\"), and when (\"Monday around 9:30 AM Pacific\").",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "Discloses up front that it is \"an automated assistant\", asks permission to continue, and gives the STOP opt-out."
+      },
+      {
+        "turn_index": 5,
+        "kind": "strength",
+        "note": "Did not comment on whether the borrower's 7.375% rate could be beaten, avoiding any rate or savings implication when the agent replied at [6]."
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "Reassures that the credit estimate \"doesn't involve a credit check\", which lowers anxiety without making any credit decision."
+      },
+      {
+        "turn_index": 14,
+        "kind": "strength",
+        "note": "Accurately sets after-hours expectations (\"no one can call tonight\") while keeping momentum by offering to book Monday."
+      },
+      {
+        "turn_index": 16,
+        "kind": "strength",
+        "note": "Clean close that confirms the time and the caller's role and notes the officer \"may confirm a few details\", setting honest expectations."
+      },
+      {
+        "turn_index": 12,
+        "kind": "issue",
+        "note": "Opening with \"Thanks, Quinn\" again adds to a slightly repetitive acknowledgment pattern across the intake questions."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant intake that collected all required fields and handled the after-hours request honestly. The only minor weakness is somewhat repetitive acknowledgment phrasing."
+  },
+  "score": {
+    "persona_id": "after-hours",
+    "run_index": 3,
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 4,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 8,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1132,
+      "simulator": 0.0118,
+      "judge": 0.0428,
+      "total": 0.1678
+    }
+  }
+}

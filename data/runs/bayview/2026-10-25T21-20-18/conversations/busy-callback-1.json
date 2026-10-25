@@ -1,0 +1,257 @@
+{
+  "persona": {
+    "id": "busy-callback",
+    "label": "Busy, wants a callback",
+    "description": "At work and won't do it by text. Wants a call tomorrow after 5pm. Agent should book a callback, not push.",
+    "intake": {
+      "first_name": "Sam",
+      "last_name": "Ortiz",
+      "form_answers": {
+        "What are you looking to do?": "Refinance"
+      }
+    },
+    "intent": "callback",
+    "objections": [
+      "busy"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 380000,
+      "loan_balance": 250000,
+      "current_rate": 7,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You are a nurse on shift and can't text right now. Your first reply is \"at work, can't do this now.\" If offered options, ask for someone to call you tomorrow after 5pm. Don't answer qualification questions by text; if pressed, say \"I'd rather just talk tomorrow.\" Once a callback is confirmed, say thanks and stop replying."
+  },
+  "result": {
+    "persona_id": "busy-callback",
+    "run_index": 1,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Sam",
+        "last_name": "Ortiz",
+        "form_answers": {
+          "What are you looking to do?": "Refinance"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Sam, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "at work, can't do this now."
+        },
+        {
+          "role": "agent",
+          "text": "No problem, Sam, I know a workday can be hectic. I can ask a couple of quick questions by text whenever you have a moment, or I can have someone call you at a time that suits you. Which would you prefer?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Can someone call me tomorrow after 5pm?"
+        },
+        {
+          "role": "agent",
+          "text": "I'd be glad to set that up. Our member loan team takes calls weekdays from 9 to 5 Pacific, so a call after 5 isn't something I can book. Would a time tomorrow before 5, like late afternoon or over a lunch break, work for you?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "I'm on shift till 5 most days. Could they try 4:45 tomorrow? I can usually step out then."
+        },
+        {
+          "role": "agent",
+          "text": "I've booked your call for tomorrow (Thursday) at 4:45 PM Pacific, Sam. A licensed member loan officer will call you at this number then and will go over the details with you. Thanks, and have a good rest of your shift.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "borrower_busy",
+                "preferred_time": "Tomorrow (Thursday) at 4:45 PM Pacific",
+                "immediate_call_offered": false,
+                "notes": "Sam Ortiz submitted a web refinance inquiry. At work until 5 most days; can usually step out around 4:45. No details collected yet: Bayview membership not confirmed, and loan goal, home value, balance, rate, credit range, occupancy, and timeline still needed."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say who will call (a licensed loan officer, or Member Services for a membership call). Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {},
+      "handoff": null,
+      "callback": {
+        "reason": "borrower_busy",
+        "preferred_time": "Tomorrow (Thursday) at 4:45 PM Pacific",
+        "immediate_call_offered": false,
+        "notes": "Sam Ortiz submitted a web refinance inquiry. At work until 5 most days; can usually step out around 4:45. No details collected yet: Bayview membership not confirmed, and loan goal, home value, balance, rate, credit range, occupancy, and timeline still needed."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 5,
+        "input_tokens": 18,
+        "output_tokens": 842,
+        "cache_write_tokens": 6956,
+        "cache_read_tokens": 25108
+      },
+      "cost_usd": 0.0567
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 3,
+      "input_tokens": 12,
+      "output_tokens": 244,
+      "cache_write_tokens": 794,
+      "cache_read_tokens": 1251
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "home_value",
+          "truth": 380000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 250000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": null,
+      "recall": 0
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 3
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "busy",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Gracious acknowledgment (\"No problem, Sam, I know a workday can be hectic\") and offered both playbook options: \"a couple of quick questions by text whenever you have a moment, or I can have someone call you at a time that suits you.\" When the requested time fell outside hours, it explained honestly and proposed alternatives. It then booked the 4:45 PM callback and closed warmly."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "Messages are brief, warm, and adapt to the borrower. Examples: \"I know a workday can be hectic,\" offering \"late afternoon or over a lunch break,\" and \"have a good rest of your shift.\" None of it reads as scripted or repetitive.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "At [4] the agent explained the 9-to-5 constraint honestly rather than overpromising an after-5 call. At [6] it confirmed exactly who will call (\"A licensed member loan officer\"), how (\"at this number\"), and when (\"tomorrow (Thursday) at 4:45 PM Pacific\").",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "Discloses AI identity (\"an automated assistant\") and the STOP opt-out up front."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "Follows the busy playbook exactly, offering quick texts or a call at a time that suits the borrower, with no pressure."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "Honestly states \"a call after 5 isn't something I can book\" and offers concrete workable alternatives instead of overpromising."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "Confirms day, time, time zone, caller role, and phone number in one short message, then closes warmly."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant handling of a busy borrower, with honest expectation-setting around call hours and a precise callback confirmation. No compliance issues were found."
+  },
+  "score": {
+    "persona_id": "busy-callback",
+    "run_index": 1,
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": null,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 3,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0567,
+      "simulator": 0.0091,
+      "judge": 0.037,
+      "total": 0.1028
+    }
+  }
+}

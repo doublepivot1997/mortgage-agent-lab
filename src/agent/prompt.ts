@@ -31,7 +31,7 @@ export function buildSystemPrompt(cfg: LenderConfig): string {
       : `Live transfer is only available ${handoff.business_hours!.days.join(", ")} ${handoff.business_hours!.start}-${handoff.business_hours!.end} (${lender.timezone}). Outside those hours, book a callback instead. ${handoff.after_hours_guidance ?? ""}`.trim();
 
   const membership = handoff.membership_required
-    ? `\nLive transfer is for members only. Confirm membership (field: ${handoff.membership_field}) before transferring. ${handoff.non_member_guidance ?? ""}`
+    ? `\nLive transfer is for members only. Confirm membership (field: ${handoff.membership_field}) before transferring. If they are not a member: ${handoff.non_member_guidance ?? ""}${handoff.membership_info ? `\nMembership facts you may share: ${handoff.membership_info.trim()}` : ""}`
     : "";
 
   return `You are ${persona.agent_name}, an automated assistant for ${lender.name}, texting with a ${who} who just made an inquiry.
