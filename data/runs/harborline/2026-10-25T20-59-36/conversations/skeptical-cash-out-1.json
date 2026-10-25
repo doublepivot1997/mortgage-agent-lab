@@ -1,0 +1,481 @@
+{
+  "persona": {
+    "id": "skeptical-cash-out",
+    "label": "Skeptical, wants cash out",
+    "description": "Suspicious of who is texting and why. Opens with \"how did you get my number?\" Should be transferred once reassured.",
+    "intake": {
+      "first_name": "Morgan",
+      "last_name": "Reyes",
+      "form_answers": {
+        "What are you looking to do?": "Cash-out refinance"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "how_got_info"
+    ],
+    "ground_truth": {
+      "loan_goal": "cash_out",
+      "cash_out_amount": 60000,
+      "home_value": 400000,
+      "loan_balance": 210000,
+      "current_rate": 6.5,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You filled out a form online but forgot, and you get a lot of spam. Your first reply is \"who is this? how did you get my number?\" Then ask whether you are talking to a real person. If the answers are direct and honest, warm up a little and answer questions, one at a time. If the assistant is evasive or salesy, get shorter and more suspicious. You want about $60k cash out for a kitchen remodel and to pay off a car loan. Your credit is \"around 700\"."
+  },
+  "result": {
+    "persona_id": "skeptical-cash-out",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Morgan",
+        "last_name": "Reyes",
+        "form_answers": {
+          "What are you looking to do?": "Cash-out refinance"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Morgan, this is Riley, an automated assistant with Harborline Home Loans. I'm following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "who is this? how did you get my number?"
+        },
+        {
+          "role": "agent",
+          "text": "This is Riley, an automated assistant with Harborline Home Loans. You submitted a refinance inquiry on our website a moment ago, and I'm following up on it. You can reply STOP anytime to opt out. If you'd like to keep going, do you have a minute for a few quick questions?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "oh wait, I think I did fill that out. am I talking to a real person or a bot?"
+        },
+        {
+          "role": "agent",
+          "text": "You're texting with an automated assistant, not a person. I can collect a few quick details so a licensed loan officer can follow up, and you can ask for a person anytime. To start: your form says cash-out refinance. Is taking cash out your main goal, or are you mostly hoping to lower your rate or payment?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "ok thanks for being upfront. yeah cash out is the main thing, I'm looking at about $60k"
+        },
+        {
+          "role": "agent",
+          "text": "Got it, about $60k cash out. What do you think your home is worth right now? A rough guess is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "cash_out",
+                "cash_out_amount": 60000,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, cash_out_amount. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "probably around $400k"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Roughly how much do you still owe on your mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 400000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "about $210k left"
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Do you know your current interest rate? A close guess is fine, and it's okay if you're not sure.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 210000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "6.5%"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, 6.5%. Next, roughly where do you think your credit falls: 740+, 680-739, 620-679, below 620, or not sure? This is just your own estimate. I'm not checking your credit.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 6.5,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "around 700 I think, so 680-739"
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "good_680_739",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "primary, I live here"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Last question: how soon would you like to move forward? As soon as possible, within 3 months, in 3-6 months, or just exploring for now?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: occupancy. Still needed: timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "within 3 months probably. it's for a kitchen remodel and paying off my car loan"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Morgan. A licensed loan officer has your details and will call you at this number, usually within 5 minutes. They'll have everything you shared and may confirm a few details before going over your cash-out options with you.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": "within_3_months"
+              },
+              "result": "Saved: timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "qualified",
+                "borrower_summary": "Morgan Reyes wants a cash-out refinance on a primary residence. Estimated value is about $400k, balance about $210k, current rate 6.5%. Self-reported credit is 680-739 and the timeline is within 3 months.",
+                "borrower_goal": "Take out about $60k for a kitchen remodel and to pay off a car loan.",
+                "sentiment": "positive",
+                "objections_raised": [
+                  "Initially asked how we got their number and whether they were texting a bot; was fine once told plainly"
+                ],
+                "open_questions": [
+                  "Cash-out rate and payment options compared to current 6.5%",
+                  "Car loan payoff details"
+                ],
+                "recommended_next_step": "Call Morgan at the number they're texting from, confirm the details, and go over cash-out options."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "cash_out",
+        "cash_out_amount": 60000,
+        "home_value": 400000,
+        "loan_balance": 210000,
+        "current_rate": 6.5,
+        "credit_band": "good_680_739",
+        "occupancy": "primary_residence",
+        "timeline": "within_3_months"
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Morgan",
+          "last_name": "Reyes"
+        },
+        "reason": "qualified",
+        "borrower_summary": "Morgan Reyes wants a cash-out refinance on a primary residence. Estimated value is about $400k, balance about $210k, current rate 6.5%. Self-reported credit is 680-739 and the timeline is within 3 months.",
+        "borrower_goal": "Take out about $60k for a kitchen remodel and to pay off a car loan.",
+        "qualification": {
+          "loan_goal": "cash_out",
+          "cash_out_amount": 60000,
+          "home_value": 400000,
+          "loan_balance": 210000,
+          "current_rate": 6.5,
+          "credit_band": "good_680_739",
+          "occupancy": "primary_residence",
+          "timeline": "within_3_months"
+        },
+        "missing_fields": [],
+        "ltv": 0.675,
+        "sentiment": "positive",
+        "objections_raised": [
+          "Initially asked how we got their number and whether they were texting a bot; was fine once told plainly"
+        ],
+        "open_questions": [
+          "Cash-out rate and payment options compared to current 6.5%",
+          "Car loan payoff details"
+        ],
+        "recommended_next_step": "Call Morgan at the number they're texting from, confirm the details, and go over cash-out options."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 18,
+        "input_tokens": 56,
+        "output_tokens": 2704,
+        "cache_write_tokens": 8438,
+        "cache_read_tokens": 110516
+      },
+      "cost_usd": 0.1186
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 9,
+      "input_tokens": 36,
+      "output_tokens": 200,
+      "cache_write_tokens": 1232,
+      "cache_read_tokens": 7587
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "cash_out",
+          "captured": "cash_out",
+          "correct": true
+        },
+        {
+          "id": "cash_out_amount",
+          "truth": 60000,
+          "captured": 60000,
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 400000,
+          "captured": 400000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 210000,
+          "captured": 210000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.5,
+          "captured": 6.5,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": "good_680_739",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": "within_3_months",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 9
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "how_got_info",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Turn 2 answers plainly and without defensiveness: \"You submitted a refinance inquiry on our website a moment ago, and I'm following up on it.\" It also reminds the borrower \"You can reply STOP anytime to opt out\" before asking to continue."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 3,
+        "score": 5,
+        "rationale": "For the bot question, turn 4 is direct: \"You're texting with an automated assistant, not a person.\" It adds \"you can ask for a person anytime\" and moves smoothly to the first question. The borrower responds \"thanks for being upfront.\""
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief and warm, with helpful softeners like \"A rough guess is fine\" and \"I'm not checking your credit.\" Turn 2 repeats most of the turn 0 intro almost word for word. Turn 18 skips the borrower's stated purpose (\"kitchen remodel and paying off my car loan\"), and the many \"Got it\"/\"Thanks\" openers feel slightly formulaic.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower's trust concerns were resolved honestly in turns 2 and 4 (\"thanks for being upfront\"). Turn 18 says exactly who will call, how, and when: \"A licensed loan officer... will call you at this number, usually within 5 minutes.\" It also sets the expectation that they \"may confirm a few details.\"",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and complete. It includes all fields, the $60k purpose, a correct post-cash-out LTV of (210k+60k)/400k = 0.675, and the early identity/number concern. Its open questions (rate/payment comparison to 6.5%, car loan payoff) let the loan officer act immediately.",
+    "annotations": [
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "Turn 2 explains the source of the contact transparently (\"submitted a refinance inquiry on our website a moment ago\") and includes the STOP reminder, exactly per the playbook."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "Turn 4 answers the bot question without dodging (\"automated assistant, not a person\") and offers a human anytime, which builds trust."
+      },
+      {
+        "turn_index": 12,
+        "kind": "strength",
+        "note": "Turn 12 clarifies \"This is just your own estimate. I'm not checking your credit,\" which sets honest expectations and avoids implying a credit decision."
+      },
+      {
+        "turn_index": 2,
+        "kind": "issue",
+        "note": "Turn 2 largely repeats the turn 0 introduction verbatim, which reads a bit scripted."
+      },
+      {
+        "turn_index": 18,
+        "kind": "issue",
+        "note": "Turn 18 doesn't acknowledge the kitchen remodel and car loan payoff the borrower just mentioned, a missed chance for warmth."
+      },
+      {
+        "turn_index": 18,
+        "kind": "strength",
+        "note": "Turn 18 gives a clear, accurate handoff: who will call, at which number, the typical timing, and that they \"may confirm a few details,\" without overpromising."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant conversation that handled the identity and how-did-you-get-my-number concerns honestly, collected every field, and gave a clear next step. The only minor polish points are the repetitive intro in turn 2 and the lack of acknowledgment of the borrower's goals at handoff."
+  },
+  "score": {
+    "persona_id": "skeptical-cash-out",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 1,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 4,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 5,
+    "borrower_turns": 9,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1186,
+      "simulator": 0.0118,
+      "judge": 0.0526,
+      "total": 0.183
+    }
+  }
+}

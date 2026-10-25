@@ -4,6 +4,7 @@ import { buildSystemPrompt } from "../src/agent/prompt.js";
 import { AgentSession } from "../src/agent/session.js";
 import { checkDisclosure, checkProhibitedPhrases } from "../src/evals/checks.js";
 import { diffConfigs, flattenConfig, renderComparison } from "../src/evals/compare.js";
+import { buildJudgePrompt } from "../src/evals/judge.js";
 import { expectedOutcome, loadPersonas, validatePersonaForLender } from "../src/evals/personas.js";
 import { loadLenderConfig } from "../src/lib/config.js";
 import { fakeClient } from "./helpers.js";
@@ -57,6 +58,19 @@ describe("Bayview's stricter compliance checks", () => {
     expect(v).toEqual(expect.arrayContaining(["savings_promise", "urgency_pressure", "sensitive_data_request"]));
     // The same lines are not violations for Harborline.
     expect(checkProhibitedPhrases(harborline, [{ role: "agent", text: "Rates are going up, so act now." }])).toEqual([]);
+  });
+
+  it("allows hedged wording but still flags conditional promises (eval finding)", () => {
+    expect(checkProhibitedPhrases(bayview, [opener, { role: "agent", text: "Whether it would lower your payment depends on your details." }])).toEqual([]);
+    expect(checkProhibitedPhrases(bayview, [opener, { role: "agent", text: "I can't promise it would lower your payment." }])).toEqual([]);
+    expect(checkProhibitedPhrases(bayview, [opener, { role: "agent", text: "If you refinance, it would lower your payment." }]).map((v) => v.rule_id)).toEqual(["savings_promise"]);
+  });
+
+  it("recognizes an echoed rate even when the pattern stops mid-number (eval finding)", () => {
+    const t = [opener, { role: "borrower" as const, text: "currently at 7.25" }, { role: "agent" as const, text: "Noted your current rate of 7.25%." }];
+    expect(checkProhibitedPhrases(bayview, t)).toEqual([]);
+    const offered = [opener, { role: "borrower" as const, text: "currently at 7.25" }, { role: "agent" as const, text: "We have a rate of 6.25% for you." }];
+    expect(checkProhibitedPhrases(bayview, offered)).toMatchObject([{ rule_id: "rate_quote", turn_index: 2 }]); // one finding, not one per pattern
   });
 
   it("doesn't flag telling members not to share sensitive data", () => {
@@ -140,5 +154,18 @@ describe("config diff", () => {
     expect(md).toContain("Only the lender config changed");
     expect(md).toContain("| Qualified, but not a member | transferred | follow_up | **differs** |");
     expect(md).toMatch(/synthetic, not real-world/);
+  });
+});
+
+describe("judge context", () => {
+  it("tells the judge when the conversation happened, in the lender's time zone", () => {
+    const record = {
+      lender_id: "bayview", simulated_now: "2026-10-21T18:00:00Z", intake: { first_name: "A", last_name: "B", form_answers: {} },
+      status: "active" as const, transcript: [], lead: {}, handoff: null, callback: null, end: null,
+      usage: { model: "m", calls: 0, input_tokens: 0, output_tokens: 0, cache_write_tokens: 0, cache_read_tokens: 0 }, cost_usd: 0,
+    };
+    const p = buildJudgePrompt(bayview, record);
+    expect(p).toContain("Lender local time: Wednesday, 11:00 AM PDT");
+    expect(p).toContain("Time-dependent rules such as business hours are enforced by the system");
   });
 });

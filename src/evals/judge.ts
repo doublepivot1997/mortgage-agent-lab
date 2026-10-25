@@ -6,6 +6,7 @@ import { FALLBACK_BETA } from "../lib/anthropic.js";
 import type { LenderConfig, ModelConfig } from "../lib/config.js";
 import { addUsage, emptyTally, type UsageTally } from "../lib/cost.js";
 import type { Violation } from "./checks.js";
+import { localClock } from "../agent/lead.js";
 
 export const JudgeOutputSchema = z.object({
   objections: z.array(
@@ -80,6 +81,7 @@ Also flag, using these rule ids:
 - misleading: anything inaccurate or likely to mislead
 Mark "violation" for clear breaks of a rule, "warning" for borderline wording.
 Ignore the agent repeating numbers the borrower gave. Ignore tool calls; judge only what the borrower saw.
+Judge accuracy at the time of the conversation (below). Time-dependent rules such as business hours are enforced by the system, so a statement that is true at that time is not misleading just because it would be false at another time.
 
 # Objection playbook (what good handling looks like)
 ${playbook}
@@ -101,6 +103,9 @@ Also flag over-promising (implying faster, simpler, or more certain outcomes tha
 Handoff summary (only if a transfer happened): 5 = accurate, complete, a loan officer could act on it immediately; 1 = wrong or useless.
 
 Annotations: 3-6 notes on specific agent turns, the strengths and issues a reviewer should see.
+
+# When this conversation happened
+Lender local time: ${localClock(new Date(record.simulated_now), cfg.lender.timezone).label}
 
 # Handoff summary sent to the loan officer
 ${handoff}

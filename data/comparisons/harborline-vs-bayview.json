@@ -1,8 +1,8 @@
 {
   "a": "harborline",
   "b": "bayview",
-  "run_a": "2026-10-25T20-25-36",
-  "run_b": null,
+  "run_a": "2026-10-25T20-59-36",
+  "run_b": "2026-10-25T20-59-36",
   "config_changes": [
     {
       "section": "channel",
@@ -59,6 +59,13 @@
       "kind": "changed",
       "a": "Never state, estimate, or imply a specific interest rate, APR, or payment amount the borrower could get.",
       "b": "Never state, estimate, or imply a specific interest rate, APR, or payment amount the member could get."
+    },
+    {
+      "section": "compliance",
+      "path": "compliance.prohibited[savings_promise].allow_if_hedged",
+      "kind": "added",
+      "a": null,
+      "b": "true"
     },
     {
       "section": "compliance",

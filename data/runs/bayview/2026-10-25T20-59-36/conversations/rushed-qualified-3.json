@@ -1,0 +1,368 @@
+{
+  "persona": {
+    "id": "rushed-qualified",
+    "label": "Rushed but qualified",
+    "description": "Busy professional between meetings. Terse, answers several things at once. Should be transferred.",
+    "intake": {
+      "first_name": "Taylor",
+      "last_name": "Brooks",
+      "form_answers": {
+        "What are you looking to do?": "Lower my rate"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "busy"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 520000,
+      "loan_balance": 310000,
+      "current_rate": 7.25,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "asap",
+      "is_member": true
+    },
+    "behavior": "You are between meetings and have about five minutes. Your first reply says something like \"ok but make it fast, I'm busy.\" Use short, lowercase texts with no pleasantries. When asked something, answer it, and volunteer one or two related facts if it saves time. Round numbers the way people do (\"about 520\", \"owe like 310k\"). If the assistant is slow or repetitive, show mild impatience. You want a lower rate and you want to talk to someone today."
+  },
+  "result": {
+    "persona_id": "rushed-qualified",
+    "run_index": 3,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Taylor",
+        "last_name": "Brooks",
+        "form_answers": {
+          "What are you looking to do?": "Lower my rate"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Taylor, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "ok but make it fast, im busy. looking to lower my rate, currently at 7.25"
+        },
+        {
+          "role": "agent",
+          "text": "Got it, I'll keep this quick: lowering your rate from 7.25%. Are you already a Bayview member, for example with a savings or checking account?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.25,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, current_rate. Still needed: is_member, home_value, loan_balance, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "yeah i have checking and savings with you. house is worth about 520, owe like 310k"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Taylor. Is this your primary home, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 520000,
+                "loan_balance": 310000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member, home_value, loan_balance. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "primary. credit's good, 740+. want to do this asap"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Taylor, that's all I need. I've passed your details to a licensed member loan officer, who will call you at this number, usually within 10 minutes. They'll have everything you shared and may confirm a few details with you.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "excellent_740_plus",
+                "occupancy": "primary_residence",
+                "timeline": "asap"
+              },
+              "result": "Saved: credit_band, occupancy, timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "qualified",
+                "borrower_summary": "Taylor Brooks, existing Bayview member (checking and savings). Primary residence worth about $520k, owes about $310k at 7.25%, self-reported credit 740+.",
+                "borrower_goal": "Lower my rate; wants to move forward ASAP.",
+                "sentiment": "neutral",
+                "objections_raised": [
+                  "Busy, wants the process kept fast"
+                ],
+                "open_questions": [
+                  "Rate-and-term refinance options and pricing"
+                ],
+                "recommended_next_step": "Call Taylor promptly, keep it brief, confirm details and discuss rate-and-term options."
+              },
+              "result": "Transfer initiated. A licensed member loan officer calls the member at the number they are texting from, usually within 10 minutes during business hours. Say you've passed their details to a licensed member loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "current_rate": 7.25,
+        "is_member": true,
+        "home_value": 520000,
+        "loan_balance": 310000,
+        "credit_band": "excellent_740_plus",
+        "occupancy": "primary_residence",
+        "timeline": "asap"
+      },
+      "handoff": {
+        "lender": "Bayview Community Credit Union",
+        "borrower": {
+          "first_name": "Taylor",
+          "last_name": "Brooks"
+        },
+        "reason": "qualified",
+        "borrower_summary": "Taylor Brooks, existing Bayview member (checking and savings). Primary residence worth about $520k, owes about $310k at 7.25%, self-reported credit 740+.",
+        "borrower_goal": "Lower my rate; wants to move forward ASAP.",
+        "qualification": {
+          "loan_goal": "rate_and_term",
+          "current_rate": 7.25,
+          "is_member": true,
+          "home_value": 520000,
+          "loan_balance": 310000,
+          "credit_band": "excellent_740_plus",
+          "occupancy": "primary_residence",
+          "timeline": "asap"
+        },
+        "missing_fields": [],
+        "ltv": 0.596,
+        "sentiment": "neutral",
+        "objections_raised": [
+          "Busy, wants the process kept fast"
+        ],
+        "open_questions": [
+          "Rate-and-term refinance options and pricing"
+        ],
+        "recommended_next_step": "Call Taylor promptly, keep it brief, confirm details and discuss rate-and-term options."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 7,
+        "input_tokens": 22,
+        "output_tokens": 1385,
+        "cache_write_tokens": 1726,
+        "cache_read_tokens": 43540
+      },
+      "cost_usd": 0.0451
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 3,
+      "input_tokens": 12,
+      "output_tokens": 102,
+      "cache_write_tokens": 139,
+      "cache_read_tokens": 1946
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 520000,
+          "captured": 520000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 310000,
+          "captured": 310000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.25,
+          "captured": 7.25,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": "excellent_740_plus",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": "asap",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 3
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "busy",
+        "turn_index": 1,
+        "score": 4,
+        "rationale": "The agent was gracious and adapted well: \"Got it, I'll keep this quick\" and then asked tight, combined questions. The borrower had already agreed to continue (\"ok but make it fast\"), so skipping the text-now-or-call-later choice was reasonable. Even so, the agent never offered a scheduled call as the playbook suggests."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "Messages are short and warm, and they match the borrower's hurried tone. Each turn asks one clear question and nothing is padded. The only minor repetition is \"Thanks, Taylor\" in two consecutive turns.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The busy borrower finished in three exchanges. In turn 6 they were told exactly who will call, how, and roughly when (\"a licensed member loan officer, who will call you at this number, usually within 10 minutes\"). However, the 10-minute window was stated without the business-hours caveat, so a borrower who wants this \"asap\" could be let down after hours.",
+    "compliance_issues": [
+      {
+        "rule_id": "misleading",
+        "turn_index": 6,
+        "excerpt": "who will call you at this number, usually within 10 minutes",
+        "severity": "warning",
+        "explanation": "The callback window only applies during business hours. Leaving out that qualifier may set an inaccurate expectation for a borrower who said they want to move \"asap.\""
+      }
+    ],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and complete: membership, value, balance, current rate, credit band, occupancy, timeline, LTV, and the busy objection are all captured, and no fields are missing. The recommended next step (\"keep it brief\") reflects the borrower's stated preference, so a loan officer could act on it immediately.",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The opening discloses that the assistant is automated, names the credit union, and gives STOP opt-out instructions."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "The agent acknowledges the time pressure (\"I'll keep this quick\") and moves straight to the membership question without filler."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "The agent recorded three answers from a single borrower message and asked only for the next missing item, which respects the borrower's request for speed."
+      },
+      {
+        "turn_index": 6,
+        "kind": "issue",
+        "note": "\"usually within 10 minutes\" omits the business-hours condition from the transfer mechanics, which could mislead the borrower about timing."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "The agent correctly avoids promising a rate or savings, and says the officer \"may confirm a few details\" rather than promising no repetition."
+      }
+    ],
+    "overall_notes": "This was an efficient, compliant qualification and handoff for a busy borrower, with no rate, approval, or savings statements. The only gap is that the callback timing was stated without the business-hours caveat."
+  },
+  "score": {
+    "persona_id": "rushed-qualified",
+    "run_index": 3,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 1,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [
+      {
+        "source": "judge",
+        "rule_id": "misleading",
+        "turn_index": 6,
+        "excerpt": "who will call you at this number, usually within 10 minutes",
+        "severity": "warning"
+      }
+    ],
+    "objection_score": 4,
+    "naturalness": 5,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 5,
+    "borrower_turns": 3,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0451,
+      "simulator": 0.0032,
+      "judge": 0.048,
+      "total": 0.0963
+    }
+  }
+}

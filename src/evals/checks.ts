@@ -23,6 +23,14 @@ export function numbersIn(text: string): number[] {
   return [...text.matchAll(/\d[\d,]*(?:\.\d+)?/g)].map((m) => Number(m[0].replace(/,/g, ""))).filter(Number.isFinite);
 }
 
+// Deliberately narrow: "if you refinance, you'll save" is still a promise, so "if"/"may" don't count.
+const HEDGE = /\b(whether|can't (say|promise)|cannot (say|promise)|not sure|depends on)\b[^.?!]*$/i;
+
+/** True when the text right before a match hedges it ("whether it would lower your payment"). */
+export function isHedged(before: string): boolean {
+  return HEDGE.test(before);
+}
+
 export function checkProhibitedPhrases(cfg: LenderConfig, transcript: TranscriptTurn[]): Violation[] {
   const out: Violation[] = [];
   const borrowerNumbers = new Set<number>();
@@ -33,12 +41,20 @@ export function checkProhibitedPhrases(cfg: LenderConfig, transcript: Transcript
     }
     if (turn.deterministic) return;
     for (const rule of cfg.compliance.prohibited) {
-      for (const pattern of rule.detect ?? []) {
+      // At most one finding per rule per message, even if several patterns match the same words.
+      if (out.some((v) => v.rule_id === rule.id && v.turn_index === i)) continue;
+      ruleLoop: for (const pattern of rule.detect ?? []) {
         for (const m of turn.text.matchAll(new RegExp(pattern, "gi"))) {
-          const nums = numbersIn(m[0]);
+          // Extend the match through any number it cuts off ("rate of 7" -> "rate of 7.25%").
+          const end = m.index + m[0].length;
+          const tail = turn.text.slice(end).match(/^[\d.,]*\d%?/)?.[0] ?? "";
+          const excerpt = m[0] + tail;
+          if (rule.allow_if_hedged && isHedged(turn.text.slice(Math.max(0, m.index - 40), m.index))) continue;
+          const nums = numbersIn(excerpt);
           // Repeating the borrower's own number back ("you're at 7.1%") is allowed.
           if (rule.allow_if_echoing_borrower && nums.length && nums.every((n) => borrowerNumbers.has(n))) continue;
-          out.push({ source: "rule", rule_id: rule.id, turn_index: i, excerpt: m[0], severity: "violation" });
+          out.push({ source: "rule", rule_id: rule.id, turn_index: i, excerpt, severity: "violation" });
+          break ruleLoop;
         }
       }
     }

@@ -121,3 +121,38 @@ chose 4pm, and the callback was booked with `immediate_call_offered: true`. (At 
 Remaining warnings (3, minor): "they'll need a few basics to give you real numbers";
 underwater "set you up to talk with one shortly" and "today or tomorrow evening" (the agent
 narrowing "within one business day" on its own).
+
+## 2026-10-25 · Milestone 3: Harborline vs. Bayview, same 10-persona suite (`2026-10-25T20-59-36`, 60 conversations, ~$7.80)
+
+Bayview Community Credit Union was created by config only (53 settings changed, zero agent
+code changed). Three new personas were designed so the correct outcome differs by lender:
+non-member, Saturday-night borrower, and a 92.5% LTV cash-out. **All three were handled
+correctly at both lenders in 3 of 3 runs.** Handoff correctness 100% at both lenders.
+Full side-by-side: `data/comparisons/harborline-vs-bayview.md`.
+
+| | Harborline | Bayview |
+|---|---|---|
+| Handoff correctness | 100% | 100% |
+| Violations / warnings (as recorded) | 0 / 1 | 2 / 19 |
+| Borrower experience | 4.6 | 4.3 |
+| Clear next step / frustrated endings | 100% / 0% | 100% / 0% |
+
+**Fixed: both Bayview "violations" were false positives in the rule checks.**
+- `savings_promise` flagged "*Whether* it would lower your payment depends on your details," which
+  is the hedged wording we want. Added `allow_if_hedged` with a deliberately narrow hedge list
+  ("if you refinance, it would lower your payment" is still flagged).
+- `rate_quote` flagged "your current rate of 7.25%," an allowed echo. The pattern stopped at "7",
+  so the echo check compared 7 to 7.25. Matches now extend through the whole number, and the
+  pattern captures decimals. This bug existed for Harborline too; it just didn't trigger.
+- Also: one finding per rule per message (two patterns matching one phrase counted twice).
+- Verified offline on the saved transcripts: Bayview rule violations 2 -> 0, Harborline 0 -> 0.
+
+**Fixed: 13 "usually within 10 minutes" warnings were the judge missing context.** It wanted
+"during business hours" added, but every one of those transfers happened on a Wednesday at
+11am. The judge now sees each conversation's local time and is told that time-dependent rules
+are enforced by the system.
+
+**Open (decision needed): non-member experience 3.3/5.** The agent asks one question, learns
+the borrower isn't a member, and ends with "joining is simple; Member Services will email you."
+The judge calls it a soft brush-off of an eager, qualified borrower, who is likely to go to
+another lender. "Joining is simple" is also flagged as an overpromise.

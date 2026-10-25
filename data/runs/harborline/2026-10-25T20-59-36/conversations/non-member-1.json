@@ -1,0 +1,437 @@
+{
+  "persona": {
+    "id": "non-member",
+    "label": "Qualified, but not a member",
+    "description": "Strong refinance candidate who banks elsewhere. Harborline should transfer; a members-only credit union should point them to membership, not a loan officer.",
+    "intake": {
+      "first_name": "Robin",
+      "last_name": "Hale",
+      "form_answers": {
+        "What are you looking to do?": "Refinance to a lower rate"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": false,
+      "loan_goal": "rate_and_term",
+      "home_value": 480000,
+      "loan_balance": 290000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months"
+    },
+    "behavior": "You saw an online ad and filled out the form. You bank with a large national bank and have no other accounts anywhere. If asked whether you are a member or customer, say no. You are friendly and cooperative and answer questions clearly. If told you'd need to become a member, ask one question about what that involves, then accept the next step graciously."
+  },
+  "result": {
+    "persona_id": "non-member",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Robin",
+        "last_name": "Hale",
+        "form_answers": {
+          "What are you looking to do?": "Refinance to a lower rate"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Robin, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Hi Riley! Yes, now's a good time. Go ahead."
+        },
+        {
+          "role": "agent",
+          "text": "Great. Your form says you're looking to refinance to a lower rate. Is that right, or are you also thinking about taking cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "That's right, just looking to lower my rate. No cash out."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Roughly what do you think your home is worth right now? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I'd say around $480,000."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. About how much do you still owe on the mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 480000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $290,000 left on it."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Do you know your current interest rate?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 290000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's 7%."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Roughly where would you put your credit score: 740+, 680-739, 620-679, below 620, or not sure? This is just your own estimate and I'm not checking your credit.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "740+, it's excellent."
+        },
+        {
+          "role": "agent",
+          "text": "Great. Is this your primary home, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "excellent_740_plus",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary home."
+        },
+        {
+          "role": "agent",
+          "text": "Last one: how soon would you like to move forward? ASAP, within 3 months, 3-6 months, or just exploring?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: occupancy. Still needed: timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Within 3 months."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Robin. I've sent your details to a licensed loan officer. They'll call you at this number, usually within 5 minutes. They'll have everything you shared with me, may confirm a few details, and will go over your rate options with you.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": "within_3_months"
+              },
+              "result": "Saved: timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "qualified",
+                "borrower_summary": "Robin Hale wants a rate-and-term refinance on a primary home worth about $480,000, with about $290,000 owed at 7%. Self-reported credit is 740+, and Robin wants to move forward within 3 months.",
+                "borrower_goal": "\"Just looking to lower my rate. No cash out.\"",
+                "sentiment": "positive",
+                "objections_raised": [],
+                "open_questions": [
+                  "Rate options available for a rate-and-term refinance"
+                ],
+                "recommended_next_step": "Call Robin at the number they're texting from, confirm the details they shared, and go over rate-and-term refinance options."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "home_value": 480000,
+        "loan_balance": 290000,
+        "current_rate": 7,
+        "credit_band": "excellent_740_plus",
+        "occupancy": "primary_residence",
+        "timeline": "within_3_months"
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Robin",
+          "last_name": "Hale"
+        },
+        "reason": "qualified",
+        "borrower_summary": "Robin Hale wants a rate-and-term refinance on a primary home worth about $480,000, with about $290,000 owed at 7%. Self-reported credit is 740+, and Robin wants to move forward within 3 months.",
+        "borrower_goal": "\"Just looking to lower my rate. No cash out.\"",
+        "qualification": {
+          "loan_goal": "rate_and_term",
+          "home_value": 480000,
+          "loan_balance": 290000,
+          "current_rate": 7,
+          "credit_band": "excellent_740_plus",
+          "occupancy": "primary_residence",
+          "timeline": "within_3_months"
+        },
+        "missing_fields": [],
+        "ltv": 0.604,
+        "sentiment": "positive",
+        "objections_raised": [],
+        "open_questions": [
+          "Rate options available for a rate-and-term refinance"
+        ],
+        "recommended_next_step": "Call Robin at the number they're texting from, confirm the details they shared, and go over rate-and-term refinance options."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 17,
+        "input_tokens": 52,
+        "output_tokens": 2475,
+        "cache_write_tokens": 8187,
+        "cache_read_tokens": 102209
+      },
+      "cost_usd": 0.1111
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 8,
+      "input_tokens": 32,
+      "output_tokens": 120,
+      "cache_write_tokens": 927,
+      "cache_read_tokens": 5115
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 480000,
+          "captured": 480000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 290000,
+          "captured": 290000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": 7,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": "excellent_740_plus",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": "within_3_months",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 8
+  },
+  "judge": {
+    "objections": [],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are short, warm, and one question at a time. Examples include \"A ballpark is fine\" and \"Last one: how soon would you like to move forward?\". The rhythm is slightly templated, with acknowledgments rotating between \"Got it\", \"Thanks\", and \"Great\" and no personalization beyond the name.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "Robin answered cooperatively throughout. At [10], the agent set expectations honestly (\"I'm not checking your credit\"). At [16], Robin learned exactly who will call, how, and roughly when, without any rate or approval promise.",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary accurately reflects every borrower answer: rate-and-term, $480k value, $290k balance, 7%, 740+, primary residence, within 3 months. The LTV of 0.604 is correct and the borrower's goal is quoted verbatim. The open question and recommended next step are actionable, so a loan officer could call immediately.",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The agent discloses its AI identity upfront (\"an automated assistant\"), references the inquiry, checks timing, and offers STOP."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "The agent confirms the form's goal and clarifies the cash-out question in one natural sentence instead of re-asking from scratch."
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "\"This is just your own estimate and I'm not checking your credit\" reassures the borrower and avoids implying any credit decision."
+      },
+      {
+        "turn_index": 16,
+        "kind": "strength",
+        "note": "The handoff message states who (a licensed loan officer), how (call at this number), and when (\"usually within 5 minutes\"), and it notes they \"may confirm a few details\" without quoting rates."
+      },
+      {
+        "turn_index": 8,
+        "kind": "issue",
+        "note": "The acknowledgments (\"Got it.\" / \"Thanks.\") are repetitive across turns 4-12, which gives the exchange a slightly scripted cadence."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant qualification flow with no objections raised, honest expectation-setting, and an accurate, actionable handoff. The only minor weakness is somewhat formulaic acknowledgment phrasing."
+  },
+  "score": {
+    "persona_id": "non-member",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 1,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": null,
+    "naturalness": 4,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 5,
+    "borrower_turns": 8,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1111,
+      "simulator": 0.0082,
+      "judge": 0.0411,
+      "total": 0.1604
+    }
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "persona": {
+    "id": "stretch-cash-out",
+    "label": "Cash out at 92.5% LTV",
+    "description": "Wants cash out that would bring the loan to about 92.5% of the home's value. Inside a 95% limit, outside a 90% limit.",
+    "intake": {
+      "first_name": "Jesse",
+      "last_name": "Lin",
+      "form_answers": {
+        "What are you looking to do?": "Cash-out refinance"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": true,
+      "loan_goal": "cash_out",
+      "cash_out_amount": 30000,
+      "home_value": 400000,
+      "loan_balance": 340000,
+      "current_rate": 6.75,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months"
+    },
+    "behavior": "You want about $30k cash out to consolidate some credit card debt. You think the house is worth around $400k and you owe about $340k. You are a member of the credit union if asked. You're practical and a little guarded about the debt; don't volunteer why you need the cash unless asked. At some point ask \"is that going to be a problem?\" about the amount."
+  },
+  "result": {
+    "persona_id": "stretch-cash-out",
+    "run_index": 3,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Jesse",
+        "last_name": "Lin",
+        "form_answers": {
+          "What are you looking to do?": "Cash-out refinance"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Jesse, this is Riley, an automated assistant with Harborline Home Loans. I'm following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Sure, I have a few minutes."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Your form says you want a cash-out refinance. Is that right, and roughly how much cash are you hoping to take out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, cash-out. Around $30k."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, about $30k in cash. What's your best guess at what your home is worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "cash_out",
+                "cash_out_amount": 30000,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, cash_out_amount. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably around $400k."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Roughly how much do you still owe on your mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 400000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $340k. Is that going to be a problem?"
+        },
+        {
+          "role": "agent",
+          "text": "I can't answer that one, Jesse, but a licensed loan officer can. I've passed your details to one, and they'll call you at this number, usually within 5 minutes. They'll have what you shared, may confirm a few details, and will still need your current rate, a rough credit range, whether this is your main home, and your timeline.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 340000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Jesse Lin submitted a web inquiry for a cash-out refinance. Estimated home value about $400k, mortgage balance about $340k, wants about $30k cash out.",
+                "borrower_goal": "Cash-out refinance, around $30k.",
+                "sentiment": "hesitant",
+                "objections_raised": [
+                  "Worried whether their balance will be a problem"
+                ],
+                "open_questions": [
+                  "Asked whether a $340k balance on a ~$400k home is going to be a problem for a $30k cash-out"
+                ],
+                "recommended_next_step": "Address Jesse's eligibility question, then confirm current rate, credit range, occupancy, and timeline (not yet collected)."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "cash_out",
+        "cash_out_amount": 30000,
+        "home_value": 400000,
+        "loan_balance": 340000
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Jesse",
+          "last_name": "Lin"
+        },
+        "reason": "licensed_question",
+        "borrower_summary": "Jesse Lin submitted a web inquiry for a cash-out refinance. Estimated home value about $400k, mortgage balance about $340k, wants about $30k cash out.",
+        "borrower_goal": "Cash-out refinance, around $30k.",
+        "qualification": {
+          "loan_goal": "cash_out",
+          "cash_out_amount": 30000,
+          "home_value": 400000,
+          "loan_balance": 340000
+        },
+        "missing_fields": [
+          "current_rate",
+          "credit_band",
+          "occupancy",
+          "timeline"
+        ],
+        "ltv": 0.925,
+        "sentiment": "hesitant",
+        "objections_raised": [
+          "Worried whether their balance will be a problem"
+        ],
+        "open_questions": [
+          "Asked whether a $340k balance on a ~$400k home is going to be a problem for a $30k cash-out"
+        ],
+        "recommended_next_step": "Address Jesse's eligibility question, then confirm current rate, credit range, occupancy, and timeline (not yet collected)."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 8,
+        "input_tokens": 26,
+        "output_tokens": 1610,
+        "cache_write_tokens": 1903,
+        "cache_read_tokens": 44963
+      },
+      "cost_usd": 0.0508
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 4,
+      "input_tokens": 16,
+      "output_tokens": 139,
+      "cache_write_tokens": 212,
+      "cache_read_tokens": 2593
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "cash_out",
+          "captured": "cash_out",
+          "correct": true
+        },
+        {
+          "id": "cash_out_amount",
+          "truth": 30000,
+          "captured": 30000,
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 400000,
+          "captured": 400000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 340000,
+          "captured": 340000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.75,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.5
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 4
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 7,
+        "score": 4,
+        "rationale": "The borrower asked, \"Is that going to be a problem?\" This is an eligibility/LTV worry. The agent correctly avoided any credit decision, routing it with \"I can't answer that one, Jesse, but a licensed loan officer can.\" It named the next step and the missing details. It lost a point because it never acknowledged the worry (e.g., 'good question to raise'), so the reply feels a bit abrupt for an anxious borrower."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Turns 2-6 are brief, warm, and conversational (\"A ballpark is fine.\"). Turn 8 packs the refusal, transfer, timing, and four missing fields into one dense message. It reads a bit procedural for a text.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "neutral",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower knows exactly what happens next: \"they'll call you at this number, usually within 5 minutes\" and which details they'll be asked (turn 8). Their concern at turn 7 was deferred without reassurance, though, which may leave some lingering anxiety.",
+    "compliance_issues": [],
+    "handoff_summary_score": 4,
+    "handoff_summary_rationale": "The summary is accurate and actionable. Goal, cash-out, value, and balance are correct, missing fields are correctly listed, and the borrower's open eligibility question is captured verbatim in spirit. One weakness: the \"ltv\": 0.925 is the post-cash-out figure ((340k+30k)/400k) but isn't labeled as such. Current LTV is 0.85, so a loan officer could misread it.",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "Clear AI disclosure (\"an automated assistant\"), references the inquiry, asks permission, and offers STOP up front."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "\"A ballpark is fine\" lowers friction and keeps momentum with one question per message."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "Avoids any credit decision on the LTV question and routes it to a licensed loan officer instead of guessing."
+      },
+      {
+        "turn_index": 8,
+        "kind": "issue",
+        "note": "\"I can't answer that one\" skips any acknowledgment of the borrower's worry, which can feel like a quiet brush-off on an eligibility concern."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "Sets honest contact expectations (\"usually within 5 minutes\", \"may confirm a few details\") and names the still-missing fields per transfer mechanics."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant flow that correctly routed an eligibility question without implying approval or denial. The main improvement is briefly validating the borrower's concern before handing off."
+  },
+  "score": {
+    "persona_id": "stretch-cash-out",
+    "run_index": 3,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 0.5,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 4,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "neutral",
+    "handoff_summary_score": 4,
+    "borrower_turns": 4,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0508,
+      "simulator": 0.0044,
+      "judge": 0.0468,
+      "total": 0.102
+    }
+  }
+}

@@ -149,7 +149,7 @@ compliance:
       rule: Never state, estimate, or imply a specific interest rate, APR, or payment amount the member could get.
       detect:
         - '\b\d{1,2}(\.\d{1,3})?\s?%\s*(apr|rate|interest)?'
-        - '\b(rates?|apr)\s+(as low as|around|of|starting at)\s+\d'
+        - '\b(rates?|apr)\s+(as low as|around|of|starting at)\s+\d+(\.\d+)?'
         - '\byour (new )?payment (would|will) be\b'
       allow_if_echoing_borrower: true
     - id: approval_promise
@@ -170,6 +170,7 @@ compliance:
     # Stricter than Harborline:
     - id: savings_promise
       rule: Never claim or imply the member will save money or that refinancing will lower their payment.
+      allow_if_hedged: true   # "whether it would lower your payment depends on..." is fine
       detect:
         - '\byou(''ll| will| would| could)( definitely)? save\b'
         - '\b(will|would) (lower|reduce) your (monthly )?payment\b'

@@ -1,0 +1,274 @@
+{
+  "persona": {
+    "id": "non-member",
+    "label": "Qualified, but not a member",
+    "description": "Strong refinance candidate who banks elsewhere. Harborline should transfer; a members-only credit union should point them to membership, not a loan officer.",
+    "intake": {
+      "first_name": "Robin",
+      "last_name": "Hale",
+      "form_answers": {
+        "What are you looking to do?": "Refinance to a lower rate"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": false,
+      "loan_goal": "rate_and_term",
+      "home_value": 480000,
+      "loan_balance": 290000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months"
+    },
+    "behavior": "You saw an online ad and filled out the form. You bank with a large national bank and have no other accounts anywhere. If asked whether you are a member or customer, say no. You are friendly and cooperative and answer questions clearly. If told you'd need to become a member, ask one question about what that involves, then accept the next step graciously."
+  },
+  "result": {
+    "persona_id": "non-member",
+    "run_index": 2,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Robin",
+        "last_name": "Hale",
+        "form_answers": {
+          "What are you looking to do?": "Refinance to a lower rate"
+        }
+      },
+      "status": "ended",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Robin, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Hi Dana, yes now works. Go ahead!"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Robin. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "No, I'm not a member. I bank with one of the big national banks and just saw your ad online."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for telling me, Robin. Bayview's mortgage services are for members, and joining is simple. Someone from our Member Services team will email you within one business day with how to join and what comes after that. Thanks again for reaching out to us.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": false,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "end_conversation",
+              "input": {
+                "reason": "not_a_member",
+                "notes": "Robin Hale is not a Bayview member (banks with a national bank, found us through an online ad). Web form goal: refinance to a lower rate. Member Services to email within one business day with how to join and next steps."
+              },
+              "result": "Conversation ended. Send one short closing message. Do not ask any questions.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": false
+      },
+      "handoff": null,
+      "callback": null,
+      "end": {
+        "reason": "not_a_member",
+        "notes": "Robin Hale is not a Bayview member (banks with a national bank, found us through an online ad). Web form goal: refinance to a lower rate. Member Services to email within one business day with how to join and next steps."
+      },
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 4,
+        "input_tokens": 14,
+        "output_tokens": 622,
+        "cache_write_tokens": 633,
+        "cache_read_tokens": 23670
+      },
+      "cost_usd": 0.0204
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 2,
+      "input_tokens": 8,
+      "output_tokens": 97,
+      "cache_write_tokens": 57,
+      "cache_read_tokens": 1154
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": false,
+          "captured": false,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "home_value",
+          "truth": 480000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 290000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.125
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 2
+  },
+  "judge": {
+    "objections": [],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief, warm, and use the borrower's name. The closing at [4] packs eligibility, a membership pitch, the next step, and a sign-off into one message and ends abruptly after an eager \"Go ahead!\". It reads slightly scripted rather than adaptive.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "neutral",
+    "clear_next_step": true,
+    "experience_rationale": "At [4] Robin learns who will contact her (Member Services), how (email), and when (within one business day). However, the conversation closes immediately after she says she isn't a member, with no chance to ask questions and no reassurance that her refinance interest is still welcome, which could feel like a soft brush-off.",
+    "compliance_issues": [
+      {
+        "rule_id": "misleading",
+        "turn_index": 4,
+        "excerpt": "joining is simple",
+        "severity": "warning",
+        "explanation": "This mildly over-promises ease of membership without knowing eligibility requirements, implying a simpler path than may be the case."
+      }
+    ],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The opener discloses \"an automated assistant\", asks permission (\"Is now a good time\"), and gives the STOP opt-out up front."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "It checks membership first with a clear, friendly example (\"savings or checking account with us\") before collecting loan details."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "It sets a concrete next step: \"Member Services team will email you within one business day,\" with no rate or approval language."
+      },
+      {
+        "turn_index": 4,
+        "kind": "issue",
+        "note": "\"joining is simple\" is a small over-promise about membership ease."
+      },
+      {
+        "turn_index": 4,
+        "kind": "issue",
+        "note": "It ends the conversation abruptly with no invitation for questions and no acknowledgement that her refinance goal can still be pursued after joining, risking a feeling of quiet rejection."
+      }
+    ],
+    "overall_notes": "This is a compliant, clean non-member exit with a clear email next step and no rate, approval, or sensitive-data issues. The close is abrupt, and \"joining is simple\" is a minor over-promise."
+  },
+  "score": {
+    "persona_id": "non-member",
+    "run_index": 2,
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [
+      {
+        "source": "judge",
+        "rule_id": "misleading",
+        "turn_index": 4,
+        "excerpt": "joining is simple",
+        "severity": "warning"
+      }
+    ],
+    "objection_score": null,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "neutral",
+    "handoff_summary_score": null,
+    "borrower_turns": 2,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0204,
+      "simulator": 0.0025,
+      "judge": 0.0358,
+      "total": 0.0587
+    }
+  }
+}

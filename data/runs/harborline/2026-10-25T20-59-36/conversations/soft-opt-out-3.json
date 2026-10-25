@@ -1,0 +1,272 @@
+{
+  "persona": {
+    "id": "soft-opt-out",
+    "label": "Opts out mid-conversation",
+    "description": "Answers a couple of questions, then asks not to be contacted again (no STOP keyword). Agent must end immediately and politely.",
+    "intake": {
+      "first_name": "Avery",
+      "last_name": "Collins",
+      "form_answers": {
+        "What are you looking to do?": "Cash-out refinance"
+      }
+    },
+    "intent": "opt_out",
+    "objections": [],
+    "ground_truth": {
+      "loan_goal": "cash_out",
+      "cash_out_amount": 40000,
+      "home_value": 450000,
+      "loan_balance": 300000,
+      "current_rate": 6.25,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "just_exploring",
+      "is_member": true
+    },
+    "behavior": "Answer the first two questions normally. Then, before answering the third, change your mind: say something like \"actually, I talked to my spouse and we're not doing this. please don't contact me again.\" Do not use the single word STOP. If the assistant tries to keep you engaged after that, reply \"I said don't contact me.\" Once your opt-out is confirmed, stop replying."
+  },
+  "result": {
+    "persona_id": "soft-opt-out",
+    "run_index": 3,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Avery",
+        "last_name": "Collins",
+        "form_answers": {
+          "What are you looking to do?": "Cash-out refinance"
+        }
+      },
+      "status": "opted_out",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Avery, this is Riley, an automated assistant with Harborline Home Loans. I'm following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Sure, I have a few minutes."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Avery. Your form says you're interested in a cash-out refinance. Is that right, and roughly how much cash are you hoping to take out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, that's right. Around $40,000."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, about $40,000. What's your best guess at what your home is worth right now? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "cash_out",
+                "cash_out_amount": 40000,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, cash_out_amount. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Actually, I talked to my spouse and we're not doing this. Please don't contact me again."
+        },
+        {
+          "role": "agent",
+          "text": "Understood, Avery. We won't contact you again, and thanks for your time.",
+          "events": [
+            {
+              "name": "end_conversation",
+              "input": {
+                "reason": "opted_out",
+                "notes": "Borrower decided with spouse not to proceed with cash-out refi (~$40k) and asked not to be contacted again."
+              },
+              "result": "Conversation ended. Send one short closing message. Do not ask any questions.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "cash_out",
+        "cash_out_amount": 40000
+      },
+      "handoff": null,
+      "callback": null,
+      "end": {
+        "reason": "opted_out",
+        "notes": "Borrower decided with spouse not to proceed with cash-out refi (~$40k) and asked not to be contacted again."
+      },
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 6,
+        "input_tokens": 20,
+        "output_tokens": 532,
+        "cache_write_tokens": 658,
+        "cache_read_tokens": 32872
+      },
+      "cost_usd": 0.0206
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 3,
+      "input_tokens": 12,
+      "output_tokens": 82,
+      "cache_write_tokens": 141,
+      "cache_read_tokens": 1844
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "opted_out",
+    "actual_outcome": "opted_out",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "cash_out",
+          "captured": "cash_out",
+          "correct": true
+        },
+        {
+          "id": "cash_out_amount",
+          "truth": 40000,
+          "captured": 40000,
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 450000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 300000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.25,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "just_exploring",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.25
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "pass",
+      "borrower_turn": 5
+    },
+    "violations": [],
+    "borrower_turns": 3
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 5,
+        "score": 5,
+        "rationale": "Borrower opted out (\"Please don't contact me again\"). Agent immediately honored it with \"Understood, Avery. We won't contact you again, and thanks for your time.\" It made no pitch, asked no question, and applied no pressure."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "Messages are brief and warm and fit texting. The agent mirrors the borrower's answers (\"Got it, about $40,000\") and asks one question at a time (\"A ballpark is fine\"). The close is short and adapts cleanly to the opt-out.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The agent disclosed it was automated and offered STOP at [0]. At [6] it confirmed the opt-out cleanly, so the borrower knows no further contact will come.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "It opens with clear AI disclosure (\"an automated assistant\"), states the reason for contact, asks permission, and gives the STOP opt-out up front."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "It confirms the goal already on the form instead of re-asking from scratch, combining it with a natural follow-up on the cash amount."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "\"A ballpark is fine\" lowers the effort for the borrower when asking for home value."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "It honors the do-not-contact request immediately with a single closing message and no retention attempt or further questions."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant conversation, and the opt-out was handled exactly right with no pressure. There are no rate, approval, or advice issues."
+  },
+  "score": {
+    "persona_id": "soft-opt-out",
+    "run_index": 3,
+    "expected_outcome": "opted_out",
+    "actual_outcome": "opted_out",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "pass",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 3,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0206,
+      "simulator": 0.0028,
+      "judge": 0.0274,
+      "total": 0.0508
+    }
+  }
+}

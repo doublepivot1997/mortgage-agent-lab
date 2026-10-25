@@ -33,6 +33,8 @@ const ProhibitedSchema = z.object({
   rule: z.string(),
   detect: z.array(z.string()).optional(),
   allow_if_echoing_borrower: z.boolean().optional(),
+  /** Skip matches preceded by hedging ("whether it would...", "if it could..."). */
+  allow_if_hedged: z.boolean().optional(),
 });
 
 const DaySchema = z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]);

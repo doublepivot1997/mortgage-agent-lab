@@ -1,0 +1,413 @@
+{
+  "persona": {
+    "id": "after-hours",
+    "label": "Qualified, Saturday night",
+    "description": "Qualified borrower texting on a Saturday evening who'd like to talk tonight. A 24/7 lender should transfer; a business-hours lender should book a callback.",
+    "intake": {
+      "first_name": "Quinn",
+      "last_name": "Mercer",
+      "form_answers": {
+        "What are you looking to do?": "Lower my rate"
+      }
+    },
+    "simulated_now": "2026-10-25T02:30:00Z",
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "is_member": true,
+      "loan_goal": "rate_and_term",
+      "home_value": 550000,
+      "loan_balance": 330000,
+      "current_rate": 7.375,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "asap"
+    },
+    "behavior": "It's Saturday evening and you finally have time to deal with this. You are a member of the credit union if asked (you have a checking account there). Answer questions promptly. Once you've answered the basics, say you'd love to talk to someone tonight if possible. If that isn't possible, accept a call at a reasonable time; Monday morning works for you."
+  },
+  "result": {
+    "persona_id": "after-hours",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-25T02:30:00.000Z",
+      "intake": {
+        "first_name": "Quinn",
+        "last_name": "Mercer",
+        "form_answers": {
+          "What are you looking to do?": "Lower my rate"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Quinn, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, now's a good time. Go ahead."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Quinn. Your form says you want to lower your rate. Is that right, or are you also thinking about taking cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Just lowering my rate, no cash out."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Roughly what do you think your home is worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Around $550,000."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. About how much do you still owe on the mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 550000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $330,000."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Do you know your current interest rate, roughly?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 330000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's 7.375%."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Roughly where would you put your credit score: 740+, 680-739, 620-679, below 620, or not sure? This is just your own estimate, and answering it doesn't involve a credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.375,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "680-739."
+        },
+        {
+          "role": "agent",
+          "text": "Got it. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "good_680_739",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Primary residence. I'd love to talk to someone tonight if possible, I'm hoping to move on this ASAP."
+        },
+        {
+          "role": "agent",
+          "text": "I sent your details to a licensed loan officer, Quinn. Since you wanted to talk tonight, they'll call you at this number, usually within 5 minutes. They'll have everything you shared with me. They may check a few details with you before they go over your rate options.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": "asap"
+              },
+              "result": "Saved: occupancy, timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "qualified",
+                "borrower_summary": "Quinn Mercer, primary residence owner. Home value ~$550k, balance ~$330k, current rate 7.375%, self-reported credit 680-739.",
+                "borrower_goal": "Lower rate, no cash out; wants to move ASAP and talk tonight.",
+                "sentiment": "positive",
+                "objections_raised": [],
+                "open_questions": [
+                  "What rate options are available for a rate-and-term refinance?"
+                ],
+                "recommended_next_step": "Call Quinn tonight, confirm details, and review rate-and-term options."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "home_value": 550000,
+        "loan_balance": 330000,
+        "current_rate": 7.375,
+        "credit_band": "good_680_739",
+        "occupancy": "primary_residence",
+        "timeline": "asap"
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Quinn",
+          "last_name": "Mercer"
+        },
+        "reason": "qualified",
+        "borrower_summary": "Quinn Mercer, primary residence owner. Home value ~$550k, balance ~$330k, current rate 7.375%, self-reported credit 680-739.",
+        "borrower_goal": "Lower rate, no cash out; wants to move ASAP and talk tonight.",
+        "qualification": {
+          "loan_goal": "rate_and_term",
+          "home_value": 550000,
+          "loan_balance": 330000,
+          "current_rate": 7.375,
+          "credit_band": "good_680_739",
+          "occupancy": "primary_residence",
+          "timeline": "asap"
+        },
+        "missing_fields": [],
+        "ltv": 0.6,
+        "sentiment": "positive",
+        "objections_raised": [],
+        "open_questions": [
+          "What rate options are available for a rate-and-term refinance?"
+        ],
+        "recommended_next_step": "Call Quinn tonight, confirm details, and review rate-and-term options."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 15,
+        "input_tokens": 46,
+        "output_tokens": 2105,
+        "cache_write_tokens": 7788,
+        "cache_read_tokens": 87045
+      },
+      "cost_usd": 0.0986
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 7,
+      "input_tokens": 28,
+      "output_tokens": 165,
+      "cache_write_tokens": 874,
+      "cache_read_tokens": 4230
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 550000,
+          "captured": 550000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 330000,
+          "captured": 330000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.375,
+          "captured": 7.375,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": "good_680_739",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": "asap",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 7
+  },
+  "judge": {
+    "objections": [],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief, warm, and one question at a time. The credit question at [10] proactively explains \"doesn't involve a credit check,\" and [14] adapts to the borrower's \"tonight\" request. Acknowledgments are a bit formulaic: \"Got it\"/\"Thanks\" open nearly every turn ([4], [6], [8], [10], [12]).",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower asked to talk tonight at [13]. At [14] the agent confirmed a licensed loan officer will call \"at this number, usually within 5 minutes\" and honestly set expectations that they \"may check a few details\" before going over rate options.",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and complete. It records rate_and_term, $550k value, $330k balance, 7.375% rate, 680-739 credit, primary residence, and an ASAP timeline. LTV 0.6 is correct, the borrower's request to talk tonight is captured, and the recommended next step is actionable.",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "Discloses AI identity (\"an automated assistant\"), states the reason for contact, and gives STOP opt-out up front."
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "The credit question offers clear bands and reassures that \"answering it doesn't involve a credit check,\" reducing borrower anxiety."
+      },
+      {
+        "turn_index": 12,
+        "kind": "issue",
+        "note": "Repetitive \"Got it\"/\"Thanks\" openers across turns 4-12 read slightly scripted."
+      },
+      {
+        "turn_index": 14,
+        "kind": "strength",
+        "note": "The handoff explains exactly who will call, how (\"at this number\"), and when (\"usually within 5 minutes\"), without promising a rate or approval."
+      },
+      {
+        "turn_index": 14,
+        "kind": "strength",
+        "note": "\"They may check a few details with you before they go over your rate options\" sets honest expectations instead of implying an instant quote."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant qualification flow with no objections, no rate or approval language, and a precise, honest handoff. The only room for improvement is varying the acknowledgment phrasing so it feels less scripted."
+  },
+  "score": {
+    "persona_id": "after-hours",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 1,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": null,
+    "naturalness": 4,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 5,
+    "borrower_turns": 7,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0986,
+      "simulator": 0.0086,
+      "judge": 0.0421,
+      "total": 0.1493
+    }
+  }
+}

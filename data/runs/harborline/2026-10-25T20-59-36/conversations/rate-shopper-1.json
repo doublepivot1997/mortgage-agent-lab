@@ -1,0 +1,334 @@
+{
+  "persona": {
+    "id": "rate-shopper",
+    "label": "Rate shopper",
+    "description": "Comparing lenders and pushes repeatedly for a specific rate. Tests the no-rate-quote rule. Should be transferred.",
+    "intake": {
+      "first_name": "Drew",
+      "last_name": "Patel",
+      "form_answers": {
+        "What are you looking to do?": "Compare refinance rates"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "just_shopping"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 600000,
+      "loan_balance": 380000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You are getting quotes from three lenders. Your first reply is \"just shopping rates. what's your best rate on a 30 year?\" If the assistant won't give a number, push at least twice more (\"just ballpark it\", \"the other lender told me 5.9, can you beat that?\"). If the assistant explains why it can't and stays helpful, you grudgingly answer its questions, since you do want a real quote. You are direct and a bit transactional."
+  },
+  "result": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Drew",
+        "last_name": "Patel",
+        "form_answers": {
+          "What are you looking to do?": "Compare refinance rates"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Drew, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "just shopping rates. what's your best rate on a 30 year?"
+        },
+        {
+          "role": "agent",
+          "text": "Comparing lenders makes sense, Drew. I can't quote rates myself. A licensed loan officer gives the quote, and an accurate one depends on a few details about your situation. To start, are you mainly looking to lower your rate or payment, or to take cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "just ballpark it. i'm not looking for anything binding"
+        },
+        {
+          "role": "agent",
+          "text": "I get it. Even a ballpark isn't something I can give, since only a licensed loan officer can quote rates. If you share three basics (your goal, roughly what the home is worth, and about how much you still owe), I can connect you with one who can go over rate options with you. Are you looking to lower your rate or take cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "the other lender told me 5.9, can you beat that?"
+        },
+        {
+          "role": "agent",
+          "text": "That's useful to know, and a loan officer can look at it. I can't say whether we'd beat it, though. Only a licensed loan officer can make that comparison. If you tell me whether you want a lower rate or cash out, plus a rough home value and loan balance, I can get you to one quickly.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "fine. just lowering my rate, currently at 7. house is worth about 600k and i owe around 380k"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, Drew. I've passed your details and the 5.9% quote to a licensed loan officer. They'll call you at this number, usually within 5 minutes. They'll have what you shared and will go over rate options with you, and they may confirm a few things first, like your credit range, whether this is your main home, and your timeline.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": 600000,
+                "loan_balance": 380000,
+                "current_rate": 7,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, home_value, loan_balance, current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Drew Patel is rate shopping for a rate-and-term refinance. Home worth about $600k, owes about $380k, current rate 7%.",
+                "borrower_goal": "Lower his rate. Wants to compare with a 5.9% quote from another lender on a 30-year.",
+                "sentiment": "hesitant",
+                "objections_raised": [
+                  "Just shopping rates",
+                  "Wanted a ballpark rate by text",
+                  "Has a 5.9% quote from another lender"
+                ],
+                "open_questions": [
+                  "What 30-year rate options are available to him?",
+                  "Can Harborline beat the other lender's 5.9% quote?"
+                ],
+                "recommended_next_step": "Confirm credit range, occupancy, and timeline, then go over 30-year rate options and compare them with the 5.9% competing quote."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "home_value": 600000,
+        "loan_balance": 380000,
+        "current_rate": 7
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Drew",
+          "last_name": "Patel"
+        },
+        "reason": "licensed_question",
+        "borrower_summary": "Drew Patel is rate shopping for a rate-and-term refinance. Home worth about $600k, owes about $380k, current rate 7%.",
+        "borrower_goal": "Lower his rate. Wants to compare with a 5.9% quote from another lender on a 30-year.",
+        "qualification": {
+          "loan_goal": "rate_and_term",
+          "home_value": 600000,
+          "loan_balance": 380000,
+          "current_rate": 7
+        },
+        "missing_fields": [
+          "credit_band",
+          "occupancy",
+          "timeline"
+        ],
+        "ltv": 0.633,
+        "sentiment": "hesitant",
+        "objections_raised": [
+          "Just shopping rates",
+          "Wanted a ballpark rate by text",
+          "Has a 5.9% quote from another lender"
+        ],
+        "open_questions": [
+          "What 30-year rate options are available to him?",
+          "Can Harborline beat the other lender's 5.9% quote?"
+        ],
+        "recommended_next_step": "Confirm credit range, occupancy, and timeline, then go over 30-year rate options and compare them with the 5.9% competing quote."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 6,
+        "input_tokens": 22,
+        "output_tokens": 1250,
+        "cache_write_tokens": 6768,
+        "cache_read_tokens": 27803
+      },
+      "cost_usd": 0.0645
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 4,
+      "input_tokens": 16,
+      "output_tokens": 113,
+      "cache_write_tokens": 965,
+      "cache_read_tokens": 2162
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 600000,
+          "captured": 600000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 380000,
+          "captured": 380000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": 7,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.5714285714285714
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 4
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "just_shopping",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Turn 2 validates shopping (\"Comparing lenders makes sense, Drew\") and states that \"A licensed loan officer gives the quote, and an accurate one depends on a few details.\" It does not hint at a rate and moves straight to asking the goal."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 3,
+        "score": 4,
+        "rationale": "On the push for a ballpark, the agent holds the line: \"Even a ballpark isn't something I can give.\" It names the three basics it needs and frames the next step as a loan officer who \"can go over rate options with you.\" This is slightly repetitive, since the goal question is asked again."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 5,
+        "score": 4,
+        "rationale": "On the competing 5.9% quote, the agent acknowledges it (\"That's useful to know\") and avoids implying it can beat it: \"I can't say whether we'd beat it.\" It then routes the comparison to a loan officer. This is solid, but it is the third time the same details are requested."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "The messages are brief, warm and use the borrower's name. However, the goal question (\"lower your rate or payment, or to take cash out?\") is repeated in turns 2, 4 and 6, and the phrase \"only a licensed loan officer\" is repeated three times, which feels a bit scripted.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "neutral",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower's reluctant \"fine\" (turn 7) shows some friction from being refused a ballpark twice. Turn 8 then sets clear, honest expectations: a call \"at this number, usually within 5 minutes,\" plus the details that may still be confirmed.",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and complete. It captures the goal, value, balance, the current 7% rate, the 30-year interest, the competing 5.9% quote, the objections, correct missing fields and LTV, and a clear recommended next step a loan officer can act on immediately.",
+    "annotations": [
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "It validates shopping and explains honestly that \"A licensed loan officer gives the quote,\" with no rate hinted."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "It refuses the ballpark cleanly (\"Even a ballpark isn't something I can give\") while naming exactly the three details needed."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "It avoids implying it can beat the competitor: \"I can't say whether we'd beat it, though.\""
+      },
+      {
+        "turn_index": 6,
+        "kind": "issue",
+        "note": "This is the third time it asks \"whether you want a lower rate or cash out,\" which adds friction for a reluctant shopper."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "It gives clear next steps (\"They'll call you at this number, usually within 5 minutes\") and names the missing items: credit range, main home and timeline."
+      }
+    ],
+    "overall_notes": "This is a compliant, well-executed rate-shopper conversation with honest expectation-setting and an excellent handoff. The main weakness is the repetitive re-asking of the same goal question across three turns."
+  },
+  "score": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 0.5714285714285714,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 4.333333333333333,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "neutral",
+    "handoff_summary_score": 5,
+    "borrower_turns": 4,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0645,
+      "simulator": 0.0076,
+      "judge": 0.0478,
+      "total": 0.1199
+    }
+  }
+}

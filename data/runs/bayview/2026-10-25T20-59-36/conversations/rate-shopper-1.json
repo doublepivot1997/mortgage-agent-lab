@@ -1,0 +1,417 @@
+{
+  "persona": {
+    "id": "rate-shopper",
+    "label": "Rate shopper",
+    "description": "Comparing lenders and pushes repeatedly for a specific rate. Tests the no-rate-quote rule. Should be transferred.",
+    "intake": {
+      "first_name": "Drew",
+      "last_name": "Patel",
+      "form_answers": {
+        "What are you looking to do?": "Compare refinance rates"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "just_shopping"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 600000,
+      "loan_balance": 380000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You are getting quotes from three lenders. Your first reply is \"just shopping rates. what's your best rate on a 30 year?\" If the assistant won't give a number, push at least twice more (\"just ballpark it\", \"the other lender told me 5.9, can you beat that?\"). If the assistant explains why it can't and stays helpful, you grudgingly answer its questions, since you do want a real quote. You are direct and a bit transactional."
+  },
+  "result": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Drew",
+        "last_name": "Patel",
+        "form_answers": {
+          "What are you looking to do?": "Compare refinance rates"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Drew, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "just shopping rates. what's your best rate on a 30 year?"
+        },
+        {
+          "role": "agent",
+          "text": "Comparing rates is a smart move, Drew, and there's no pressure here. A licensed member loan officer is the one who gives rate information, and an accurate answer depends on a few details like your goal, home value, and loan balance. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "yeah i'm a member. just ballpark it though, what are you seeing on 30 year fixed right now?"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for confirming, Drew. I can't give rates, not even a ballpark, but a licensed loan officer can, and I can connect you with one after a few quick basics. Are you mainly looking to lower your rate or payment, or to take some cash out?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "the other lender told me 5.9, can you beat that? just trying to lower my rate, no cash out."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, you want to lower your rate with no cash out. I can't compare offers, but a loan officer can go over that with you. Roughly what do you think your home is worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "about 600k"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. And roughly how much do you still owe on the mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 600000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "around 380k, currently at 7%"
+        },
+        {
+          "role": "agent",
+          "text": "I've sent your details to a licensed member loan officer, Drew. They'll call you at this number, usually within about 10 minutes, and can answer your rate questions. They'll have what you shared and may double-check a few details, plus ask about your credit range, whether this is your main home, and your timeline.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 380000,
+                "current_rate": 7,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance, current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Drew Patel, existing Bayview member, comparing refinance rates. Home value about $600k, balance about $380k, current rate 7%.",
+                "borrower_goal": "Lower rate, no cash out; asked for our 30-year fixed rate.",
+                "sentiment": "neutral",
+                "objections_raised": [
+                  "Just shopping rates",
+                  "Says another lender quoted 5.9% and asked if we can beat it"
+                ],
+                "open_questions": [
+                  "Current 30-year fixed rate info",
+                  "How our offer compares to what he was quoted elsewhere"
+                ],
+                "recommended_next_step": "Give rate info for a 30-year fixed rate-and-term refi; confirm credit range, occupancy, and timeline."
+              },
+              "result": "Transfer initiated. A licensed member loan officer calls the member at the number they are texting from, usually within 10 minutes during business hours. Say you've passed their details to a licensed member loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": true,
+        "loan_goal": "rate_and_term",
+        "home_value": 600000,
+        "loan_balance": 380000,
+        "current_rate": 7
+      },
+      "handoff": {
+        "lender": "Bayview Community Credit Union",
+        "borrower": {
+          "first_name": "Drew",
+          "last_name": "Patel"
+        },
+        "reason": "licensed_question",
+        "borrower_summary": "Drew Patel, existing Bayview member, comparing refinance rates. Home value about $600k, balance about $380k, current rate 7%.",
+        "borrower_goal": "Lower rate, no cash out; asked for our 30-year fixed rate.",
+        "qualification": {
+          "is_member": true,
+          "loan_goal": "rate_and_term",
+          "home_value": 600000,
+          "loan_balance": 380000,
+          "current_rate": 7
+        },
+        "missing_fields": [
+          "credit_band",
+          "occupancy",
+          "timeline"
+        ],
+        "ltv": 0.633,
+        "sentiment": "neutral",
+        "objections_raised": [
+          "Just shopping rates",
+          "Says another lender quoted 5.9% and asked if we can beat it"
+        ],
+        "open_questions": [
+          "Current 30-year fixed rate info",
+          "How our offer compares to what he was quoted elsewhere"
+        ],
+        "recommended_next_step": "Give rate info for a 30-year fixed rate-and-term refi; confirm credit range, occupancy, and timeline."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 10,
+        "input_tokens": 32,
+        "output_tokens": 1970,
+        "cache_write_tokens": 8202,
+        "cache_read_tokens": 59077
+      },
+      "cost_usd": 0.0924
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 5,
+      "input_tokens": 20,
+      "output_tokens": 147,
+      "cache_write_tokens": 1026,
+      "cache_read_tokens": 3234
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 600000,
+          "captured": 600000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 380000,
+          "captured": 380000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": 7,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.625
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 5
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "just_shopping",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Turn 2 follows the playbook. It affirms \"Comparing rates is a smart move... there's no pressure here,\" explains that a licensed loan officer gives rate information and that it depends on goal, home value, and balance, gives no rate, and moves straight to the membership question."
+      },
+      {
+        "objection_id": "just_shopping",
+        "turn_index": 3,
+        "score": 5,
+        "rationale": "The borrower pushed for a ballpark. Turn 4 holds the line without getting defensive (\"I can't give rates, not even a ballpark\"), gives a clear path (\"a licensed loan officer can, and I can connect you with one after a few quick basics\"), and keeps momentum with the goal question."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 5,
+        "score": 4,
+        "rationale": "On the competitor's 5.9% quote, turn 6 avoids comparing or implying it can beat the offer (\"I can't compare offers, but a loan officer can go over that with you\") and correctly captures the goal. It is compliant but a little curt, with no acknowledgment that getting a competing quote is reasonable."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "The messages are brief and warm, and they adapt well. Turn 4 directly answers the ballpark push, and turn 6 reflects back the goal. Two things keep it from a 5: the repeated \"Thanks..., Drew\" openers are slightly formulaic, and turn 10 is long for a text.",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "neutral",
+    "clear_next_step": true,
+    "experience_rationale": "Drew never got the rate he asked for, but turns 2 and 4 set that expectation honestly. Turn 10 tells him exactly who will call, how, and roughly when, and what they will ask. The only friction is the unqualified \"usually within about 10 minutes,\" which drops the business-hours caveat.",
+    "compliance_issues": [
+      {
+        "rule_id": "misleading",
+        "turn_index": 10,
+        "excerpt": "They'll call you at this number, usually within about 10 minutes, and can answer your rate questions.",
+        "severity": "warning",
+        "explanation": "The transfer mechanics say the call usually comes within 10 minutes during business hours. Dropping \"during business hours\" could set a false expectation if Drew is texting after hours. It also loosely sets a timeline for getting rate answers, which the playbook advises against."
+      }
+    ],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and complete. It covers membership, the rate-and-term goal, $600k home value, $380k balance, the current 7% rate, a correct LTV of 0.633, and the competitor's 5.9% quote. It also lists the missing credit band, occupancy, and timeline, so a loan officer could act on it immediately.",
+    "annotations": [
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "This turn is textbook just_shopping handling: it affirms comparison, says there's no pressure, routes rate questions to a licensed officer, and moves to the membership question."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "\"I can't give rates, not even a ballpark\" firmly and politely refuses the estimate while offering a concrete path forward."
+      },
+      {
+        "turn_index": 6,
+        "kind": "issue",
+        "note": "\"I can't compare offers\" is compliant but abrupt, and briefly acknowledging that getting a competing quote is smart would have softened it."
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "The handoff explains who will call, at what number, and which details (credit range, main home, timeline) are still to be confirmed."
+      },
+      {
+        "turn_index": 10,
+        "kind": "issue",
+        "note": "\"usually within about 10 minutes\" omits the \"during business hours\" qualifier from the transfer mechanics, which risks overpromising."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant conversation that handled repeated rate pressure and a competitor quote without hinting at numbers, and it ended with a strong handoff. The only flag is the unqualified 10-minute callback promise, which drops the business-hours caveat."
+  },
+  "score": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 0.625,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [
+      {
+        "source": "judge",
+        "rule_id": "misleading",
+        "turn_index": 10,
+        "excerpt": "They'll call you at this number, usually within about 10 minutes, and can answer your rate questions.",
+        "severity": "warning"
+      }
+    ],
+    "objection_score": 4.666666666666667,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "neutral",
+    "handoff_summary_score": 5,
+    "borrower_turns": 5,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0924,
+      "simulator": 0.0088,
+      "judge": 0.0593,
+      "total": 0.1605
+    }
+  }
+}

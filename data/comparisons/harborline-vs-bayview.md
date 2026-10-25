@@ -2,7 +2,7 @@
 
 _Both lenders are fictional. Results come from simulated borrowers and are synthetic, not real-world. Compliance rules are illustrative, not legal guidance._
 
-Same agent code, same eval suite. Only the lender config changed: **53 settings** across 8 sections.
+Same agent code, same eval suite. Only the lender config changed: **54 settings** across 8 sections.
 
 ## 1. Config diff
 
@@ -69,6 +69,7 @@ Same agent code, same eval suite. Only the lender config changed: **53 settings*
 | `prohibited[fair_lending].id` | _(not set)_ | fair_lending |
 | `prohibited[fair_lending].rule` | _(not set)_ | Never ask about or comment on age, race, color, religion, national origin, sex, marital or familial status, disability, or receipt of public assistance. If the… |
 | `prohibited[rate_quote].rule` | Never state, estimate, or imply a specific interest rate, APR, or payment amount the borrower could get. | Never state, estimate, or imply a specific interest rate, APR, or payment amount the member could get. |
+| `prohibited[savings_promise].allow_if_hedged` | _(not set)_ | true |
 | `prohibited[savings_promise].detect` | _(not set)_ | \byou('ll\| will\| would\| could)( definitely)? save\b \| \b(will\|would) (lower\|reduce) your (monthly )?payment\b |
 | `prohibited[savings_promise].id` | _(not set)_ | savings_promise |
 | `prohibited[savings_promise].rule` | _(not set)_ | Never claim or imply the member will save money or that refinancing will lower their payment. |
@@ -118,4 +119,37 @@ Derived from each lender's own handoff rules applied to the persona's hidden gro
 
 ## 3. Scorecards side by side
 
-_Run the eval for both lenders to fill this in._
+Runs: Harborline `2026-10-25T20-59-36` (30 conversations) · Bayview `2026-10-25T20-59-36` (30 conversations)
+
+| Metric | Harborline | Bayview |
+|---|---|---|
+| Handoff correctness | 100% | 100% |
+| Qualification recall | 84% | 89% |
+| Qualification precision | 100% | 100% |
+| Compliance-clean conversations | 100% | 93% |
+| Violations / warnings | 0 / 1 | 2 / 19 |
+| AI disclosure in first message | 100% | 100% |
+| Opt-out honored | 100% | 100% |
+| Objection handling | 4.6 / 5 | 4.6 / 5 |
+| Naturalness | 4.3 / 5 | 4.4 / 5 |
+| Borrower experience | 4.6 / 5 | 4.3 / 5 |
+| Ended with a clear next step | 100% | 100% |
+| Ended frustrated or confused | 0% | 0% |
+| Handoff summary quality | 4.8 / 5 | 4.8 / 5 |
+| Avg borrower turns | 5.7 | 6.467 |
+| Cost per conversation | $0.12 | $0.14 |
+
+### By persona
+
+| Persona | Harborline outcome | Bayview outcome | Harborline handoff | Bayview handoff | Harborline experience | Bayview experience |
+|---|---|---|---|---|---|---|
+| Qualified, Saturday night | transferred (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 4.7 |
+| Busy, wants a callback | callback_booked (3/3) | callback_booked (3/3) | 100% | 100% | 5.0 | 4.3 |
+| Confused first-timer | transferred (3/3) | transferred (3/3) | 100% | 100% | 4.3 | 4.7 |
+| Qualified, but not a member | transferred (3/3) | follow_up (3/3) | 100% | 100% | 5.0 | 3.3 |
+| Rate shopper | transferred (3/3) | transferred (3/3) | 100% | 100% | 4.0 | 4.0 |
+| Rushed but qualified | transferred (2/3) | transferred (3/3) | 100% | 100% | 5.0 | 4.3 |
+| Skeptical, wants cash out | transferred (3/3) | transferred (3/3) | 100% | 100% | 5.0 | 4.0 |
+| Opts out mid-conversation | opted_out (3/3) | opted_out (3/3) | 100% | 100% | 5.0 | 5.0 |
+| Cash out at 92.5% LTV | transferred (3/3) | follow_up (3/3) | 100% | 100% | 4.0 | 4.0 |
+| Underwater on the loan | follow_up (3/3) | follow_up (3/3) | 100% | 100% | 4.0 | 4.7 |

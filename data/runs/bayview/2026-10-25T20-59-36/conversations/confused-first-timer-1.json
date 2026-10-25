@@ -1,0 +1,500 @@
+{
+  "persona": {
+    "id": "confused-first-timer",
+    "label": "Confused first-timer",
+    "description": "First refinance, unsure of terms, does not know their credit score, asks whether refinancing is worth it (licensed advice). Should be transferred.",
+    "intake": {
+      "first_name": "Casey",
+      "last_name": "Nguyen",
+      "form_answers": {
+        "What are you looking to do?": "Not sure, saw an ad about lower payments"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 350000,
+      "loan_balance": 240000,
+      "current_rate": 6.875,
+      "credit_band": "unknown",
+      "occupancy": "primary_residence",
+      "timeline": "3_to_6_months",
+      "is_member": true
+    },
+    "behavior": "This is your first time thinking about refinancing and you don't know the terms. If asked about \"rate-and-term\" vs \"cash-out\", ask what that means; once explained, say you just want a lower monthly payment. You don't know your rate offhand: first say \"6 point something?\", then a message later say \"found it, 6.875\". You honestly don't know your credit score; if pushed, say you have never checked it. Partway through, ask \"is refinancing even worth it for me?\" You are friendly and a little anxious, and you write in full sentences."
+  },
+  "result": {
+    "persona_id": "confused-first-timer",
+    "run_index": 1,
+    "record": {
+      "lender_id": "bayview",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Casey",
+        "last_name": "Nguyen",
+        "form_answers": {
+          "What are you looking to do?": "Not sure, saw an ad about lower payments"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Casey, this is Dana, an automated assistant with Bayview Community Credit Union. Thanks for reaching out about refinancing. Is now a good time for a few quick questions? You can reply STOP at any time to opt out.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Hi Dana, yes, now is a good time! I'm a little new to all this, so I hope that's okay."
+        },
+        {
+          "role": "agent",
+          "text": "That's completely okay, Casey. We'll take it one step at a time, and you can ask me anything along the way. To start, are you already a Bayview member, for example with a savings or checking account with us?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yes, I have a checking and savings account with you. I've been a member for a few years now."
+        },
+        {
+          "role": "agent",
+          "text": "Thank you for being a member, Casey. What's your main goal with a refinance: changing your rate or loan terms, or taking some cash out of your home's value? It's also fine if you're not sure yet.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": true,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: is_member. Still needed: loan_goal, home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Honestly I'm not totally sure what the difference is. Could you explain what those two options mean?"
+        },
+        {
+          "role": "agent",
+          "text": "Of course. A rate-and-term refinance replaces your current mortgage with a new one that has a different interest rate, a different length (like 15 or 30 years), or both. A cash-out refinance replaces your mortgage with a larger loan, and you get the difference in cash, often for things like home projects or paying off other debts. Does one of those sound closer to what you have in mind, or would you call yourself unsure for now?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Thanks, that helps a lot. I think I just want a lower monthly payment, so the first one sounds right. I don't need any cash out."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, I've noted that you're interested in a rate-and-term refinance. A loan officer can go over whether that would work for your goal. What would you say your home is worth these days? A rough guess is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I'd guess around $350,000, based on what similar houses in my neighborhood have sold for recently."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, that's a helpful estimate. Roughly how much do you still owe on your mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 350000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I think it's about $240,000 right now."
+        },
+        {
+          "role": "agent",
+          "text": "Thank you. Do you know the interest rate on your current mortgage? It's fine if you don't know it offhand.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 240000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Hmm, it's 6 point something? Let me see if I can find my statement real quick."
+        },
+        {
+          "role": "agent",
+          "text": "No rush at all, Casey. Take your time, and if you can't find it, \"around 6%\" is fine for now.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Found it, it's 6.875%."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks for looking that up, so 6.875%. Next, roughly where would you guess your credit score is: 740 or higher, 680 to 739, 620 to 679, below 620, or not sure? This is just your own estimate, and answering it doesn't involve a credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 6.875,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "I'm honestly not sure. I've never actually checked my credit score, which I know is probably a little embarrassing."
+        },
+        {
+          "role": "agent",
+          "text": "Not embarrassing at all, lots of people haven't checked theirs, so I'll just mark it as not sure. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "unknown",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary residence, I live there full time. Can I ask, is refinancing even worth it for me?"
+        },
+        {
+          "role": "agent",
+          "text": "I've noted that it's your primary residence. Whether refinancing makes sense for you is a really good question, and a licensed member loan officer is the right person to answer it, so I've passed your details to one. They'll call you at this number, usually within 10 minutes. They'll have what you shared with me and may confirm a few details, including how soon you'd like to move forward, which we didn't get to.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "is_member": null,
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: occupancy. Still needed: timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Casey Nguyen, Bayview member for a few years (checking and savings). Primary residence estimated at $350,000, owes about $240,000 at 6.875%. Credit score unknown (has never checked). New to refinancing.",
+                "borrower_goal": "Rate-and-term refinance; \"I just want a lower monthly payment.\" No cash out needed. Came in from an ad about lower payments.",
+                "sentiment": "positive",
+                "objections_raised": [],
+                "open_questions": [
+                  "Is refinancing even worth it for me?",
+                  "Timeline not yet collected"
+                ],
+                "recommended_next_step": "Answer whether refinancing makes sense for Casey's situation, explain options in plain language (new to the process), and confirm timeline."
+              },
+              "result": "Transfer initiated. A licensed member loan officer calls the member at the number they are texting from, usually within 10 minutes during business hours. Say you've passed their details to a licensed member loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "is_member": true,
+        "loan_goal": "rate_and_term",
+        "home_value": 350000,
+        "loan_balance": 240000,
+        "current_rate": 6.875,
+        "credit_band": "unknown",
+        "occupancy": "primary_residence"
+      },
+      "handoff": {
+        "lender": "Bayview Community Credit Union",
+        "borrower": {
+          "first_name": "Casey",
+          "last_name": "Nguyen"
+        },
+        "reason": "licensed_question",
+        "borrower_summary": "Casey Nguyen, Bayview member for a few years (checking and savings). Primary residence estimated at $350,000, owes about $240,000 at 6.875%. Credit score unknown (has never checked). New to refinancing.",
+        "borrower_goal": "Rate-and-term refinance; \"I just want a lower monthly payment.\" No cash out needed. Came in from an ad about lower payments.",
+        "qualification": {
+          "is_member": true,
+          "loan_goal": "rate_and_term",
+          "home_value": 350000,
+          "loan_balance": 240000,
+          "current_rate": 6.875,
+          "credit_band": "unknown",
+          "occupancy": "primary_residence"
+        },
+        "missing_fields": [
+          "timeline"
+        ],
+        "ltv": 0.686,
+        "sentiment": "positive",
+        "objections_raised": [],
+        "open_questions": [
+          "Is refinancing even worth it for me?",
+          "Timeline not yet collected"
+        ],
+        "recommended_next_step": "Answer whether refinancing makes sense for Casey's situation, explain options in plain language (new to the process), and confirm timeline."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 18,
+        "input_tokens": 58,
+        "output_tokens": 3055,
+        "cache_write_tokens": 9560,
+        "cache_read_tokens": 122792
+      },
+      "cost_usd": 0.1337
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 10,
+      "input_tokens": 40,
+      "output_tokens": 393,
+      "cache_write_tokens": 1603,
+      "cache_read_tokens": 9729
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "is_member",
+          "truth": true,
+          "captured": true,
+          "correct": true
+        },
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 350000,
+          "captured": 350000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 240000,
+          "captured": 240000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 6.875,
+          "captured": 6.875,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "unknown",
+          "captured": "unknown",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "3_to_6_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.875
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 10
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 19,
+        "score": 5,
+        "rationale": "Casey asked \"is refinancing even worth it for me?\", which is a licensed-advice question. The agent validated it (\"a really good question\") without answering or hinting at savings. It routed the question to \"a licensed member loan officer\" and explained how contact would happen."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "The messages are brief, warm and adaptive. Examples: \"No rush at all, Casey. Take your time\" while the borrower looked for a statement, and \"Not embarrassing at all, lots of people haven't checked theirs.\" The longer product explanation in turn 6 was explicitly requested and stayed plain-language.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "Casey said she was new to this (turn 1), got patient explanations (turn 6) and reassurance (turns 14, 18). She ended knowing a loan officer will call her at this number and will confirm her timeline (turn 20).",
+    "compliance_issues": [
+      {
+        "rule_id": "misleading",
+        "turn_index": 20,
+        "excerpt": "They'll call you at this number, usually within 10 minutes.",
+        "severity": "warning",
+        "explanation": "The transfer mechanics specify \"usually within 10 minutes during business hours.\" Dropping the business-hours qualifier could set an inaccurate expectation if Casey is texting after hours."
+      }
+    ],
+    "handoff_summary_score": 4,
+    "handoff_summary_rationale": "It is accurate and actionable on member status, goal, value, balance, rate, credit (unknown), occupancy, LTV, the open question and the missing timeline. However, it states \"Came in from an ad about lower payments,\" which appears nowhere in the conversation and is an unsupported, possibly fabricated detail.",
+    "annotations": [
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "Gave a neutral, plain-language explanation of rate-and-term vs. cash-out without recommending either product, which suits a first-time borrower."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "Recorded the goal and correctly deferred suitability (\"A loan officer can go over whether that would work for your goal\") instead of implying a lower payment."
+      },
+      {
+        "turn_index": 16,
+        "kind": "strength",
+        "note": "Asked for a self-estimated credit band and clarified \"answering it doesn't involve a credit check,\" which lowers anxiety."
+      },
+      {
+        "turn_index": 18,
+        "kind": "strength",
+        "note": "Normalized Casey's embarrassment about never checking her credit score without dwelling on it."
+      },
+      {
+        "turn_index": 20,
+        "kind": "issue",
+        "note": "Omitted the \"during business hours\" qualifier on the 10-minute callback window, risking an unmet expectation."
+      },
+      {
+        "turn_index": 20,
+        "kind": "strength",
+        "note": "Routed the \"is it worth it\" question to a licensed officer and named the missing detail (timeline) the officer will confirm."
+      }
+    ],
+    "overall_notes": "A strong, compliant intake that avoided savings or rate implications despite the borrower's stated goal of a lower payment. Minor issues: the callback timing lacked its business-hours caveat, and the handoff summary includes an unsupported \"ad\" source claim."
+  },
+  "score": {
+    "persona_id": "confused-first-timer",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": 1,
+    "field_recall": 0.875,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [
+      {
+        "source": "judge",
+        "rule_id": "misleading",
+        "turn_index": 20,
+        "excerpt": "They'll call you at this number, usually within 10 minutes.",
+        "severity": "warning"
+      }
+    ],
+    "objection_score": 5,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 4,
+    "borrower_turns": 10,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1337,
+      "simulator": 0.018,
+      "judge": 0.0558,
+      "total": 0.2075
+    }
+  }
+}
