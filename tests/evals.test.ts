@@ -78,8 +78,8 @@ describe("personas", () => {
     expect(actualOutcome({ status: "ended", end: { reason: "not_interested", notes: "" }, callback: null })).toBe("ended_other");
     expect(actualOutcome({ status: "active", end: null, callback: null })).toBe("incomplete");
     // A booked loan-officer review is follow-up; an ordinary callback is not.
-    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "loan_officer_review", preferred_time: "tomorrow", notes: "" } })).toBe("follow_up");
-    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "borrower_busy", preferred_time: "tomorrow", notes: "" } })).toBe("callback_booked");
+    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "loan_officer_review", preferred_time: "tomorrow", immediate_call_offered: false, notes: "" } })).toBe("follow_up");
+    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "borrower_busy", preferred_time: "tomorrow", immediate_call_offered: false, notes: "" } })).toBe("callback_booked");
   });
 });
 
@@ -182,6 +182,15 @@ describe("runChecks end to end", () => {
     expect(c.fields.recall).toBe(1);
   });
 
+  it("accepts a callback only when a qualified borrower was offered the immediate call and chose later", () => {
+    const p = byId("rushed-qualified");
+    const base = { status: "callback_booked" as const, lead: truthFor(cfg, p) };
+    const chose = runChecks(cfg, p, record([OPENER, agent("Booked for after 4.")], { ...base, callback: { reason: "borrower_request", preferred_time: "after 4", immediate_call_offered: true, notes: "" } }));
+    expect(chose).toMatchObject({ handoff_correct: true, borrower_chose_callback: true });
+    const notOffered = runChecks(cfg, p, record([OPENER, agent("Booked for after 4.")], { ...base, callback: { reason: "borrower_request", preferred_time: "after 4", immediate_call_offered: false, notes: "" } }));
+    expect(notOffered).toMatchObject({ handoff_correct: false, borrower_chose_callback: false });
+  });
+
   it("flags transferring an underwater borrower", () => {
     const r = record([OPENER, agent("Connecting you now.")], { status: "transferred" });
     const c = runChecks(cfg, byId("underwater"), r);
@@ -222,6 +231,7 @@ describe("scorecard math", () => {
       expected_outcome: "transferred",
       actual_outcome: "transferred",
       handoff_correct: true,
+      borrower_chose_callback: false,
       field_precision: 1,
       field_recall: 1,
       disclosure_ok: true,

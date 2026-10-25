@@ -60,9 +60,10 @@ export function buildTools(cfg: LenderConfig): Tool[] {
       properties: {
         reason: { type: "string", enum: ["borrower_busy", "borrower_request", "after_hours", "transfer_unavailable", "loan_officer_review"] },
         preferred_time: { type: "string", description: `When the ${who} wants the call, in their words (e.g. "tomorrow after 5pm").` },
+        immediate_call_offered: { type: "boolean", description: `True only if you offered an immediate loan-officer call and the ${who} chose the later time instead.` },
         notes: { type: "string", description: "Anything the loan officer should know." },
       },
-      required: ["reason", "preferred_time", "notes"],
+      required: ["reason", "preferred_time", "immediate_call_offered", "notes"],
       additionalProperties: false,
     },
   };
@@ -98,6 +99,7 @@ export type TransferInput = {
 export type CallbackInput = {
   reason: "borrower_busy" | "borrower_request" | "after_hours" | "transfer_unavailable" | "loan_officer_review";
   preferred_time: string;
+  immediate_call_offered: boolean;
   notes: string;
 };
 

@@ -1,0 +1,242 @@
+{
+  "persona": {
+    "id": "busy-callback",
+    "label": "Busy, wants a callback",
+    "description": "At work and won't do it by text. Wants a call tomorrow after 5pm. Agent should book a callback, not push.",
+    "intake": {
+      "first_name": "Sam",
+      "last_name": "Ortiz",
+      "form_answers": {
+        "What are you looking to do?": "Refinance"
+      }
+    },
+    "intent": "callback",
+    "objections": [
+      "busy"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 380000,
+      "loan_balance": 250000,
+      "current_rate": 7,
+      "credit_band": "good_680_739",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You are a nurse on shift and can't text right now. Your first reply is \"at work, can't do this now.\" If offered options, ask for someone to call you tomorrow after 5pm. Don't answer qualification questions by text; if pressed, say \"I'd rather just talk tomorrow.\" Once a callback is confirmed, say thanks and stop replying."
+  },
+  "result": {
+    "persona_id": "busy-callback",
+    "run_index": 2,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Sam",
+        "last_name": "Ortiz",
+        "form_answers": {
+          "What are you looking to do?": "Refinance"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Sam, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "at work, can't do this now."
+        },
+        {
+          "role": "agent",
+          "text": "Understood, Sam. I can ask 2-3 quick questions by text whenever you have a moment, or I can book a call with a loan officer at a time that works for you. Which would you prefer?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "can someone call me tomorrow after 5pm?"
+        },
+        {
+          "role": "agent",
+          "text": "Your call is booked. A licensed loan officer from Harborline will call you at this number tomorrow after 5pm to go over your refinance.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "borrower_busy",
+                "preferred_time": "tomorrow (Thursday) after 5pm",
+                "immediate_call_offered": false,
+                "notes": "Sam Ortiz submitted a refinance web inquiry. Was at work and couldn't answer questions by text. We haven't collected any details yet: goal, home value, balance, rate, credit range, occupancy, and timeline are all still needed."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say a licensed loan officer will call. Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {},
+      "handoff": null,
+      "callback": {
+        "reason": "borrower_busy",
+        "preferred_time": "tomorrow (Thursday) after 5pm",
+        "immediate_call_offered": false,
+        "notes": "Sam Ortiz submitted a refinance web inquiry. Was at work and couldn't answer questions by text. We haven't collected any details yet: goal, home value, balance, rate, credit range, occupancy, and timeline are all still needed."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 4,
+        "input_tokens": 14,
+        "output_tokens": 449,
+        "cache_write_tokens": 5749,
+        "cache_read_tokens": 16091
+      },
+      "cost_usd": 0.041
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 2,
+      "input_tokens": 8,
+      "output_tokens": 29,
+      "cache_write_tokens": 647,
+      "cache_read_tokens": 574
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "home_value",
+          "truth": 380000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 250000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "good_680_739",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": null,
+      "recall": 0
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 2
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "busy",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Agent followed the playbook exactly: acknowledged (\"Understood, Sam.\") and offered both options, \"2-3 quick questions by text whenever you have a moment, or I can book a call with a loan officer.\" When the borrower picked a time, the agent scheduled it and ended politely without pushing."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "The messages are brief and warm and use the borrower's name. The agent adapted immediately to \"at work\" and didn't add filler or extra questions. The closing confirmation is a single clean sentence.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower's time was respected (turn 2), and turn 4 states who will call (\"A licensed loan officer from Harborline\"), how (\"at this number\"), and when (\"tomorrow after 5pm\"). The only small gap is that the close has no thank-you or sign-off.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The opener discloses \"an automated assistant\", ties the contact to the borrower's own inquiry, and offers STOP up front."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "It offers exactly the two playbook options without pressing for answers while the borrower is at work."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "The confirmation names who will call, the number, and the time window, so the next step is unambiguous."
+      },
+      {
+        "turn_index": 4,
+        "kind": "issue",
+        "note": "The message ends abruptly with no thank-you or sign-off, and it doesn't name the day (Thursday), which the tool call captured."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant handling of a busy borrower that follows the playbook and sets a clear callback. The only minor polish would be a brief thank-you and naming the day explicitly."
+  },
+  "score": {
+    "persona_id": "busy-callback",
+    "run_index": 2,
+    "expected_outcome": "callback_booked",
+    "actual_outcome": "callback_booked",
+    "handoff_correct": true,
+    "borrower_chose_callback": false,
+    "field_precision": null,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 5,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 2,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.041,
+      "simulator": 0.004,
+      "judge": 0.0278,
+      "total": 0.0728
+    }
+  }
+}

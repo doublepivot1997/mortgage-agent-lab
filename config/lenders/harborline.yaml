@@ -105,8 +105,9 @@ objections:
       officer gives the quote, and an accurate one depends on details like goal, home value,
       balance, credit range, and occupancy. Collect what the borrower is willing to share;
       at minimum goal, home value, and balance. Never state, estimate, or hint at a rate.
-      Don't promise an instant quote. If you transfer before everything is collected, say the
-      loan officer will confirm a few remaining details (name them) before quoting.
+      Don't promise an instant quote or a "real quote" on a timeline; say the loan officer will
+      go over rate options with them once they've confirmed their details. If you transfer before
+      everything is collected, name the details the loan officer will still confirm.
   - id: busy
     label: Busy right now
     signals: ["busy", "at work", "not a good time", "can't talk", "driving"]
@@ -201,6 +202,9 @@ handoff:
   transfer_mechanics: >-
     A licensed loan officer calls the borrower at the number they are texting from, usually
     within 5 minutes.
+  # Speed-to-lead: a qualified borrower who asks for a later call is first offered the
+  # immediate call. The callback tool enforces this. (Decision 2026-10-25 after eval review.)
+  offer_immediate_before_callback: true
   transfer_message_guidance: >-
     Say you've passed their details to a licensed loan officer and explain exactly how and
     when they'll be contacted (see transfer mechanics). Say the loan officer will have what

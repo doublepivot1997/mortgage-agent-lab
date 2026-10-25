@@ -10,6 +10,7 @@ export interface ConversationScore {
   expected_outcome: Outcome;
   actual_outcome: Outcome;
   handoff_correct: boolean;
+  borrower_chose_callback: boolean;
   field_precision: number | null;
   field_recall: number | null; // null when recall doesn't apply (opt-out, callback, follow-up)
   disclosure_ok: boolean;
@@ -49,6 +50,7 @@ export function buildConversationScore(args: {
     expected_outcome: c.expected_outcome,
     actual_outcome: c.actual_outcome,
     handoff_correct: c.handoff_correct,
+    borrower_chose_callback: c.borrower_chose_callback,
     field_precision: c.fields.precision,
     field_recall: c.recall_applicable ? c.fields.recall : null,
     disclosure_ok: c.disclosure.ok,
@@ -154,6 +156,8 @@ export function buildScorecard(base: Omit<Scorecard, "overall" | "by_persona" | 
   const notes: string[] = [];
   const errors = base.conversations.filter((c) => c.stopped_because === "error" || c.judge_error).length;
   if (errors) notes.push(`${errors} conversation(s) hit an API or judge error; see conversation files.`);
+  const chose = base.conversations.filter((c) => c.borrower_chose_callback).length;
+  if (chose) notes.push(`${chose} qualified borrower(s) were offered an immediate call and chose a later callback; counted as correct.`);
   const maxed = base.conversations.filter((c) => c.stopped_because === "max_turns").length;
   if (maxed) notes.push(`${maxed} conversation(s) hit the turn limit without finishing.`);
   return { ...base, overall: aggregate(base.conversations), by_persona, violations_by_rule, notes };

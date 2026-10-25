@@ -97,6 +97,7 @@ export const LenderConfigSchema = z
       licensed_question_min_fields: z.array(z.string()).default([]),
       transfer_message_guidance: z.string(),
       transfer_mechanics: z.string().optional(),
+      offer_immediate_before_callback: z.boolean().default(false),
       after_hours_guidance: z.string().optional(),
     }),
   })

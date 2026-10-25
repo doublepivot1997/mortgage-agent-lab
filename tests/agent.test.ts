@@ -121,6 +121,38 @@ describe("AgentSession (scripted model, no network)", () => {
     expect(s.toRecord().cost_usd).toBeGreaterThan(0);
   });
 
+  it("makes the agent offer an immediate call before booking a later one for a qualified borrower", async () => {
+    const full = { ...nulls, loan_goal: "rate_and_term", home_value: 500000, loan_balance: 300000, current_rate: 7.1, credit_band: "good_680_739", occupancy: "primary_residence", timeline: "asap" };
+    const later = { reason: "borrower_request", preferred_time: "today after 4", notes: "" };
+    const { client } = fakeClient([
+      [{ type: "text", text: "Hi Jordan, this is Riley, an automated assistant with Harborline Home Loans." }],
+      [{ type: "tool_use", name: "record_lead_info", input: full }, { type: "tool_use", name: "schedule_callback", input: { ...later, immediate_call_offered: false } }],
+      [{ type: "text", text: "A loan officer can call you in about 5 minutes, or I can book after 4. Which works better?" }],
+      [{ type: "tool_use", name: "schedule_callback", input: { ...later, immediate_call_offered: true } }],
+      [{ type: "text", text: "Booked: a licensed loan officer will call you today after 4." }],
+    ]);
+    const s = new AgentSession({ lender: harborline(), intake, now: WED_2PM_ET, client });
+    await s.start();
+    const first = await s.send("all my details... can someone call me after 4?");
+    expect(first.events[1]).toMatchObject({ name: "schedule_callback", is_error: true });
+    expect(first.events[1]!.result).toMatch(/offer the immediate call/);
+    expect(s.status).toBe("active");
+    const second = await s.send("after 4 is better");
+    expect(second.status).toBe("callback_booked");
+    expect(s.callback?.immediate_call_offered).toBe(true);
+  });
+
+  it("books a busy borrower's callback directly when they aren't qualified yet", async () => {
+    const { client } = fakeClient([
+      [{ type: "text", text: "Hi Jordan, this is Riley, an automated assistant with Harborline Home Loans." }],
+      [{ type: "tool_use", name: "schedule_callback", input: { reason: "borrower_busy", preferred_time: "tomorrow after 5", immediate_call_offered: false, notes: "" } }],
+      [{ type: "text", text: "Booked for tomorrow after 5." }],
+    ]);
+    const s = new AgentSession({ lender: harborline(), intake, now: WED_2PM_ET, client });
+    await s.start();
+    expect((await s.send("at work, call me tomorrow after 5")).status).toBe("callback_booked");
+  });
+
   it("honors a hard STOP without calling the model", async () => {
     const { client, calls } = fakeClient([[{ type: "text", text: "Hi Jordan, this is Riley, an automated assistant with Harborline Home Loans." }]]);
     const s = new AgentSession({ lender: harborline(), intake, now: WED_2PM_ET, client });

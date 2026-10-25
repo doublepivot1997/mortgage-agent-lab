@@ -138,6 +138,19 @@ export interface DeterministicResult {
   opt_out: OptOutResult;
   violations: Violation[];
   borrower_turns: number;
+  /** A qualified borrower was offered an immediate call and chose a later time instead. Counts as correct. */
+  borrower_chose_callback: boolean;
+}
+
+export function borrowerChoseCallback(expected: Outcome, actual: Outcome, record: SessionRecord): boolean {
+  const cb = record.callback;
+  return (
+    expected === "transferred" &&
+    actual === "callback_booked" &&
+    !!cb &&
+    (cb.reason === "borrower_request" || cb.reason === "borrower_busy") &&
+    cb.immediate_call_offered === true
+  );
 }
 
 export function runChecks(cfg: LenderConfig, persona: Persona, record: SessionRecord): DeterministicResult {
@@ -155,7 +168,8 @@ export function runChecks(cfg: LenderConfig, persona: Persona, record: SessionRe
   return {
     expected_outcome: expected,
     actual_outcome: actual,
-    handoff_correct: expected === actual,
+    handoff_correct: expected === actual || borrowerChoseCallback(expected, actual, record),
+    borrower_chose_callback: borrowerChoseCallback(expected, actual, record),
     fields: compareFields(cfg, truthFor(cfg, persona), record.lead),
     recall_applicable: expected === "transferred",
     disclosure,

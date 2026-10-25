@@ -209,7 +209,23 @@ export class AgentSession {
       case "transfer_to_loan_officer":
         return this.transfer(input as TransferInput);
       case "schedule_callback": {
-        this.callback = input as CallbackInput;
+        const cb = input as CallbackInput;
+        const optional = cb.reason === "borrower_busy" || cb.reason === "borrower_request";
+        if (
+          this.cfg.handoff.offer_immediate_before_callback &&
+          optional &&
+          !cb.immediate_call_offered &&
+          evaluateHandoff(this.cfg, this.lead, this.now, "qualified").action === "transfer"
+        ) {
+          return {
+            result:
+              "Not booked yet. This borrower is qualified and a loan officer can call now. First offer the immediate call in one short message " +
+              "(e.g. \"A loan officer can call you in about 5 minutes, or I can book that later time. Which works better?\"). " +
+              "If they pick the later time, call schedule_callback again with immediate_call_offered true. If they pick now, transfer.",
+            is_error: true,
+          };
+        }
+        this.callback = cb;
         this.status = "callback_booked";
         return {
           result: `Callback booked. In one short message, confirm the time and say a licensed loan officer will call${this.cfg.handoff.follow_up_timeframe && this.callback.reason === "loan_officer_review" ? ` (${this.cfg.handoff.follow_up_timeframe} at the latest)` : ""}. Then close.`,

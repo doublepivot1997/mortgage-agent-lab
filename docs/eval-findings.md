@@ -91,3 +91,33 @@ callback as correct.
 
 **Remaining warnings (2):** rate shopper told "then a loan officer can call you with a real
 quote" before credit and occupancy are known. Minor wording.
+
+## 2026-10-25 · Harborline · offer the immediate call first (`2026-10-25T20-25-36`, 21 conversations, $2.64)
+
+Decision: when a qualified borrower asks for a later call, the agent first offers the immediate
+call ("a loan officer can call you in about 5 minutes, or I can book after 4 - which works?") and
+books the later time only if the borrower chooses it (speed-to-lead).
+- Config: `handoff.offer_immediate_before_callback: true`.
+- Enforced in code: `schedule_callback` now has `immediate_call_offered`; for a qualified borrower
+  with live transfer available, an optional callback without the offer is refused with instructions.
+- Scoring: a callback counts as a correct handoff for a should-transfer borrower only if the
+  immediate call was offered and the borrower chose later.
+- Softened rate-shopper wording ("go over rate options once they've confirmed your details").
+
+| Metric | Before (`20-16-14`) | After (`20-25-36`) |
+|---|---|---|
+| Handoff correctness | 95% | 100% |
+| Handoff summary quality | 4.5 | 5.0 |
+| Naturalness | 4.3 | 4.5 |
+| Borrower experience | 4.6 | 4.5 |
+| Clear next step / frustrated endings | 100% / 0% | 100% / 0% |
+| Violations / warnings | 0 / 2 | 0 / 3 |
+
+No simulated borrower asked for a later call in this run, so the new path was verified with a
+scripted chat at a simulated 10am: the agent offered the 5-minute call unprompted, the borrower
+chose 4pm, and the callback was booked with `immediate_call_offered: true`. (At the real clock,
+4:31pm, the agent correctly noticed "after 4" was already now and transferred.)
+
+Remaining warnings (3, minor): "they'll need a few basics to give you real numbers";
+underwater "set you up to talk with one shortly" and "today or tomorrow evening" (the agent
+narrowing "within one business day" on its own).
