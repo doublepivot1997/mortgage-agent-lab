@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ConfigError, listLenders, loadLenderConfig, loadModelConfig, parseLenderConfig } from "../src/lib/config.js";
-import { harborline, tweak } from "./helpers.js";
+import { ConfigError, listLenders, loadLenderConfig, loadModelConfig, parseLenderConfig } from "../src/lib/config";
+import { harborline, tweak } from "./helpers";
 
 describe("lender config loading", () => {
   it("loads Harborline and validates it", () => {

@@ -1,11 +1,11 @@
 import type Anthropic from "@anthropic-ai/sdk";
-import { FALLBACK_BETA, getClient } from "../lib/anthropic.js";
-import { loadLenderConfig, loadModelConfig, type LenderConfig, type ModelConfig } from "../lib/config.js";
-import { addUsage, costUsd, emptyTally, type UsageTally } from "../lib/cost.js";
-import { computeLtv, evaluateHandoff, mergeLeadFields, missingRequiredFields, type LeadFields } from "./lead.js";
-import { isHardStop } from "./optout.js";
-import { buildIntakeMessage, buildSystemPrompt, type LeadIntake } from "./prompt.js";
-import { buildTools, type CallbackInput, type EndInput, type TransferInput } from "./tools.js";
+import { FALLBACK_BETA, getClient } from "../lib/anthropic";
+import { loadLenderConfig, loadModelConfig, type LenderConfig, type ModelConfig } from "../lib/config";
+import { addUsage, costUsd, emptyTally, type UsageTally } from "../lib/cost";
+import { computeLtv, evaluateHandoff, mergeLeadFields, missingRequiredFields, type LeadFields } from "./lead";
+import { isHardStop } from "./optout";
+import { buildIntakeMessage, buildSystemPrompt, type LeadIntake } from "./prompt";
+import { buildTools, type CallbackInput, type EndInput, type TransferInput } from "./tools";
 
 export type SessionStatus = "active" | "transferred" | "callback_booked" | "ended" | "opted_out";
 
@@ -57,6 +57,22 @@ export interface AgentReply {
   text: string | null;
   status: SessionStatus;
   events: ToolEvent[];
+}
+
+/** Everything needed to resume a session in a later request (e.g. a stateless web API). */
+export interface SessionState {
+  v: 1;
+  lender_id: string;
+  now: string;
+  intake: LeadIntake;
+  status: SessionStatus;
+  lead: LeadFields;
+  transcript: TranscriptTurn[];
+  handoff: HandoffSummary | null;
+  callback: CallbackInput | null;
+  end: EndInput | null;
+  usage: UsageTally;
+  history: Anthropic.Beta.BetaMessageParam[];
 }
 
 export interface SessionOptions {
@@ -128,6 +144,38 @@ export class AgentSession {
 
   get costUsd(): number {
     return costUsd(this.models.pricing, this.usage);
+  }
+
+  /** Serialize for resuming later. History is kept verbatim so thinking blocks stay valid. */
+  toState(): SessionState {
+    return {
+      v: 1,
+      lender_id: this.cfg.lender.id,
+      now: this.now.toISOString(),
+      intake: this.intake,
+      status: this.status,
+      lead: { ...this.lead },
+      transcript: this.transcript,
+      handoff: this.handoff,
+      callback: this.callback,
+      end: this.end,
+      usage: { ...this.usage },
+      history: this.history,
+    };
+  }
+
+  static fromState(state: SessionState, opts: { models?: ModelConfig; client?: Anthropic } = {}): AgentSession {
+    if (state.v !== 1) throw new Error("unsupported session state version");
+    const s = new AgentSession({ lender: state.lender_id, intake: state.intake, now: new Date(state.now), ...opts });
+    s.status = state.status;
+    s.lead = { ...state.lead };
+    s.transcript = state.transcript;
+    s.handoff = state.handoff;
+    s.callback = state.callback;
+    s.end = state.end;
+    s.usage = { ...state.usage };
+    s.history = state.history;
+    return s;
   }
 
   toRecord(): SessionRecord {

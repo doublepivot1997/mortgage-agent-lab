@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { analyze, recommend } from "../src/health/analyze.js";
-import { generateCalls, rng, toCsv, type SyntheticCall } from "../src/health/generate.js";
-import { renderHealthHtml, renderHealthMarkdown } from "../src/health/render.js";
+import { analyze, recommend } from "../src/health/analyze";
+import { generateCalls, rng, toCsv, type SyntheticCall } from "../src/health/generate";
+import { renderHealthHtml, renderHealthMarkdown } from "../src/health/render";
 
 function call(over: Partial<SyntheticCall>): SyntheticCall {
   return {

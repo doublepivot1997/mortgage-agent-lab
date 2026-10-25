@@ -1,4 +1,4 @@
-import type { LenderConfig } from "../lib/config.js";
+import type { LenderConfig } from "../lib/config";
 
 function normalize(text: string): string {
   return text

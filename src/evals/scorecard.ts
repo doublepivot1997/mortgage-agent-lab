@@ -1,8 +1,8 @@
-import type { ModelConfig } from "../lib/config.js";
-import { costUsd, type UsageTally } from "../lib/cost.js";
-import type { DeterministicResult, Violation } from "./checks.js";
-import type { JudgeOutput } from "./judge.js";
-import type { Outcome } from "./personas.js";
+import type { ModelConfig } from "../lib/config";
+import { costUsd, type UsageTally } from "../lib/cost";
+import type { DeterministicResult, Violation } from "./checks";
+import type { JudgeOutput } from "./judge";
+import type { Outcome } from "./personas";
 
 export interface ConversationScore {
   persona_id: string;

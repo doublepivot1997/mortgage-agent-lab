@@ -1,6 +1,6 @@
-import type { LenderConfig } from "../lib/config.js";
-import { expectedOutcome, type Persona } from "./personas.js";
-import type { Metrics, Scorecard } from "./scorecard.js";
+import type { LenderConfig } from "../lib/config";
+import { expectedOutcome, type Persona } from "./personas";
+import type { Metrics, Scorecard } from "./scorecard";
 
 // ---------- Config diff ----------
 

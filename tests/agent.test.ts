@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { buildIntakeMessage, buildSystemPrompt } from "../src/agent/prompt.js";
-import { AgentSession } from "../src/agent/session.js";
-import { buildTools } from "../src/agent/tools.js";
-import { fakeClient, harborline, tweak } from "./helpers.js";
+import { buildIntakeMessage, buildSystemPrompt } from "../src/agent/prompt";
+import { AgentSession } from "../src/agent/session";
+import { buildTools } from "../src/agent/tools";
+import { fakeClient, harborline, tweak } from "./helpers";
 
 const intake = { first_name: "Jordan", last_name: "Avery", form_answers: { goal: "Refinance" } };
 const WED_2PM_ET = new Date("2026-10-21T18:00:00Z");

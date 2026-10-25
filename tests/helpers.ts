@@ -1,5 +1,5 @@
 import type Anthropic from "@anthropic-ai/sdk";
-import { loadLenderConfig, type LenderConfig } from "../src/lib/config.js";
+import { loadLenderConfig, type LenderConfig } from "../src/lib/config";
 
 export function harborline(): LenderConfig {
   return loadLenderConfig("harborline");

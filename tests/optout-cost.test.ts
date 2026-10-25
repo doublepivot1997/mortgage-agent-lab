@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { hasSoftOptOut, isHardStop } from "../src/agent/optout.js";
-import { loadModelConfig } from "../src/lib/config.js";
-import { addUsage, costUsd, emptyTally, sumCosts } from "../src/lib/cost.js";
-import { harborline } from "./helpers.js";
+import { hasSoftOptOut, isHardStop } from "../src/agent/optout";
+import { loadModelConfig } from "../src/lib/config";
+import { addUsage, costUsd, emptyTally, sumCosts } from "../src/lib/cost";
+import { harborline } from "./helpers";
 
 describe("opt-out detection", () => {
   const cfg = harborline();

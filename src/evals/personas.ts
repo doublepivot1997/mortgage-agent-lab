@@ -2,9 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
-import { evaluateHandoff, type LeadFields } from "../agent/lead.js";
-import type { SessionRecord } from "../agent/session.js";
-import { ConfigError, ROOT, type LenderConfig } from "../lib/config.js";
+import { evaluateHandoff, type LeadFields } from "../agent/lead";
+import type { SessionRecord } from "../agent/session";
+import { ConfigError, ROOT, type LenderConfig } from "../lib/config";
 
 export const PersonaSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),

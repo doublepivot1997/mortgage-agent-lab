@@ -1,4 +1,4 @@
-import type { HealthReport } from "./analyze.js";
+import type { HealthReport } from "./analyze";
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const pct = (n: number) => `${Math.round(n * 100)}%`;

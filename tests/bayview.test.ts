@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { evaluateHandoff } from "../src/agent/lead.js";
-import { buildSystemPrompt } from "../src/agent/prompt.js";
-import { AgentSession } from "../src/agent/session.js";
-import { checkDisclosure, checkProhibitedPhrases } from "../src/evals/checks.js";
-import { diffConfigs, flattenConfig, renderComparison } from "../src/evals/compare.js";
-import { buildJudgePrompt } from "../src/evals/judge.js";
-import { actualOutcome, expectedOutcome, loadPersonas, validatePersonaForLender } from "../src/evals/personas.js";
-import { loadLenderConfig } from "../src/lib/config.js";
-import { fakeClient } from "./helpers.js";
+import { evaluateHandoff } from "../src/agent/lead";
+import { buildSystemPrompt } from "../src/agent/prompt";
+import { AgentSession } from "../src/agent/session";
+import { checkDisclosure, checkProhibitedPhrases } from "../src/evals/checks";
+import { diffConfigs, flattenConfig, renderComparison } from "../src/evals/compare";
+import { buildJudgePrompt } from "../src/evals/judge";
+import { actualOutcome, expectedOutcome, loadPersonas, validatePersonaForLender } from "../src/evals/personas";
+import { loadLenderConfig } from "../src/lib/config";
+import { fakeClient } from "./helpers";
 
 const harborline = loadLenderConfig("harborline");
 const bayview = loadLenderConfig("bayview");

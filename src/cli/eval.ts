@@ -9,15 +9,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { getClient } from "../lib/anthropic.js";
-import { ROOT, loadLenderConfig, loadModelConfig } from "../lib/config.js";
-import { loadLocalEnv } from "../lib/env.js";
-import { runChecks } from "../evals/checks.js";
-import { judgeConversation, mergeViolations } from "../evals/judge.js";
-import { expectedOutcome, loadPersonas, validatePersonaForLender } from "../evals/personas.js";
-import { buildConversationScore, buildScorecard, renderSummaryMarkdown, type ConversationScore, type Scorecard } from "../evals/scorecard.js";
-import { runConversation } from "../evals/simulator.js";
-import { emptyTally } from "../lib/cost.js";
+import { getClient } from "../lib/anthropic";
+import { ROOT, loadLenderConfig, loadModelConfig } from "../lib/config";
+import { loadLocalEnv } from "../lib/env";
+import { runChecks } from "../evals/checks";
+import { judgeConversation, mergeViolations } from "../evals/judge";
+import { expectedOutcome, loadPersonas, validatePersonaForLender } from "../evals/personas";
+import { buildConversationScore, buildScorecard, renderSummaryMarkdown, type ConversationScore, type Scorecard } from "../evals/scorecard";
+import { runConversation } from "../evals/simulator";
+import { emptyTally } from "../lib/cost";
 
 loadLocalEnv();
 

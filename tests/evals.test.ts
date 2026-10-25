@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
-import type { SessionRecord, TranscriptTurn } from "../src/agent/session.js";
-import { emptyTally } from "../src/lib/cost.js";
-import { loadModelConfig } from "../src/lib/config.js";
-import { checkCleanClose, checkDisclosure, checkOptOut, checkProhibitedPhrases, compareFields, numbersIn, runChecks } from "../src/evals/checks.js";
-import { mergeViolations, renderTranscript } from "../src/evals/judge.js";
-import { actualOutcome, expectedOutcome, loadPersonas, truthFor, validatePersonaForLender, type Persona } from "../src/evals/personas.js";
-import { aggregate, buildConversationScore, buildScorecard, mean, renderSummaryMarkdown, type ConversationScore } from "../src/evals/scorecard.js";
-import { buildSimulatorPrompt } from "../src/evals/simulator.js";
-import { harborline, tweak } from "./helpers.js";
+import type { SessionRecord, TranscriptTurn } from "../src/agent/session";
+import { emptyTally } from "../src/lib/cost";
+import { loadModelConfig } from "../src/lib/config";
+import { checkCleanClose, checkDisclosure, checkOptOut, checkProhibitedPhrases, compareFields, numbersIn, runChecks } from "../src/evals/checks";
+import { mergeViolations, renderTranscript } from "../src/evals/judge";
+import { actualOutcome, expectedOutcome, loadPersonas, truthFor, validatePersonaForLender, type Persona } from "../src/evals/personas";
+import { aggregate, buildConversationScore, buildScorecard, mean, renderSummaryMarkdown, type ConversationScore } from "../src/evals/scorecard";
+import { buildSimulatorPrompt } from "../src/evals/simulator";
+import { harborline, tweak } from "./helpers";
 
 const cfg = harborline();
 const personas = loadPersonas();

@@ -7,10 +7,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { ROOT, loadLenderConfig } from "../lib/config.js";
-import { analyze } from "../health/analyze.js";
-import { generateCalls, toCsv } from "../health/generate.js";
-import { renderHealthHtml, renderHealthMarkdown } from "../health/render.js";
+import { ROOT, loadLenderConfig } from "../lib/config";
+import { analyze } from "../health/analyze";
+import { generateCalls, toCsv } from "../health/generate";
+import { renderHealthHtml, renderHealthMarkdown } from "../health/render";
 
 const { values } = parseArgs({
   options: {

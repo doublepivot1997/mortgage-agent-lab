@@ -1,4 +1,4 @@
-import type { FieldDef, LenderConfig } from "../lib/config.js";
+import type { FieldDef, LenderConfig } from "../lib/config";
 
 export type FieldValue = string | number | boolean;
 export type LeadFields = Record<string, FieldValue>;

@@ -10,15 +10,25 @@
     "typecheck": "tsc --noEmit",
     "eval": "tsx src/cli/eval.ts",
     "compare": "tsx src/cli/compare.ts",
-    "health": "tsx src/cli/health.ts"
+    "health": "tsx src/cli/health.ts",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.1.0",
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.39.0",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "yaml": "^2.9.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"

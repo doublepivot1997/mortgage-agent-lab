@@ -1,4 +1,4 @@
-import { LEAD_SOURCES, OBJECTIONS, QUESTION_STAGES, type LeadSource, type Objection, type QuestionStage, type SyntheticCall } from "./generate.js";
+import { LEAD_SOURCES, OBJECTIONS, QUESTION_STAGES, type LeadSource, type Objection, type QuestionStage, type SyntheticCall } from "./generate";
 
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 const rate = (num: number, den: number) => (den ? r3(num / den) : 0);

@@ -6,8 +6,8 @@ import {
   mergeLeadFields,
   missingRequiredFields,
   type LeadFields,
-} from "../src/agent/lead.js";
-import { harborline, tweak } from "./helpers.js";
+} from "../src/agent/lead";
+import { harborline, tweak } from "./helpers";
 
 const fullLead = (): LeadFields => ({
   loan_goal: "rate_and_term",

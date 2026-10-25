@@ -7,10 +7,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
-import { ROOT, loadLenderConfig } from "../lib/config.js";
-import { diffConfigs, renderComparison } from "../evals/compare.js";
-import { loadPersonas } from "../evals/personas.js";
-import type { Scorecard } from "../evals/scorecard.js";
+import { ROOT, loadLenderConfig } from "../lib/config";
+import { diffConfigs, renderComparison } from "../evals/compare";
+import { loadPersonas } from "../evals/personas";
+import type { Scorecard } from "../evals/scorecard";
 
 const { values } = parseArgs({
   options: {

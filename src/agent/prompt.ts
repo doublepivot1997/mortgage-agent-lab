@@ -1,5 +1,5 @@
-import type { LenderConfig } from "../lib/config.js";
-import { localClock } from "./lead.js";
+import type { LenderConfig } from "../lib/config";
+import { localClock } from "./lead";
 
 const bullets = (items: string[]) => items.map((i) => `- ${i}`).join("\n");
 

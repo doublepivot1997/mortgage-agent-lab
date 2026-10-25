@@ -9,9 +9,9 @@ import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline/promises";
 import { parseArgs } from "node:util";
-import { AgentSession, type AgentReply } from "../agent/session.js";
-import { ROOT } from "../lib/config.js";
-import { loadLocalEnv } from "../lib/env.js";
+import { AgentSession, type AgentReply } from "../agent/session";
+import { ROOT } from "../lib/config";
+import { loadLocalEnv } from "../lib/env";
 
 loadLocalEnv();
 

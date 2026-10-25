@@ -1,5 +1,5 @@
 import type Anthropic from "@anthropic-ai/sdk";
-import type { FieldDef, LenderConfig } from "../lib/config.js";
+import type { FieldDef, LenderConfig } from "../lib/config";
 
 type Tool = Anthropic.Beta.BetaTool;
 type JsonSchema = Record<string, unknown>;

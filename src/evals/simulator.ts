@@ -1,9 +1,9 @@
 import type Anthropic from "@anthropic-ai/sdk";
-import { AgentSession, type SessionRecord } from "../agent/session.js";
-import { FALLBACK_BETA } from "../lib/anthropic.js";
-import type { LenderConfig, ModelConfig } from "../lib/config.js";
-import { addUsage, emptyTally, type UsageTally } from "../lib/cost.js";
-import { personaNow, truthFor, type Persona } from "./personas.js";
+import { AgentSession, type SessionRecord } from "../agent/session";
+import { FALLBACK_BETA } from "../lib/anthropic";
+import type { LenderConfig, ModelConfig } from "../lib/config";
+import { addUsage, emptyTally, type UsageTally } from "../lib/cost";
+import { personaNow, truthFor, type Persona } from "./personas";
 
 const END = "[END]";
 

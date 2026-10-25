@@ -1,4 +1,4 @@
-import type { ModelConfig } from "./config.js";
+import type { ModelConfig } from "./config";
 
 export interface UsageTally {
   model: string;

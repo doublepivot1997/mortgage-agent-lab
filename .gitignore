@@ -14,3 +14,7 @@ coverage/
 # Local scratch chats (eval transcripts under data/runs are committed)
 data/chats/
 .vercel
+
+# Next.js
+next-env.d.ts
+*.tsbuildinfo

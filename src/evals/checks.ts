@@ -2,11 +2,11 @@
  * Deterministic checks: regex and rule based, no model calls. Free to run and fully repeatable.
  * The LLM judge only handles what genuinely needs judgment.
  */
-import type { LeadFields } from "../agent/lead.js";
-import { hasSoftOptOut, isHardStop } from "../agent/optout.js";
-import type { SessionRecord, TranscriptTurn } from "../agent/session.js";
-import type { FieldDef, LenderConfig } from "../lib/config.js";
-import { actualOutcome, expectedOutcome, truthFor, type Outcome, type Persona } from "./personas.js";
+import type { LeadFields } from "../agent/lead";
+import { hasSoftOptOut, isHardStop } from "../agent/optout";
+import type { SessionRecord, TranscriptTurn } from "../agent/session";
+import type { FieldDef, LenderConfig } from "../lib/config";
+import { actualOutcome, expectedOutcome, truthFor, type Outcome, type Persona } from "./personas";
 
 export interface Violation {
   source: "rule" | "judge";

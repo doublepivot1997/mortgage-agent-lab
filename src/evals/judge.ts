@@ -1,12 +1,12 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
-import type { SessionRecord } from "../agent/session.js";
-import { FALLBACK_BETA } from "../lib/anthropic.js";
-import type { LenderConfig, ModelConfig } from "../lib/config.js";
-import { addUsage, emptyTally, type UsageTally } from "../lib/cost.js";
-import type { Violation } from "./checks.js";
-import { localClock } from "../agent/lead.js";
+import type { SessionRecord } from "../agent/session";
+import { FALLBACK_BETA } from "../lib/anthropic";
+import type { LenderConfig, ModelConfig } from "../lib/config";
+import { addUsage, emptyTally, type UsageTally } from "../lib/cost";
+import type { Violation } from "./checks";
+import { localClock } from "../agent/lead";
 
 export const JudgeOutputSchema = z.object({
   objections: z.array(
