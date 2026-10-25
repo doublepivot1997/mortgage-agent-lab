@@ -1,0 +1,339 @@
+{
+  "persona": {
+    "id": "rushed-qualified",
+    "label": "Rushed but qualified",
+    "description": "Busy professional between meetings. Terse, answers several things at once. Should be transferred.",
+    "intake": {
+      "first_name": "Taylor",
+      "last_name": "Brooks",
+      "form_answers": {
+        "What are you looking to do?": "Lower my rate"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "busy"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 520000,
+      "loan_balance": 310000,
+      "current_rate": 7.25,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "asap",
+      "is_member": true
+    },
+    "behavior": "You are between meetings and have about five minutes. Your first reply says something like \"ok but make it fast, I'm busy.\" Use short, lowercase texts with no pleasantries. When asked something, answer it, and volunteer one or two related facts if it saves time. Round numbers the way people do (\"about 520\", \"owe like 310k\"). If the assistant is slow or repetitive, show mild impatience. You want a lower rate and you want to talk to someone today."
+  },
+  "result": {
+    "persona_id": "rushed-qualified",
+    "run_index": 2,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Taylor",
+        "last_name": "Brooks",
+        "form_answers": {
+          "What are you looking to do?": "Lower my rate"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Taylor, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "ok but make it fast, im busy. looking to drop my rate, at 7.25 now"
+        },
+        {
+          "role": "agent",
+          "text": "Got it, I'll keep it quick. Roughly what's your home worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.25,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, current_rate. Still needed: home_value, loan_balance, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "about 520. owe like 310k"
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Is this your primary home, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 520000,
+                "loan_balance": 310000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value, loan_balance. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "primary. credit's good, 740+. can i talk to someone today?"
+        },
+        {
+          "role": "agent",
+          "text": "Yes. I've sent your details to a licensed loan officer, who will call you at this number, usually within 5 minutes. They'll have what you've shared so far, may double-check a few details, and will ask how soon you'd like to move forward.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "excellent_740_plus",
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: credit_band, occupancy. Still needed: timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "borrower_requested_human",
+                "borrower_summary": "Taylor Brooks, primary residence worth about $520k, owes about $310k at 7.25%, self-reported credit 740+. Busy, wants to move quickly.",
+                "borrower_goal": "Lower my rate (rate-and-term refinance).",
+                "sentiment": "neutral",
+                "objections_raised": [
+                  "Busy, wants it fast"
+                ],
+                "open_questions": [
+                  "Timeline not confirmed (asked to talk today)"
+                ],
+                "recommended_next_step": "Call Taylor today, confirm timeline, and discuss rate-and-term refinance options."
+              },
+              "result": "Transfer initiated. A licensed loan officer calls the borrower at the number they are texting from, usually within 5 minutes. Say you've passed their details to a licensed loan officer and explain exactly how and when they'll be contacted (see transfer mechanics). Say the loan officer will have what they shared and may confirm a few details; name any that are still missing. Do not promise they won't need to repeat anything.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "current_rate": 7.25,
+        "home_value": 520000,
+        "loan_balance": 310000,
+        "credit_band": "excellent_740_plus",
+        "occupancy": "primary_residence"
+      },
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Taylor",
+          "last_name": "Brooks"
+        },
+        "reason": "borrower_requested_human",
+        "borrower_summary": "Taylor Brooks, primary residence worth about $520k, owes about $310k at 7.25%, self-reported credit 740+. Busy, wants to move quickly.",
+        "borrower_goal": "Lower my rate (rate-and-term refinance).",
+        "qualification": {
+          "loan_goal": "rate_and_term",
+          "current_rate": 7.25,
+          "home_value": 520000,
+          "loan_balance": 310000,
+          "credit_band": "excellent_740_plus",
+          "occupancy": "primary_residence"
+        },
+        "missing_fields": [
+          "timeline"
+        ],
+        "ltv": 0.596,
+        "sentiment": "neutral",
+        "objections_raised": [
+          "Busy, wants it fast"
+        ],
+        "open_questions": [
+          "Timeline not confirmed (asked to talk today)"
+        ],
+        "recommended_next_step": "Call Taylor today, confirm timeline, and discuss rate-and-term refinance options."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 7,
+        "input_tokens": 22,
+        "output_tokens": 1410,
+        "cache_write_tokens": 1712,
+        "cache_read_tokens": 38091
+      },
+      "cost_usd": 0.0445
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 3,
+      "input_tokens": 12,
+      "output_tokens": 91,
+      "cache_write_tokens": 713,
+      "cache_read_tokens": 1286
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 520000,
+          "captured": 520000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 310000,
+          "captured": 310000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.25,
+          "captured": 7.25,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": "excellent_740_plus",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.8571428571428571
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 3
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "busy",
+        "turn_index": 1,
+        "score": 4,
+        "rationale": "The borrower said \"ok but make it fast, im busy\", which accepted texting while flagging time pressure. The agent acknowledged it (\"Got it, I'll keep it quick\") and kept every question short, which suits this borrower. It did not offer the playbook's callback-time option, but the borrower had already effectively chosen to answer by text."
+      }
+    ],
+    "naturalness_score": 5,
+    "naturalness_rationale": "Messages are brief, warm and adapted to a rushed borrower. The agent asked one question per turn, offered \"A ballpark is fine\", and skipped questions the borrower answered unprompted (balance, credit). Turn 6 answers the direct question with \"Yes.\" before explaining.",
+    "borrower_experience_score": 5,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower asked to talk to someone today and in turn 6 got an immediate yes. They were told who would call (\"a licensed loan officer\"), how (\"at this number\") and when (\"usually within 5 minutes\"), with honest expectations that the officer \"may double-check a few details\".",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The handoff summary is accurate and complete. It covers goal, current rate 7.25%, $520k value, $310k balance, 740+ credit, primary residence and a correct LTV of 0.596. It correctly lists timeline as the only missing field and notes the borrower is busy and wants a call today. The recommended next step is actionable.",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The opener discloses \"an automated assistant\", references the inquiry the borrower just submitted, and gives the STOP opt-out."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "\"Got it, I'll keep it quick\" acknowledges the time pressure, and \"A ballpark is fine\" lowers friction for a busy borrower."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "The agent registered the balance the borrower volunteered and moved straight to occupancy, so the borrower was not asked to repeat anything."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "The transfer message gives concrete contact mechanics (\"call you at this number, usually within 5 minutes\") and names the missing detail (\"how soon you'd like to move forward\") without promising no repetition."
+      },
+      {
+        "turn_index": 2,
+        "kind": "issue",
+        "note": "The agent did not explicitly offer the playbook's alternative of scheduling a callback time for the busy borrower, though the borrower's \"ok\" made this low-impact."
+      }
+    ],
+    "overall_notes": "This is a tight, compliant conversation: no rate hints or approval language, honest transfer expectations, and an excellent handoff summary. The only minor gap is not offering the callback-time option from the busy playbook."
+  },
+  "score": {
+    "persona_id": "rushed-qualified",
+    "run_index": 2,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "field_precision": 1,
+    "field_recall": 0.8571428571428571,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 4,
+    "naturalness": 5,
+    "borrower_experience": 5,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": 5,
+    "borrower_turns": 3,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0445,
+      "simulator": 0.0057,
+      "judge": 0.0449,
+      "total": 0.0951
+    }
+  }
+}

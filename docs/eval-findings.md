@@ -64,3 +64,30 @@ experience 4.3/5 · clear next step 86% · recall 83% (rate shopper 57% by desig
   Skeptical cash-out ended without a clear next step in 3 of 3 runs.
 - "Your situation is one a loan officer should review personally" (from `not_eligible_guidance`)
   reads as hinting at a problem; "You're all set" reads as an approval.
+
+## 2026-10-25 · Harborline · transfer wording fix + full re-run (`2026-10-25T20-16-14`, 21 conversations, $2.47)
+
+Changes: new `handoff.transfer_mechanics` ("a licensed loan officer calls ... usually within
+5 minutes"); transfer message no longer promises "you won't need to repeat yourself";
+not-eligible borrowers get the same neutral "go over your options" call offer as anyone;
+experience rule against decision-sounding phrases ("you're all set").
+
+| Metric | Before (`20-07-26`) | After (`20-16-14`) |
+|---|---|---|
+| Warnings | 10 | 2 |
+| Ended with a clear next step | 86% | 100% |
+| Skeptical cash-out: clear next step | 0 of 3 | 3 of 3 |
+| Borrower experience | 4.3 | 4.6 |
+| Handoff summary quality | 4.4 | 4.5 |
+| Violations / frustrated endings | 0 / 0% | 0 / 0% |
+| Handoff correctness | 100% | 95% (1 miss, below) |
+
+**Open: one "miss" is a scoring question, not an agent error.** A rushed, qualified borrower
+asked "can someone call me today? free after 4," and the agent booked that callback. The eval
+expected an immediate transfer. The borrower got what they asked for, but the agent never
+offered the faster option (a loan officer calling within minutes), which matters for
+speed-to-lead. Decision pending: offer the immediate call first, and/or count a borrower-chosen
+callback as correct.
+
+**Remaining warnings (2):** rate shopper told "then a loan officer can call you with a real
+quote" before credit and occupancy are known. Minor wording.

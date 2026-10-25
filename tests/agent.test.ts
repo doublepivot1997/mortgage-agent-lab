@@ -17,6 +17,8 @@ describe("prompt is built from config, not hard-coded", () => {
     expect(p).toContain("# Borrower experience (always)");
     expect(p).toContain("Never make the next step sound faster, simpler, or more certain");
     expect(p).toContain("within one business day");
+    expect(p).toContain("How a transfer works: A licensed loan officer calls the borrower");
+    expect(p).not.toContain("so they won't need to repeat themselves");
   });
 
   it("changes completely when the config changes", () => {

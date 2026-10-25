@@ -256,7 +256,10 @@ export class AgentSession {
           open_questions: input.open_questions,
           recommended_next_step: input.recommended_next_step,
         };
-        return { result: `Transfer initiated. ${this.cfg.handoff.transfer_message_guidance}`, is_error: false };
+        return {
+          result: `Transfer initiated.${this.cfg.handoff.transfer_mechanics ? ` ${this.cfg.handoff.transfer_mechanics.trim()}` : ""} ${this.cfg.handoff.transfer_message_guidance.trim()}`,
+          is_error: false,
+        };
       case "ask_more":
         return { result: `Not transferred. ${decision.detail} Ask for: ${decision.missing.join(", ")}.`, is_error: true };
       case "callback":

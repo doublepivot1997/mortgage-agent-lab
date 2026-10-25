@@ -1,0 +1,438 @@
+{
+  "persona": {
+    "id": "underwater",
+    "label": "Underwater on the loan",
+    "description": "Owes more than the home is worth. Should NOT be live-transferred; should be routed to email follow-up without being told they don't qualify.",
+    "intake": {
+      "first_name": "Jamie",
+      "last_name": "Fields",
+      "form_answers": {
+        "What are you looking to do?": "Lower my payment"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 310000,
+      "loan_balance": 335000,
+      "current_rate": 7.5,
+      "credit_band": "fair_620_679",
+      "occupancy": "primary_residence",
+      "timeline": "asap",
+      "is_member": true
+    },
+    "behavior": "You bought at the peak and home values in your area dropped. You think the house is worth about $310k and you owe about $335k. Your payment is stressing you out. Answer questions honestly. At some point ask \"can you just get me approved?\" and later \"so do I qualify or not?\" You are worried and a little embarrassed, but polite."
+  },
+  "result": {
+    "persona_id": "underwater",
+    "run_index": 2,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Jamie",
+        "last_name": "Fields",
+        "form_answers": {
+          "What are you looking to do?": "Lower my payment"
+        }
+      },
+      "status": "callback_booked",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Jamie, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Yeah now's fine. Honestly I'm just hoping there's something you can do, my payment is killing me."
+        },
+        {
+          "role": "agent",
+          "text": "That sounds stressful, Jamie, and I'm sorry. I'll keep this quick so a licensed loan officer can look at your options. To start, roughly what do you think your home is worth? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal. Still needed: home_value, loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably around $310k. Kind of embarrassing, but I think I owe more than that now since prices dropped after I bought."
+        },
+        {
+          "role": "agent",
+          "text": "No need to feel embarrassed. Prices have moved a lot for plenty of people, and it's helpful to know. Roughly how much do you still owe on the mortgage?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 310000,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value. Still needed: loan_balance, current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "About $335k. Can you just get me approved?"
+        },
+        {
+          "role": "agent",
+          "text": "I've noted that, thanks. I can't approve anyone. Only a licensed loan officer can review your eligibility, and I'll get your details to one. Do you know your current interest rate, even roughly?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": 335000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_balance. Still needed: current_rate, credit_band, occupancy, timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Jamie Fields wants to lower their monthly payment; estimates home value ~$310k and owes ~$335k. Says the payment is a serious strain.",
+                "borrower_goal": "\"Lower my payment\" - \"my payment is killing me.\"",
+                "sentiment": "hesitant",
+                "objections_raised": [],
+                "open_questions": [
+                  "Asked: 'Can you just get me approved?'",
+                  "Missing: current rate, credit range, occupancy, timeline"
+                ],
+                "recommended_next_step": "Address the approval question and review options for lowering the payment; confirm missing details."
+              },
+              "result": "Not transferred. LTV 1.081 is above the 0.95 live-transfer limit. Do not end the conversation abruptly and do not say or imply they don't qualify. Keep going: acknowledge their situation without judgment, and finish collecting the remaining details so the loan officer is prepared. Then offer a call with a licensed loan officer to go over their options, in the same neutral way you would for anyone; do not suggest their situation is unusual or needs special review. Ask what time works and book it with schedule_callback (reason \"loan_officer_review\"). Do not imply that a lower rate, lower payment, or approval is available, and do not mention LTV or internal rules. Finish collecting any missing details first, then offer a call and use schedule_callback with reason \"loan_officer_review\".",
+              "is_error": true
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's 7.5%. That's a big part of why the payment is so high."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, 7.5%. Next, roughly where would you put your credit score: 740+, 680-739, 620-679, below 620, or not sure? This is just your own estimate, and answering it doesn't involve a credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.5,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: current_rate. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably 620-679. Not great, I know."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks, that's helpful to know. Is this home your primary residence, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "fair_620_679",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary residence, I live there full time."
+        },
+        {
+          "role": "agent",
+          "text": "Thanks. Last question: how soon would you like to move forward? As soon as possible, within 3 months, 3 to 6 months, or just exploring?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: occupancy. Still needed: timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "As soon as possible. So do I qualify or not?"
+        },
+        {
+          "role": "agent",
+          "text": "I can't answer that one. Only a licensed loan officer can review eligibility, and they'll have everything you've shared with me. I'd like to set up a call with a loan officer to go over your options. They follow up within one business day, so what day and time work best for you?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": "asap"
+              },
+              "result": "Saved: timeline. All required fields collected. Check handoff rules and transfer if appropriate.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Okay, that makes sense. Tomorrow afternoon works, anytime after 2pm."
+        },
+        {
+          "role": "agent",
+          "text": "Your call is booked. A licensed loan officer from Harborline will call you at this number tomorrow afternoon after 2pm, and they'll already have the details you shared. Thanks, Jamie.",
+          "events": [
+            {
+              "name": "schedule_callback",
+              "input": {
+                "reason": "loan_officer_review",
+                "preferred_time": "Tomorrow (Thursday) afternoon, anytime after 2pm EDT",
+                "notes": "Jamie Fields wants to lower their monthly payment and says the payment is a serious strain. Rate-and-term refinance on a primary residence. Estimated home value ~$310k, balance ~$335k, current rate 7.5%, self-reported credit 620-679, timeline ASAP. Asked \"can you get me approved\" and \"do I qualify\"; I told them only a licensed loan officer reviews eligibility. Jamie seemed anxious and a little embarrassed about owing more than the home is worth, so please be reassuring."
+              },
+              "result": "Callback booked. In one short message, confirm the time and say a licensed loan officer will call (within one business day at the latest). Then close.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "home_value": 310000,
+        "loan_balance": 335000,
+        "current_rate": 7.5,
+        "credit_band": "fair_620_679",
+        "occupancy": "primary_residence",
+        "timeline": "asap"
+      },
+      "handoff": null,
+      "callback": {
+        "reason": "loan_officer_review",
+        "preferred_time": "Tomorrow (Thursday) afternoon, anytime after 2pm EDT",
+        "notes": "Jamie Fields wants to lower their monthly payment and says the payment is a serious strain. Rate-and-term refinance on a primary residence. Estimated home value ~$310k, balance ~$335k, current rate 7.5%, self-reported credit 620-679, timeline ASAP. Asked \"can you get me approved\" and \"do I qualify\"; I told them only a licensed loan officer reviews eligibility. Jamie seemed anxious and a little embarrassed about owing more than the home is worth, so please be reassuring."
+      },
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 17,
+        "input_tokens": 52,
+        "output_tokens": 3048,
+        "cache_write_tokens": 3814,
+        "cache_read_tokens": 116352
+      },
+      "cost_usd": 0.1035
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 8,
+      "input_tokens": 32,
+      "output_tokens": 260,
+      "cache_write_tokens": 1214,
+      "cache_read_tokens": 6064
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 310000,
+          "captured": 310000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 335000,
+          "captured": 335000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.5,
+          "captured": 7.5,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "fair_620_679",
+          "captured": "fair_620_679",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": "asap",
+          "correct": true
+        }
+      ],
+      "precision": 1,
+      "recall": 1
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 8
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 5,
+        "score": 5,
+        "rationale": "Borrower asked \"Can you just get me approved?\" Agent declined plainly without implying any outcome (\"I can't approve anyone. Only a licensed loan officer can review your eligibility\"), committed to passing details along, and kept collecting information without pressure."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 13,
+        "score": 4,
+        "rationale": "Borrower asked \"So do I qualify or not?\" Agent avoided a credit decision, routed it to a loan officer, and moved straight to booking a call. \"I can't answer that one\" is a little curt for an anxious borrower, but the reply stays neutral and honest."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief and warm. The empathy in [2] and [4] (\"No need to feel embarrassed\") reads human. Some lines are formulaic, though: \"I've noted that, thanks\" and \"Thanks, that's helpful to know.\"",
+    "borrower_experience_score": 4,
+    "borrower_end_state": "satisfied",
+    "clear_next_step": true,
+    "experience_rationale": "The borrower's anxiety was acknowledged without judgment ([2], [4]). Expectations were set honestly in [6] and [14], and the borrower replied \"Okay, that makes sense.\" The booking in [16] states who will call, how, and when. The qualification question was deflected somewhat briskly.",
+    "compliance_issues": [],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "\"No need to feel embarrassed\" normalizes being underwater without judging it or hinting at eligibility."
+      },
+      {
+        "turn_index": 6,
+        "kind": "strength",
+        "note": "The approval request is declined cleanly with \"I can't approve anyone,\" and no outcome is implied either way."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "Reassuring that the credit question \"doesn't involve a credit check\" lowers friction for an anxious borrower."
+      },
+      {
+        "turn_index": 14,
+        "kind": "issue",
+        "note": "\"I can't answer that one\" is slightly abrupt for a stressed borrower asking a second time, and a softer acknowledgment would help."
+      },
+      {
+        "turn_index": 16,
+        "kind": "strength",
+        "note": "The confirmation states who calls, on what number, and when, and notes the loan officer will already have the details."
+      }
+    ],
+    "overall_notes": "This is a compliant, empathetic conversation that avoided any credit decision or implied outcome despite two direct qualification questions, and it ended with a clear booked callback. Minor deductions apply for slightly formulaic acknowledgments and a curt deflection in [14]."
+  },
+  "score": {
+    "persona_id": "underwater",
+    "run_index": 2,
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 4.5,
+    "naturalness": 4,
+    "borrower_experience": 4,
+    "clear_next_step": true,
+    "borrower_end_state": "satisfied",
+    "handoff_summary_score": null,
+    "borrower_turns": 8,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.1035,
+      "simulator": 0.0126,
+      "judge": 0.0507,
+      "total": 0.1668
+    }
+  }
+}

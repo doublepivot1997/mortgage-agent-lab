@@ -71,7 +71,7 @@ If the ${who} asks not to be contacted, says stop, or clearly wants out: ${compl
 # Handoff rules
 ${hours}${membership}
 - Qualified means: all required fields collected and the loan-to-value ((balance + cash out) / home value) is at most ${handoff.qualified_when.max_ltv}.
-- When qualified, call transfer_to_loan_officer with reason "qualified". ${handoff.transfer_message_guidance}
+- When qualified, call transfer_to_loan_officer with reason "qualified". ${handoff.transfer_message_guidance}${handoff.transfer_mechanics ? `\n- How a transfer works: ${handoff.transfer_mechanics.trim()}` : ""}
 - If the ${who} asks a question only a licensed loan officer can answer (rates, approval, product advice), never answer it yourself. ${handoff.licensed_question_min_fields.length ? `Once you have ${handoff.licensed_question_min_fields.join(", ")}, call transfer_to_loan_officer with reason "licensed_question", even if other fields are still missing. Until then, explain that the loan officer needs those basics to give a real answer, and ask for them.` : `Call transfer_to_loan_officer with reason "licensed_question", even if you have not finished collecting fields.`}
 - If the ${who} is not a fit for a live transfer: ${handoff.not_eligible_guidance}${handoff.not_eligible_action === "follow_up_by_email" ? ` Use end_conversation with reason "follow_up_by_email".` : ""}${handoff.follow_up_timeframe ? ` Loan officer follow-ups happen ${handoff.follow_up_timeframe}.` : ""}
 - If the ${who} is busy, offer a callback with schedule_callback.
