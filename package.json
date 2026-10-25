@@ -9,7 +9,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "eval": "tsx src/cli/eval.ts",
-    "compare": "tsx src/cli/compare.ts"
+    "compare": "tsx src/cli/compare.ts",
+    "health": "tsx src/cli/health.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.1.0",

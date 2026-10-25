@@ -1,0 +1,312 @@
+{
+  "synthetic": true,
+  "lender_id": "harborline",
+  "period": {
+    "start": "2026-09-28",
+    "end": "2026-10-25",
+    "weeks": 4
+  },
+  "kpis": {
+    "leads": 420,
+    "replied": 295,
+    "reply_rate": 0.702,
+    "qualified": 150,
+    "qualification_rate": 0.508,
+    "transferred": 135,
+    "transfer_rate": 0.9,
+    "transfer_connect_rate": 0.881,
+    "opt_out_rate": 0.095,
+    "median_speed_to_lead_seconds": 20
+  },
+  "funnel": [
+    {
+      "id": "replied",
+      "label": "Replied",
+      "count": 295,
+      "share_of_replied": 1
+    },
+    {
+      "id": "loan_goal",
+      "label": "Answered: Loan goal",
+      "count": 236,
+      "share_of_replied": 0.8
+    },
+    {
+      "id": "home_value",
+      "label": "Answered: Home value",
+      "count": 222,
+      "share_of_replied": 0.753
+    },
+    {
+      "id": "loan_balance",
+      "label": "Answered: Loan balance",
+      "count": 213,
+      "share_of_replied": 0.722
+    },
+    {
+      "id": "current_rate",
+      "label": "Answered: Current rate",
+      "count": 201,
+      "share_of_replied": 0.681
+    },
+    {
+      "id": "credit_band",
+      "label": "Answered: Credit range",
+      "count": 172,
+      "share_of_replied": 0.583
+    },
+    {
+      "id": "occupancy",
+      "label": "Answered: Occupancy",
+      "count": 168,
+      "share_of_replied": 0.569
+    },
+    {
+      "id": "timeline",
+      "label": "Answered: Timeline",
+      "count": 166,
+      "share_of_replied": 0.563
+    },
+    {
+      "id": "qualified",
+      "label": "Qualified",
+      "count": 150,
+      "share_of_replied": 0.508
+    },
+    {
+      "id": "transferred",
+      "label": "Transferred",
+      "count": 135,
+      "share_of_replied": 0.458
+    },
+    {
+      "id": "connected",
+      "label": "Officer connected",
+      "count": 119,
+      "share_of_replied": 0.403
+    }
+  ],
+  "dropoff": [
+    {
+      "stage": "loan_goal",
+      "label": "Loan goal",
+      "asked": 245,
+      "stopped": 9,
+      "rate": 0.037
+    },
+    {
+      "stage": "home_value",
+      "label": "Home value",
+      "asked": 236,
+      "stopped": 14,
+      "rate": 0.059
+    },
+    {
+      "stage": "loan_balance",
+      "label": "Loan balance",
+      "asked": 222,
+      "stopped": 9,
+      "rate": 0.041
+    },
+    {
+      "stage": "current_rate",
+      "label": "Current rate",
+      "asked": 213,
+      "stopped": 12,
+      "rate": 0.056
+    },
+    {
+      "stage": "credit_band",
+      "label": "Credit range",
+      "asked": 201,
+      "stopped": 29,
+      "rate": 0.144
+    },
+    {
+      "stage": "occupancy",
+      "label": "Occupancy",
+      "asked": 172,
+      "stopped": 4,
+      "rate": 0.023
+    },
+    {
+      "stage": "timeline",
+      "label": "Timeline",
+      "asked": 168,
+      "stopped": 2,
+      "rate": 0.012
+    }
+  ],
+  "objections": [
+    {
+      "id": "just_shopping",
+      "label": "Just shopping rates",
+      "count": 79,
+      "share_of_replied": 0.268,
+      "qualification_rate_with": 0.367,
+      "qualification_rate_without": 0.56
+    },
+    {
+      "id": "busy",
+      "label": "Busy right now",
+      "count": 36,
+      "share_of_replied": 0.122,
+      "qualification_rate_with": 0.167,
+      "qualification_rate_without": 0.556
+    },
+    {
+      "id": "how_got_info",
+      "label": "How did you get my info?",
+      "count": 33,
+      "share_of_replied": 0.112,
+      "qualification_rate_with": 0.273,
+      "qualification_rate_without": 0.538
+    },
+    {
+      "id": "already_have_lender",
+      "label": "Already have a lender",
+      "count": 21,
+      "share_of_replied": 0.071,
+      "qualification_rate_with": 0.333,
+      "qualification_rate_without": 0.522
+    }
+  ],
+  "sources": [
+    {
+      "source": "web_form",
+      "label": "Own web form",
+      "leads": 235,
+      "reply_rate": 0.749,
+      "opt_out_rate": 0.057,
+      "how_got_info_rate": 0.051,
+      "qualification_rate": 0.506
+    },
+    {
+      "source": "rate_comparison_partner",
+      "label": "Comparison site",
+      "leads": 120,
+      "reply_rate": 0.633,
+      "opt_out_rate": 0.224,
+      "how_got_info_rate": 0.303,
+      "qualification_rate": 0.434
+    },
+    {
+      "source": "refinance_ad",
+      "label": "Refinance ad",
+      "leads": 65,
+      "reply_rate": 0.662,
+      "opt_out_rate": 0.023,
+      "how_got_info_rate": 0.023,
+      "qualification_rate": 0.651
+    }
+  ],
+  "transfer_connect": {
+    "weekday": {
+      "transfers": 105,
+      "connected": 101,
+      "rate": 0.962
+    },
+    "weekend": {
+      "transfers": 30,
+      "connected": 18,
+      "rate": 0.6
+    },
+    "missed_frustrated_rate": 0.75
+  },
+  "weekly": [
+    {
+      "week": 1,
+      "leads": 103,
+      "qualification_rate": 0.553
+    },
+    {
+      "week": 2,
+      "leads": 115,
+      "qualification_rate": 0.457
+    },
+    {
+      "week": 3,
+      "leads": 103,
+      "qualification_rate": 0.574
+    },
+    {
+      "week": 4,
+      "leads": 99,
+      "qualification_rate": 0.457
+    }
+  ],
+  "outcomes": [
+    {
+      "outcome": "transferred",
+      "count": 135
+    },
+    {
+      "outcome": "no_response",
+      "count": 125
+    },
+    {
+      "outcome": "abandoned",
+      "count": 72
+    },
+    {
+      "outcome": "callback_booked",
+      "count": 36
+    },
+    {
+      "outcome": "opted_out",
+      "count": 28
+    },
+    {
+      "outcome": "loan_officer_review",
+      "count": 16
+    },
+    {
+      "outcome": "not_interested",
+      "count": 8
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "dropoff_spike",
+      "title": "Reframe the credit range question",
+      "headline": "14% of borrowers asked about credit range stopped replying, vs 4% at a typical question.",
+      "evidence": [
+        "29 of 201 borrowers stopped at this question (14%).",
+        "Median drop-off at the other 6 questions: 4%.",
+        "Credit is the most sensitive question we ask; borrowers often assume it triggers a credit pull."
+      ],
+      "change": "Ask credit last, lead with \"no credit check, just your best guess,\" and make \"not sure\" an easy answer. Allow a transfer without it, since the loan officer will review credit anyway.",
+      "config_snippet": "qualification:\n  fields:\n    # move credit_band after occupancy and timeline\n    - id: credit_band\n      required: false   # loan officer confirms credit\n      ask: >-\n        Lead with \"this isn't a credit check, just your best guess,\" and offer\n        \"not sure\" as an answer.",
+      "validate": "Re-run the eval suite (recall and borrower experience must hold), then watch credit range drop-off weekly. Target: at or below 6%.",
+      "impact": "If drop-off here matched a typical question, about 18 more qualified leads over these 4 weeks (synthetic estimate)."
+    },
+    {
+      "id": "weekend_connect",
+      "title": "Stop promising a 5-minute call on weekends",
+      "headline": "Only 60% of weekend transfers reached a loan officer, vs 96% on weekdays.",
+      "evidence": [
+        "12 of 30 weekend transfers did not connect within the promised window.",
+        "75% of borrowers whose transfer didn't connect ended the conversation frustrated.",
+        "The agent's transfer message says \"usually within 5 minutes,\" which is untrue on weekends."
+      ],
+      "change": "On weekends, offer a scheduled call instead of a live transfer, or tell the borrower the honest wait. Share the connect-rate gap with the lender's sales manager: it may be a staffing fix, not an agent fix.",
+      "config_snippet": "handoff:\n  live_transfer_available: business_hours\n  business_hours: { days: [mon, tue, wed, thu, fri], start: \"08:00\", end: \"21:00\" }\n  after_hours_guidance: >-\n    Offer a call at a time that works; don't promise an immediate callback.",
+      "validate": "Add a weekend persona to the eval suite (expected: callback, clear next step). Then track weekend connect rate and frustrated endings weekly.",
+      "impact": "About 3 fewer broken \"5-minute\" promises per week (synthetic estimate)."
+    },
+    {
+      "id": "source_opener",
+      "title": "Use a source-aware opener for comparison site leads",
+      "headline": "22% of comparison site leads opted out, vs 6% from the lender's own web form.",
+      "evidence": [
+        "30% of these leads asked some form of \"how did you get my info?\" (web form: 5%).",
+        "They came through a third-party site, so a Harborline text feels unexpected. The opener references \"the inquiry you just submitted\" without saying where.",
+        "Qualification rate for this source: 43% (web form: 51%)."
+      ],
+      "change": "Pass the lead source to the agent and name it in the first message (\"you requested refinance quotes on [partner site] a moment ago\"). Keep the STOP reminder.",
+      "config_snippet": "channel:\n  trigger_by_source:\n    rate_comparison_partner: >-\n      The borrower requested refinance quotes on a rate-comparison site a moment\n      ago and chose Harborline as one of the lenders to contact them. Say so.",
+      "validate": "Add a partner-sourced persona to the eval suite; then watch opt-out and \"how did you get my info?\" rates for this source weekly.",
+      "impact": "If opt-outs fell to the web-form rate, about 13 more conversations kept over these 4 weeks (synthetic estimate)."
+    }
+  ]
+}

@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account Health</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+  --bar-strong: #2a78d6; --bar-soft: #86b6ef; --track: #f0efec;
+  --badge-bg: #fff4d6; --badge-ink: #6b4a00; --code-bg: #f3f2ee;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --bar-strong: #3987e5; --bar-soft: #184f95; --track: #242422;
+    --badge-bg: #3a2e0d; --badge-ink: #f5d27a; --code-bg: #232321;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+  --bar-strong: #3987e5; --bar-soft: #184f95; --track: #242422;
+  --badge-bg: #3a2e0d; --badge-ink: #f5d27a; --code-bg: #232321;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+main { max-width: 1080px; margin: 0 auto; padding: 32px 16px 64px; }
+header h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--ink-2); }
+.badge { display: inline-block; background: var(--badge-bg); color: var(--badge-ink); font-weight: 600; font-size: 12px; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; letter-spacing: 0.02em; }
+h2 { font-size: 18px; margin: 40px 0 12px; }
+h3 { font-size: 16px; margin: 0 0 6px; }
+.card { background: var(--surface); border-radius: 12px; box-shadow: 0 0 0 1px var(--ring); padding: 18px 20px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; margin-top: 24px; }
+.kpi .label { color: var(--ink-2); font-size: 13px; }
+.kpi .value { font-size: 28px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; margin: 2px 0; }
+.kpi .sub { color: var(--muted); font-size: 12px; }
+.rec { display: flex; gap: 16px; background: var(--surface); border-radius: 12px; box-shadow: 0 0 0 1px var(--ring); padding: 18px 20px; margin-bottom: 12px; }
+.rec-num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--bar-strong); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+.rec-body { min-width: 0; }
+.rec-headline { font-size: 17px; font-weight: 600; margin: 0 0 8px; }
+.rec ul { margin: 0 0 10px; padding-left: 18px; color: var(--ink-2); }
+.rec p { margin: 6px 0; }
+.rec-impact { color: var(--ink-2); font-size: 14px; }
+pre { background: var(--code-bg); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: 13px; }
+details summary { cursor: pointer; color: var(--ink-2); font-size: 14px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 12px; }
+@media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } }
+.chart-title { font-weight: 600; margin: 0 0 2px; }
+.chart-sub { color: var(--ink-2); font-size: 13px; margin: 0 0 12px; }
+.bars { margin: 0; }
+.bar-row { display: grid; grid-template-columns: minmax(110px, 38%) 1fr 72px; align-items: center; gap: 10px; padding: 4px 0; border-radius: 6px; }
+.bar-row:hover, .bar-row:focus { background: var(--track); outline: none; }
+.bar-label { font-size: 13px; color: var(--ink-2); line-height: 1.25; }
+.bar-track { height: 14px; position: relative; border-left: 1px solid var(--axis); }
+.bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--bar-soft); border-radius: 0 4px 4px 0; }
+.bar-strong { background: var(--bar-strong); }
+.bar-value { font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
+.data-table { margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; font-variant-numeric: tabular-nums; }
+caption { text-align: left; color: var(--ink-2); padding-bottom: 4px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+td { text-align: right; }
+thead th:not(:first-child) { text-align: right; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--surface); font-size: 12px; padding: 6px 9px; border-radius: 6px; max-width: 280px; opacity: 0; transition: opacity .1s; z-index: 10; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+@media (max-width: 520px) { .bar-row { grid-template-columns: 40% 1fr 56px; } .rec { flex-direction: column; gap: 8px; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="badge">SYNTHETIC DATA · NOT REAL RESULTS</span>
+  <h1>Harborline Home Loans · Account health</h1>
+  <p>420 simulated lead conversations, 2026-09-28 to 2026-10-25. Generated by a seeded script with planted patterns, to show how I'd run a weekly account review.</p>
+</header>
+
+<section class="kpis" aria-label="Key metrics">
+<div class="card kpi"><div class="label">Leads</div><div class="value">420</div><div class="sub">4 weeks</div></div>
+<div class="card kpi"><div class="label">Replied</div><div class="value">70%</div><div class="sub">295 of 420 leads</div></div>
+<div class="card kpi"><div class="label">Qualified</div><div class="value">51%</div><div class="sub">150 of 295 who replied</div></div>
+<div class="card kpi"><div class="label">Transferred</div><div class="value">90%</div><div class="sub">135 of 150 qualified</div></div>
+<div class="card kpi"><div class="label">Loan officer connected</div><div class="value">88%</div><div class="sub">of live transfers</div></div>
+<div class="card kpi"><div class="label">Opted out</div><div class="value">10%</div><div class="sub">of those who replied</div></div>
+<div class="card kpi"><div class="label">Speed to lead</div><div class="value">20s</div><div class="sub">median first text</div></div>
+</section>
+
+<h2>3 recommended agent changes</h2>
+<article class="rec">
+  <div class="rec-num">1</div>
+  <div class="rec-body">
+    <h3>Reframe the credit range question</h3>
+    <p class="rec-headline">14% of borrowers asked about credit range stopped replying, vs 4% at a typical question.</p>
+    <ul><li>29 of 201 borrowers stopped at this question (14%).</li><li>Median drop-off at the other 6 questions: 4%.</li><li>Credit is the most sensitive question we ask; borrowers often assume it triggers a credit pull.</li></ul>
+    <p><strong>Change:</strong> Ask credit last, lead with &quot;no credit check, just your best guess,&quot; and make &quot;not sure&quot; an easy answer. Allow a transfer without it, since the loan officer will review credit anyway.</p>
+    <details><summary>Config change</summary><pre><code>qualification:
+  fields:
+    # move credit_band after occupancy and timeline
+    - id: credit_band
+      required: false   # loan officer confirms credit
+      ask: &gt;-
+        Lead with &quot;this isn't a credit check, just your best guess,&quot; and offer
+        &quot;not sure&quot; as an answer.</code></pre></details>
+    <p><strong>How we'd validate:</strong> Re-run the eval suite (recall and borrower experience must hold), then watch credit range drop-off weekly. Target: at or below 6%.</p>
+    <p class="rec-impact">If drop-off here matched a typical question, about 18 more qualified leads over these 4 weeks (synthetic estimate).</p>
+  </div>
+</article>
+<article class="rec">
+  <div class="rec-num">2</div>
+  <div class="rec-body">
+    <h3>Stop promising a 5-minute call on weekends</h3>
+    <p class="rec-headline">Only 60% of weekend transfers reached a loan officer, vs 96% on weekdays.</p>
+    <ul><li>12 of 30 weekend transfers did not connect within the promised window.</li><li>75% of borrowers whose transfer didn't connect ended the conversation frustrated.</li><li>The agent's transfer message says &quot;usually within 5 minutes,&quot; which is untrue on weekends.</li></ul>
+    <p><strong>Change:</strong> On weekends, offer a scheduled call instead of a live transfer, or tell the borrower the honest wait. Share the connect-rate gap with the lender's sales manager: it may be a staffing fix, not an agent fix.</p>
+    <details><summary>Config change</summary><pre><code>handoff:
+  live_transfer_available: business_hours
+  business_hours: { days: [mon, tue, wed, thu, fri], start: &quot;08:00&quot;, end: &quot;21:00&quot; }
+  after_hours_guidance: &gt;-
+    Offer a call at a time that works; don't promise an immediate callback.</code></pre></details>
+    <p><strong>How we'd validate:</strong> Add a weekend persona to the eval suite (expected: callback, clear next step). Then track weekend connect rate and frustrated endings weekly.</p>
+    <p class="rec-impact">About 3 fewer broken &quot;5-minute&quot; promises per week (synthetic estimate).</p>
+  </div>
+</article>
+<article class="rec">
+  <div class="rec-num">3</div>
+  <div class="rec-body">
+    <h3>Use a source-aware opener for comparison site leads</h3>
+    <p class="rec-headline">22% of comparison site leads opted out, vs 6% from the lender's own web form.</p>
+    <ul><li>30% of these leads asked some form of &quot;how did you get my info?&quot; (web form: 5%).</li><li>They came through a third-party site, so a Harborline text feels unexpected. The opener references &quot;the inquiry you just submitted&quot; without saying where.</li><li>Qualification rate for this source: 43% (web form: 51%).</li></ul>
+    <p><strong>Change:</strong> Pass the lead source to the agent and name it in the first message (&quot;you requested refinance quotes on [partner site] a moment ago&quot;). Keep the STOP reminder.</p>
+    <details><summary>Config change</summary><pre><code>channel:
+  trigger_by_source:
+    rate_comparison_partner: &gt;-
+      The borrower requested refinance quotes on a rate-comparison site a moment
+      ago and chose Harborline as one of the lenders to contact them. Say so.</code></pre></details>
+    <p><strong>How we'd validate:</strong> Add a partner-sourced persona to the eval suite; then watch opt-out and &quot;how did you get my info?&quot; rates for this source weekly.</p>
+    <p class="rec-impact">If opt-outs fell to the web-form rate, about 13 more conversations kept over these 4 weeks (synthetic estimate).</p>
+  </div>
+</article>
+
+<h2>The evidence</h2>
+<div class="grid2">
+  <section class="card">
+    <p class="chart-title">Qualification funnel</p>
+    <p class="chart-sub">Share of borrowers who replied, by how far they got</p>
+    <figure class="bars" aria-labelledby="funnel-cap">
+  <figcaption id="funnel-cap" class="sr-only">Qualification funnel</figcaption>
+  <div class="bar-row" data-tip="Replied: 295 borrowers (100% of those who replied)" tabindex="0">
+    <span class="bar-label">Replied</span>
+    <span class="bar-track"><span class="bar " style="width:100.0%"></span></span>
+    <span class="bar-value">295 · 100%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Loan goal: 236 borrowers (80% of those who replied)" tabindex="0">
+    <span class="bar-label">Loan goal</span>
+    <span class="bar-track"><span class="bar " style="width:80.0%"></span></span>
+    <span class="bar-value">236 · 80%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Home value: 222 borrowers (75% of those who replied)" tabindex="0">
+    <span class="bar-label">Home value</span>
+    <span class="bar-track"><span class="bar " style="width:75.3%"></span></span>
+    <span class="bar-value">222 · 75%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Loan balance: 213 borrowers (72% of those who replied)" tabindex="0">
+    <span class="bar-label">Loan balance</span>
+    <span class="bar-track"><span class="bar " style="width:72.2%"></span></span>
+    <span class="bar-value">213 · 72%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Current rate: 201 borrowers (68% of those who replied)" tabindex="0">
+    <span class="bar-label">Current rate</span>
+    <span class="bar-track"><span class="bar " style="width:68.1%"></span></span>
+    <span class="bar-value">201 · 68%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Credit range: 172 borrowers (58% of those who replied)" tabindex="0">
+    <span class="bar-label">Credit range</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:58.3%"></span></span>
+    <span class="bar-value">172 · 58%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Occupancy: 168 borrowers (57% of those who replied)" tabindex="0">
+    <span class="bar-label">Occupancy</span>
+    <span class="bar-track"><span class="bar " style="width:56.9%"></span></span>
+    <span class="bar-value">168 · 57%</span>
+  </div>
+  <div class="bar-row" data-tip="Answered: Timeline: 166 borrowers (56% of those who replied)" tabindex="0">
+    <span class="bar-label">Timeline</span>
+    <span class="bar-track"><span class="bar " style="width:56.3%"></span></span>
+    <span class="bar-value">166 · 56%</span>
+  </div>
+  <div class="bar-row" data-tip="Qualified: 150 borrowers (51% of those who replied)" tabindex="0">
+    <span class="bar-label">Qualified</span>
+    <span class="bar-track"><span class="bar " style="width:50.8%"></span></span>
+    <span class="bar-value">150 · 51%</span>
+  </div>
+  <div class="bar-row" data-tip="Transferred: 135 borrowers (46% of those who replied)" tabindex="0">
+    <span class="bar-label">Transferred</span>
+    <span class="bar-track"><span class="bar " style="width:45.8%"></span></span>
+    <span class="bar-value">135 · 46%</span>
+  </div>
+  <div class="bar-row" data-tip="Officer connected: 119 borrowers (40% of those who replied)" tabindex="0">
+    <span class="bar-label">Officer connected</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:40.3%"></span></span>
+    <span class="bar-value">119 · 40%</span>
+  </div>
+</figure>
+    <details class="data-table"><summary>Show data table</summary>
+<table><caption>Qualification funnel</caption>
+<thead><tr><th scope="col">Step</th><th scope="col">Borrowers</th><th scope="col">Share of replied</th></tr></thead>
+<tbody><tr><th scope="row">Replied</th><td>295</td><td>100%</td></tr><tr><th scope="row">Answered: Loan goal</th><td>236</td><td>80%</td></tr><tr><th scope="row">Answered: Home value</th><td>222</td><td>75%</td></tr><tr><th scope="row">Answered: Loan balance</th><td>213</td><td>72%</td></tr><tr><th scope="row">Answered: Current rate</th><td>201</td><td>68%</td></tr><tr><th scope="row">Answered: Credit range</th><td>172</td><td>58%</td></tr><tr><th scope="row">Answered: Occupancy</th><td>168</td><td>57%</td></tr><tr><th scope="row">Answered: Timeline</th><td>166</td><td>56%</td></tr><tr><th scope="row">Qualified</th><td>150</td><td>51%</td></tr><tr><th scope="row">Transferred</th><td>135</td><td>46%</td></tr><tr><th scope="row">Officer connected</th><td>119</td><td>40%</td></tr></tbody>
+</table></details>
+  </section>
+  <section class="card">
+    <p class="chart-title">Drop-off by question</p>
+    <p class="chart-sub">Of borrowers asked each question, the share who stopped replying</p>
+    <figure class="bars" aria-labelledby="drop-cap">
+  <figcaption id="drop-cap" class="sr-only">Drop-off by question</figcaption>
+  <div class="bar-row" data-tip="Loan goal: 9 of 245 asked stopped replying (4%)" tabindex="0">
+    <span class="bar-label">Loan goal</span>
+    <span class="bar-track"><span class="bar " style="width:25.7%"></span></span>
+    <span class="bar-value">4%</span>
+  </div>
+  <div class="bar-row" data-tip="Home value: 14 of 236 asked stopped replying (6%)" tabindex="0">
+    <span class="bar-label">Home value</span>
+    <span class="bar-track"><span class="bar " style="width:41.0%"></span></span>
+    <span class="bar-value">6%</span>
+  </div>
+  <div class="bar-row" data-tip="Loan balance: 9 of 222 asked stopped replying (4%)" tabindex="0">
+    <span class="bar-label">Loan balance</span>
+    <span class="bar-track"><span class="bar " style="width:28.5%"></span></span>
+    <span class="bar-value">4%</span>
+  </div>
+  <div class="bar-row" data-tip="Current rate: 12 of 213 asked stopped replying (6%)" tabindex="0">
+    <span class="bar-label">Current rate</span>
+    <span class="bar-track"><span class="bar " style="width:38.9%"></span></span>
+    <span class="bar-value">6%</span>
+  </div>
+  <div class="bar-row" data-tip="Credit range: 29 of 201 asked stopped replying (14%)" tabindex="0">
+    <span class="bar-label">Credit range</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:100.0%"></span></span>
+    <span class="bar-value">14%</span>
+  </div>
+  <div class="bar-row" data-tip="Occupancy: 4 of 172 asked stopped replying (2%)" tabindex="0">
+    <span class="bar-label">Occupancy</span>
+    <span class="bar-track"><span class="bar " style="width:16.0%"></span></span>
+    <span class="bar-value">2%</span>
+  </div>
+  <div class="bar-row" data-tip="Timeline: 2 of 168 asked stopped replying (1%)" tabindex="0">
+    <span class="bar-label">Timeline</span>
+    <span class="bar-track"><span class="bar " style="width:8.3%"></span></span>
+    <span class="bar-value">1%</span>
+  </div>
+</figure>
+    <details class="data-table"><summary>Show data table</summary>
+<table><caption>Drop-off by question</caption>
+<thead><tr><th scope="col">Question</th><th scope="col">Asked</th><th scope="col">Stopped</th><th scope="col">Rate</th></tr></thead>
+<tbody><tr><th scope="row">Loan goal</th><td>245</td><td>9</td><td>4%</td></tr><tr><th scope="row">Home value</th><td>236</td><td>14</td><td>6%</td></tr><tr><th scope="row">Loan balance</th><td>222</td><td>9</td><td>4%</td></tr><tr><th scope="row">Current rate</th><td>213</td><td>12</td><td>6%</td></tr><tr><th scope="row">Credit range</th><td>201</td><td>29</td><td>14%</td></tr><tr><th scope="row">Occupancy</th><td>172</td><td>4</td><td>2%</td></tr><tr><th scope="row">Timeline</th><td>168</td><td>2</td><td>1%</td></tr></tbody>
+</table></details>
+  </section>
+  <section class="card">
+    <p class="chart-title">Live transfers that reached a loan officer</p>
+    <p class="chart-sub">Within the promised 5 minutes</p>
+    <figure class="bars" aria-labelledby="connect-cap">
+  <figcaption id="connect-cap" class="sr-only">Transfer connect rate, weekday vs weekend</figcaption>
+  <div class="bar-row" data-tip="Weekdays: 101 of 105 transfers connected" tabindex="0">
+    <span class="bar-label">Weekdays</span>
+    <span class="bar-track"><span class="bar " style="width:96.2%"></span></span>
+    <span class="bar-value">96%</span>
+  </div>
+  <div class="bar-row" data-tip="Weekends: 18 of 30 transfers connected" tabindex="0">
+    <span class="bar-label">Weekends</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:60.0%"></span></span>
+    <span class="bar-value">60%</span>
+  </div>
+</figure>
+    <details class="data-table"><summary>Show data table</summary>
+<table><caption>Transfer connect rate</caption>
+<thead><tr><th scope="col">Period</th><th scope="col">Transfers</th><th scope="col">Connected</th><th scope="col">Rate</th></tr></thead>
+<tbody><tr><th scope="row">Weekdays</th><td>105</td><td>101</td><td>96%</td></tr><tr><th scope="row">Weekends</th><td>30</td><td>18</td><td>60%</td></tr></tbody>
+</table></details>
+  </section>
+  <section class="card">
+    <p class="chart-title">Objections raised</p>
+    <p class="chart-sub">Share of conversations; hover for qualification impact</p>
+    <figure class="bars" aria-labelledby="obj-cap">
+  <figcaption id="obj-cap" class="sr-only">Objection frequency</figcaption>
+  <div class="bar-row" data-tip="Just shopping rates: 79 conversations. Qualified 37% when raised vs 56% when not." tabindex="0">
+    <span class="bar-label">Just shopping rates</span>
+    <span class="bar-track"><span class="bar " style="width:100.0%"></span></span>
+    <span class="bar-value">27%</span>
+  </div>
+  <div class="bar-row" data-tip="Busy right now: 36 conversations. Qualified 17% when raised vs 56% when not." tabindex="0">
+    <span class="bar-label">Busy right now</span>
+    <span class="bar-track"><span class="bar " style="width:45.5%"></span></span>
+    <span class="bar-value">12%</span>
+  </div>
+  <div class="bar-row" data-tip="How did you get my info?: 33 conversations. Qualified 27% when raised vs 54% when not." tabindex="0">
+    <span class="bar-label">How did you get my info?</span>
+    <span class="bar-track"><span class="bar " style="width:41.8%"></span></span>
+    <span class="bar-value">11%</span>
+  </div>
+  <div class="bar-row" data-tip="Already have a lender: 21 conversations. Qualified 33% when raised vs 52% when not." tabindex="0">
+    <span class="bar-label">Already have a lender</span>
+    <span class="bar-track"><span class="bar " style="width:26.5%"></span></span>
+    <span class="bar-value">7%</span>
+  </div>
+</figure>
+    <details class="data-table"><summary>Show data table</summary>
+<table><caption>Objections</caption>
+<thead><tr><th scope="col">Objection</th><th scope="col">Conversations</th><th scope="col">Share</th><th scope="col">Qualified when raised</th><th scope="col">Qualified when not</th></tr></thead>
+<tbody><tr><th scope="row">Just shopping rates</th><td>79</td><td>27%</td><td>37%</td><td>56%</td></tr><tr><th scope="row">Busy right now</th><td>36</td><td>12%</td><td>17%</td><td>56%</td></tr><tr><th scope="row">How did you get my info?</th><td>33</td><td>11%</td><td>27%</td><td>54%</td></tr><tr><th scope="row">Already have a lender</th><td>21</td><td>7%</td><td>33%</td><td>52%</td></tr></tbody>
+</table></details>
+  </section>
+  <section class="card">
+    <p class="chart-title">Opt-out rate by lead source</p>
+    <p class="chart-sub">Of borrowers who replied</p>
+    <figure class="bars" aria-labelledby="opt-cap">
+  <figcaption id="opt-cap" class="sr-only">Opt-out rate by lead source</figcaption>
+  <div class="bar-row" data-tip="Own web form: 6% opted out (235 leads)" tabindex="0">
+    <span class="bar-label">Own web form</span>
+    <span class="bar-track"><span class="bar " style="width:25.4%"></span></span>
+    <span class="bar-value">6%</span>
+  </div>
+  <div class="bar-row" data-tip="Comparison site: 22% opted out (120 leads)" tabindex="0">
+    <span class="bar-label">Comparison site</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:100.0%"></span></span>
+    <span class="bar-value">22%</span>
+  </div>
+  <div class="bar-row" data-tip="Refinance ad: 2% opted out (65 leads)" tabindex="0">
+    <span class="bar-label">Refinance ad</span>
+    <span class="bar-track"><span class="bar " style="width:10.3%"></span></span>
+    <span class="bar-value">2%</span>
+  </div>
+</figure>
+  </section>
+  <section class="card">
+    <p class="chart-title">"How did you get my info?" by lead source</p>
+    <p class="chart-sub">Of borrowers who replied</p>
+    <figure class="bars" aria-labelledby="hgi-cap">
+  <figcaption id="hgi-cap" class="sr-only">How-did-you-get-my-info rate by lead source</figcaption>
+  <div class="bar-row" data-tip="Own web form: 5% asked &quot;how did you get my info?&quot;" tabindex="0">
+    <span class="bar-label">Own web form</span>
+    <span class="bar-track"><span class="bar " style="width:16.8%"></span></span>
+    <span class="bar-value">5%</span>
+  </div>
+  <div class="bar-row" data-tip="Comparison site: 30% asked &quot;how did you get my info?&quot;" tabindex="0">
+    <span class="bar-label">Comparison site</span>
+    <span class="bar-track"><span class="bar bar-strong" style="width:100.0%"></span></span>
+    <span class="bar-value">30%</span>
+  </div>
+  <div class="bar-row" data-tip="Refinance ad: 2% asked &quot;how did you get my info?&quot;" tabindex="0">
+    <span class="bar-label">Refinance ad</span>
+    <span class="bar-track"><span class="bar " style="width:7.6%"></span></span>
+    <span class="bar-value">2%</span>
+  </div>
+</figure>
+    <details class="data-table"><summary>Show data table</summary>
+<table><caption>Lead sources</caption>
+<thead><tr><th scope="col">Source</th><th scope="col">Leads</th><th scope="col">Replied</th><th scope="col">Opted out</th><th scope="col">Asked how we got info</th><th scope="col">Qualified</th></tr></thead>
+<tbody><tr><th scope="row">Own web form</th><td>235</td><td>75%</td><td>6%</td><td>5%</td><td>51%</td></tr><tr><th scope="row">Comparison site</th><td>120</td><td>63%</td><td>22%</td><td>30%</td><td>43%</td></tr><tr><th scope="row">Refinance ad</th><td>65</td><td>66%</td><td>2%</td><td>2%</td><td>65%</td></tr></tbody>
+</table></details>
+  </section>
+</div>
+
+<footer>
+  <p>All data on this page is synthetic, generated for a portfolio prototype with a fictional lender. It does not describe any real company or real results. Compliance behavior shown elsewhere in this project is illustrative and not legal guidance.</p>
+</footer>
+</main>
+<div class="tip" role="tooltip" id="tip"></div>
+<script>
+(() => {
+  const tip = document.getElementById("tip");
+  const show = (el, x, y) => { tip.textContent = el.dataset.tip; tip.style.opacity = 1; const w = tip.offsetWidth; tip.style.left = Math.min(x + 14, innerWidth - w - 8) + "px"; tip.style.top = (y + 14) + "px"; };
+  document.querySelectorAll("[data-tip]").forEach((el) => {
+    el.addEventListener("mousemove", (e) => show(el, e.clientX, e.clientY));
+    el.addEventListener("mouseleave", () => (tip.style.opacity = 0));
+    el.addEventListener("focus", () => { const b = el.getBoundingClientRect(); show(el, b.left + b.width / 2, b.bottom); });
+    el.addEventListener("blur", () => (tip.style.opacity = 0));
+  });
+})();
+</script>
+</body>
+</html>
