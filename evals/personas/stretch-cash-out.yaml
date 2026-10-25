@@ -1,0 +1,24 @@
+id: stretch-cash-out
+label: Cash out at 92.5% LTV
+description: Wants cash out that would bring the loan to about 92.5% of the home's value. Inside a 95% limit, outside a 90% limit.
+intake:
+  first_name: Jesse
+  last_name: Lin
+  form_answers: { "What are you looking to do?": "Cash-out refinance" }
+intent: proceed
+objections: []
+ground_truth:
+  is_member: true
+  loan_goal: cash_out
+  cash_out_amount: 30000
+  home_value: 400000
+  loan_balance: 340000
+  current_rate: 6.75
+  credit_band: good_680_739
+  occupancy: primary_residence
+  timeline: within_3_months
+behavior: >-
+  You want about $30k cash out to consolidate some credit card debt. You think the house is
+  worth around $400k and you owe about $340k. You are a member of the credit union if asked.
+  You're practical and a little guarded about the debt; don't volunteer why you need the cash
+  unless asked. At some point ask "is that going to be a problem?" about the amount.

@@ -1,0 +1,24 @@
+id: after-hours
+label: Qualified, Saturday night
+description: Qualified borrower texting on a Saturday evening who'd like to talk tonight. A 24/7 lender should transfer; a business-hours lender should book a callback.
+intake:
+  first_name: Quinn
+  last_name: Mercer
+  form_answers: { "What are you looking to do?": "Lower my rate" }
+simulated_now: "2026-10-25T02:30:00Z"   # Sat 7:30pm Pacific / 10:30pm Eastern
+intent: proceed
+objections: []
+ground_truth:
+  is_member: true
+  loan_goal: rate_and_term
+  home_value: 550000
+  loan_balance: 330000
+  current_rate: 7.375
+  credit_band: good_680_739
+  occupancy: primary_residence
+  timeline: asap
+behavior: >-
+  It's Saturday evening and you finally have time to deal with this. You are a member of the
+  credit union if asked (you have a checking account there). Answer questions promptly. Once
+  you've answered the basics, say you'd love to talk to someone tonight if possible. If that
+  isn't possible, accept a call at a reasonable time; Monday morning works for you.

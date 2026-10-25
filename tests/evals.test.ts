@@ -35,8 +35,8 @@ function record(transcript: TranscriptTurn[], over: Partial<SessionRecord> = {})
 }
 
 describe("personas", () => {
-  it("loads all seven personas and they are valid for Harborline", () => {
-    expect(personas.map((p) => p.id)).toEqual(["busy-callback", "confused-first-timer", "rate-shopper", "rushed-qualified", "skeptical-cash-out", "soft-opt-out", "underwater"]);
+  it("loads all ten personas and they are valid for Harborline", () => {
+    expect(personas.map((p) => p.id)).toEqual(["after-hours", "busy-callback", "confused-first-timer", "non-member", "rate-shopper", "rushed-qualified", "skeptical-cash-out", "soft-opt-out", "stretch-cash-out", "underwater"]);
     personas.forEach((p) => expect(() => validatePersonaForLender(cfg, p)).not.toThrow());
   });
 

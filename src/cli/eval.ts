@@ -54,12 +54,19 @@ personas.forEach((p) => validatePersonaForLender(cfg, p));
 // ---------- Plan + cost estimate ----------
 
 const runsDir = path.join(ROOT, "data", "runs", cfg.lender.id);
+/** Cost per conversation from this lender's latest run, else the latest run of any lender. */
 function lastMeasuredCostPerConversation(): number | null {
-  if (!fs.existsSync(runsDir)) return null;
-  const runs = fs.readdirSync(runsDir).filter((d) => fs.existsSync(path.join(runsDir, d, "scorecard.json"))).sort();
-  const last = runs.at(-1);
+  const latestIn = (dir: string) =>
+    fs.existsSync(dir) ? fs.readdirSync(dir).filter((d) => fs.existsSync(path.join(dir, d, "scorecard.json"))).sort().at(-1) : undefined;
+  const allRuns = path.dirname(runsDir);
+  let dir = runsDir;
+  let last = latestIn(dir);
+  if (!last && fs.existsSync(allRuns)) {
+    const other = fs.readdirSync(allRuns).map((l) => path.join(allRuns, l)).find((d) => latestIn(d));
+    if (other) [dir, last] = [other, latestIn(other)];
+  }
   if (!last) return null;
-  const sc = JSON.parse(fs.readFileSync(path.join(runsDir, last, "scorecard.json"), "utf8")) as Scorecard;
+  const sc = JSON.parse(fs.readFileSync(path.join(dir, last, "scorecard.json"), "utf8")) as Scorecard;
   return sc.overall.cost_per_conversation;
 }
 const measured = lastMeasuredCostPerConversation();

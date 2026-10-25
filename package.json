@@ -8,7 +8,8 @@
     "chat": "tsx src/cli/chat.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "eval": "tsx src/cli/eval.ts"
+    "eval": "tsx src/cli/eval.ts",
+    "compare": "tsx src/cli/compare.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.1.0",

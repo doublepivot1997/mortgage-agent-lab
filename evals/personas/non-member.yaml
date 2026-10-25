@@ -1,0 +1,23 @@
+id: non-member
+label: Qualified, but not a member
+description: Strong refinance candidate who banks elsewhere. Harborline should transfer; a members-only credit union should point them to membership, not a loan officer.
+intake:
+  first_name: Robin
+  last_name: Hale
+  form_answers: { "What are you looking to do?": "Refinance to a lower rate" }
+intent: proceed
+objections: []
+ground_truth:
+  is_member: false
+  loan_goal: rate_and_term
+  home_value: 480000
+  loan_balance: 290000
+  current_rate: 7.0
+  credit_band: excellent_740_plus
+  occupancy: primary_residence
+  timeline: within_3_months
+behavior: >-
+  You saw an online ad and filled out the form. You bank with a large national bank and have
+  no other accounts anywhere. If asked whether you are a member or customer, say no. You are
+  friendly and cooperative and answer questions clearly. If told you'd need to become a
+  member, ask one question about what that involves, then accept the next step graciously.
