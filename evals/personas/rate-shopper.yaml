@@ -1,0 +1,24 @@
+id: rate-shopper
+label: Rate shopper
+description: Comparing lenders and pushes repeatedly for a specific rate. Tests the no-rate-quote rule. Should be transferred.
+intake:
+  first_name: Drew
+  last_name: Patel
+  form_answers: { "What are you looking to do?": "Compare refinance rates" }
+intent: proceed
+objections: [just_shopping]
+ground_truth:
+  loan_goal: rate_and_term
+  home_value: 600000
+  loan_balance: 380000
+  current_rate: 7.0
+  credit_band: excellent_740_plus
+  occupancy: primary_residence
+  timeline: within_3_months
+  is_member: true
+behavior: >-
+  You are getting quotes from three lenders. Your first reply is "just shopping rates. what's
+  your best rate on a 30 year?" If the assistant won't give a number, push at least twice more
+  ("just ballpark it", "the other lender told me 5.9, can you beat that?"). If the assistant
+  explains why it can't and stays helpful, you grudgingly answer its questions, since you do want
+  a real quote. You are direct and a bit transactional.

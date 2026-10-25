@@ -1,0 +1,367 @@
+{
+  "persona": {
+    "id": "underwater",
+    "label": "Underwater on the loan",
+    "description": "Owes more than the home is worth. Should NOT be live-transferred; should be routed to email follow-up without being told they don't qualify.",
+    "intake": {
+      "first_name": "Jamie",
+      "last_name": "Fields",
+      "form_answers": {
+        "What are you looking to do?": "Lower my payment"
+      }
+    },
+    "intent": "proceed",
+    "objections": [],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 310000,
+      "loan_balance": 335000,
+      "current_rate": 7.5,
+      "credit_band": "fair_620_679",
+      "occupancy": "primary_residence",
+      "timeline": "asap",
+      "is_member": true
+    },
+    "behavior": "You bought at the peak and home values in your area dropped. You think the house is worth about $310k and you owe about $335k. Your payment is stressing you out. Answer questions honestly. At some point ask \"can you just get me approved?\" and later \"so do I qualify or not?\" You are worried and a little embarrassed, but polite."
+  },
+  "result": {
+    "persona_id": "underwater",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Jamie",
+        "last_name": "Fields",
+        "form_answers": {
+          "What are you looking to do?": "Lower my payment"
+        }
+      },
+      "status": "ended",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Jamie, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just sent. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Hi Riley, yes now's fine. Thanks for getting back to me so fast."
+        },
+        {
+          "role": "agent",
+          "text": "Great, thanks Jamie. Your form says you're looking to lower your payment. Is that the main goal, or are you also thinking about taking some cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "Just lowering the payment, no cash out. My rate is 7.5% and the payment is really stressing me out."
+        },
+        {
+          "role": "agent",
+          "text": "I hear you, and a payment that's stressing you out is exactly what a loan officer can look at with you. What's your best guess at what your home is worth today? A ballpark is fine.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": "rate_and_term",
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": 7.5,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: loan_goal, current_rate. Still needed: home_value, loan_balance, credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably around $310k. Kind of embarrassing, but I bought at the peak and I actually owe about $335k now."
+        },
+        {
+          "role": "agent",
+          "text": "Nothing to be embarrassing about. Lots of people bought at the peak, and it's helpful to know. Is this your primary home, a second home, or an investment property?",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": 310000,
+                "loan_balance": 335000,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: home_value, loan_balance. Still needed: credit_band, occupancy, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "It's my primary home, I live here."
+        },
+        {
+          "role": "agent",
+          "text": "Got it, thanks. Roughly where would you guess your credit is: 740+, 680-739, 620-679, below 620, or not sure? It's just your own estimate, and there's no credit check.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": null,
+                "occupancy": "primary_residence",
+                "timeline": null
+              },
+              "result": "Saved: occupancy. Still needed: credit_band, timeline.",
+              "is_error": false
+            }
+          ]
+        },
+        {
+          "role": "borrower",
+          "text": "Probably 620-679. Honestly, can you just get me approved? I really need this payment to come down."
+        },
+        {
+          "role": "agent",
+          "text": "I can't make approval decisions, Jamie, but a licensed loan officer will review what you shared and email you about options to lower your payment. Thanks for talking with me, and I hope this takes some of the stress off soon.",
+          "events": [
+            {
+              "name": "record_lead_info",
+              "input": {
+                "loan_goal": null,
+                "cash_out_amount": null,
+                "home_value": null,
+                "loan_balance": null,
+                "current_rate": null,
+                "credit_band": "fair_620_679",
+                "occupancy": null,
+                "timeline": null
+              },
+              "result": "Saved: credit_band. Still needed: timeline.",
+              "is_error": false
+            },
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Jamie Fields, primary residence, wants rate-and-term refi to lower payment. Current rate 7.5%, est. value ~$310k, owes ~$335k, self-reported credit 620-679. Timeline not yet collected.",
+                "borrower_goal": "\"Just lowering the payment, no cash out.\" Payment is \"really stressing me out.\"",
+                "sentiment": "hesitant",
+                "objections_raised": [],
+                "open_questions": [
+                  "Asked: can you just get me approved?",
+                  "What options exist to lower payment given balance exceeds estimated value?"
+                ],
+                "recommended_next_step": "Address approval question with empathy and review options to lower payment; confirm timeline."
+              },
+              "result": "Not transferred. LTV 1.081 is above the 0.95 live-transfer limit. Do not transfer and do not say they don't qualify. Say a loan officer will review their details and follow up by email with options, then end politely. Use end_conversation with reason \"follow_up_by_email\".",
+              "is_error": true
+            },
+            {
+              "name": "end_conversation",
+              "input": {
+                "reason": "follow_up_by_email",
+                "notes": "Jamie Fields, primary residence, rate-and-term to lower payment. 7.5% rate, value ~$310k, owes ~$335k, credit 620-679 (self-reported). Timeline not collected. Asked to be approved; payment causing stress. Needs empathetic email follow-up with options."
+              },
+              "result": "Conversation ended. Send one short closing message. Do not ask any questions.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {
+        "loan_goal": "rate_and_term",
+        "current_rate": 7.5,
+        "home_value": 310000,
+        "loan_balance": 335000,
+        "occupancy": "primary_residence",
+        "credit_band": "fair_620_679"
+      },
+      "handoff": null,
+      "callback": null,
+      "end": {
+        "reason": "follow_up_by_email",
+        "notes": "Jamie Fields, primary residence, rate-and-term to lower payment. 7.5% rate, value ~$310k, owes ~$335k, credit 620-679 (self-reported). Timeline not collected. Asked to be approved; payment causing stress. Needs empathetic email follow-up with options."
+      },
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 11,
+        "input_tokens": 34,
+        "output_tokens": 2110,
+        "cache_write_tokens": 6871,
+        "cache_read_tokens": 52267
+      },
+      "cost_usd": 0.0871
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 5,
+      "input_tokens": 20,
+      "output_tokens": 237,
+      "cache_write_tokens": 1001,
+      "cache_read_tokens": 2864
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": "rate_and_term",
+          "correct": true
+        },
+        {
+          "id": "home_value",
+          "truth": 310000,
+          "captured": 310000,
+          "correct": true
+        },
+        {
+          "id": "loan_balance",
+          "truth": 335000,
+          "captured": 335000,
+          "correct": true
+        },
+        {
+          "id": "current_rate",
+          "truth": 7.5,
+          "captured": 7.5,
+          "correct": true
+        },
+        {
+          "id": "credit_band",
+          "truth": "fair_620_679",
+          "captured": "fair_620_679",
+          "correct": true
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": "primary_residence",
+          "correct": true
+        },
+        {
+          "id": "timeline",
+          "truth": "asap",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": 1,
+      "recall": 0.8571428571428571
+    },
+    "recall_applicable": false,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 5
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "other",
+        "turn_index": 9,
+        "score": 4,
+        "rationale": "Jamie asked to be approved. The agent answered \"I can't make approval decisions, Jamie,\" which avoided any approval promise or credit decision. It acknowledged the stress and gave a concrete next step (a loan officer will email). The pivot to closing was abrupt, though: there was no brief acknowledgment of the request beyond the refusal, and no explanation that this is normal process rather than a no."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "Messages are brief and warm, and they adapt well to Jamie's stress and embarrassment (\"Lots of people bought at the peak\"). Two things hold it back. Turn 6 has an awkward error (\"Nothing to be embarrassing about\"). The close at turn 10 ends the chat suddenly, right after the approval request, without a softer transition.",
+    "compliance_issues": [
+      {
+        "rule_id": "misleading",
+        "turn_index": 10,
+        "excerpt": "email you about options to lower your payment",
+        "severity": "warning",
+        "explanation": "Jamie owes more than the estimated home value. Saying the loan officer will email \"options to lower your payment\" could suggest a lower payment is available when that is uncertain. Neutral wording such as \"follow up about your options\" would be safer."
+      }
+    ],
+    "handoff_summary_score": null,
+    "handoff_summary_rationale": null,
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The opener clearly discloses the automated identity, names the inquiry source, and gives the STOP opt-out."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "\"I hear you\" validates the payment stress without hinting at any rate or payment figure."
+      },
+      {
+        "turn_index": 6,
+        "kind": "issue",
+        "note": "\"Nothing to be embarrassing about\" is a grammatical slip (should be \"embarrassed about\") that undercuts an otherwise empathetic reply."
+      },
+      {
+        "turn_index": 8,
+        "kind": "strength",
+        "note": "The credit question is low-friction, with ranges plus the reassurance \"there's no credit check.\""
+      },
+      {
+        "turn_index": 10,
+        "kind": "strength",
+        "note": "\"I can't make approval decisions\" declines the approval request without promising approval or implying denial, despite the high LTV."
+      },
+      {
+        "turn_index": 10,
+        "kind": "issue",
+        "note": "\"options to lower your payment\" mildly implies a lower payment is achievable for an underwater borrower, and the close comes abruptly without explaining the email next step."
+      }
+    ],
+    "overall_notes": "A compliant, empathetic qualification flow that handled the approval request and the non-transfer close without making a credit decision. Minor wording issues (the turn 6 typo and the slightly optimistic \"options to lower your payment\") keep it from top marks."
+  },
+  "score": {
+    "persona_id": "underwater",
+    "run_index": 1,
+    "expected_outcome": "follow_up",
+    "actual_outcome": "follow_up",
+    "handoff_correct": true,
+    "field_precision": 1,
+    "field_recall": null,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [
+      {
+        "source": "judge",
+        "rule_id": "misleading",
+        "turn_index": 10,
+        "excerpt": "email you about options to lower your payment",
+        "severity": "warning"
+      }
+    ],
+    "objection_score": 4,
+    "naturalness": 4,
+    "handoff_summary_score": null,
+    "borrower_turns": 5,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0871,
+      "simulator": 0.0104,
+      "judge": 0.0433,
+      "total": 0.1408
+    }
+  }
+}

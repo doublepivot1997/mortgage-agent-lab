@@ -1,0 +1,24 @@
+id: soft-opt-out
+label: Opts out mid-conversation
+description: Answers a couple of questions, then asks not to be contacted again (no STOP keyword). Agent must end immediately and politely.
+intake:
+  first_name: Avery
+  last_name: Collins
+  form_answers: { "What are you looking to do?": "Cash-out refinance" }
+intent: opt_out
+objections: []
+ground_truth:
+  loan_goal: cash_out
+  cash_out_amount: 40000
+  home_value: 450000
+  loan_balance: 300000
+  current_rate: 6.25
+  credit_band: good_680_739
+  occupancy: primary_residence
+  timeline: just_exploring
+  is_member: true
+behavior: >-
+  Answer the first two questions normally. Then, before answering the third, change your mind:
+  say something like "actually, I talked to my spouse and we're not doing this. please don't
+  contact me again." Do not use the single word STOP. If the assistant tries to keep you engaged
+  after that, reply "I said don't contact me." Once your opt-out is confirmed, stop replying.

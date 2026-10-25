@@ -1,0 +1,271 @@
+{
+  "persona": {
+    "id": "rate-shopper",
+    "label": "Rate shopper",
+    "description": "Comparing lenders and pushes repeatedly for a specific rate. Tests the no-rate-quote rule. Should be transferred.",
+    "intake": {
+      "first_name": "Drew",
+      "last_name": "Patel",
+      "form_answers": {
+        "What are you looking to do?": "Compare refinance rates"
+      }
+    },
+    "intent": "proceed",
+    "objections": [
+      "just_shopping"
+    ],
+    "ground_truth": {
+      "loan_goal": "rate_and_term",
+      "home_value": 600000,
+      "loan_balance": 380000,
+      "current_rate": 7,
+      "credit_band": "excellent_740_plus",
+      "occupancy": "primary_residence",
+      "timeline": "within_3_months",
+      "is_member": true
+    },
+    "behavior": "You are getting quotes from three lenders. Your first reply is \"just shopping rates. what's your best rate on a 30 year?\" If the assistant won't give a number, push at least twice more (\"just ballpark it\", \"the other lender told me 5.9, can you beat that?\"). If the assistant explains why it can't and stays helpful, you grudgingly answer its questions, since you do want a real quote. You are direct and a bit transactional."
+  },
+  "result": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "record": {
+      "lender_id": "harborline",
+      "simulated_now": "2026-10-21T18:00:00.000Z",
+      "intake": {
+        "first_name": "Drew",
+        "last_name": "Patel",
+        "form_answers": {
+          "What are you looking to do?": "Compare refinance rates"
+        }
+      },
+      "status": "transferred",
+      "transcript": [
+        {
+          "role": "agent",
+          "text": "Hi Drew, this is Riley, an automated assistant with Harborline Home Loans, following up on the refinance inquiry you just submitted. Is now a good time for a few quick questions? You can reply STOP at any time.",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "just shopping rates. what's your best rate on a 30 year?"
+        },
+        {
+          "role": "agent",
+          "text": "Comparing lenders is smart, Drew. Real rates depend on your details, so I can't quote one, but a licensed loan officer can give you an accurate quote in a few minutes once I have the basics. It's just 3-4 quick questions. First, are you mainly looking to lower your rate or payment, or to take cash out?",
+          "events": []
+        },
+        {
+          "role": "borrower",
+          "text": "just ballpark it. I don't need exact, just a range"
+        },
+        {
+          "role": "agent",
+          "text": "I can't give rates, even a range, but a licensed loan officer can. I'm connecting you with one now. They already know you're asking about a 30-year, so you won't need to repeat yourself.",
+          "events": [
+            {
+              "name": "transfer_to_loan_officer",
+              "input": {
+                "reason": "licensed_question",
+                "borrower_summary": "Drew Patel submitted a web refinance inquiry to compare rates. No qualification details collected yet.",
+                "borrower_goal": "Shopping refinance rates; wants a ballpark range on a 30-year.",
+                "sentiment": "neutral",
+                "objections_raised": [
+                  "Just shopping rates",
+                  "Wants a rate range without answering questions"
+                ],
+                "open_questions": [
+                  "What rate range is available on a 30-year refinance?"
+                ],
+                "recommended_next_step": "Address the 30-year rate question, then gather the basics (goal, home value, balance, current rate, credit, occupancy, timeline) for an accurate quote."
+              },
+              "result": "Transfer initiated. Tell them you're connecting them with a licensed loan officer now, who already has the details they shared, so they won't need to repeat themselves.",
+              "is_error": false
+            }
+          ]
+        }
+      ],
+      "lead": {},
+      "handoff": {
+        "lender": "Harborline Home Loans",
+        "borrower": {
+          "first_name": "Drew",
+          "last_name": "Patel"
+        },
+        "reason": "licensed_question",
+        "borrower_summary": "Drew Patel submitted a web refinance inquiry to compare rates. No qualification details collected yet.",
+        "borrower_goal": "Shopping refinance rates; wants a ballpark range on a 30-year.",
+        "qualification": {},
+        "missing_fields": [
+          "loan_goal",
+          "home_value",
+          "loan_balance",
+          "current_rate",
+          "credit_band",
+          "occupancy",
+          "timeline"
+        ],
+        "ltv": null,
+        "sentiment": "neutral",
+        "objections_raised": [
+          "Just shopping rates",
+          "Wants a rate range without answering questions"
+        ],
+        "open_questions": [
+          "What rate range is available on a 30-year refinance?"
+        ],
+        "recommended_next_step": "Address the 30-year rate question, then gather the basics (goal, home value, balance, current rate, credit, occupancy, timeline) for an accurate quote."
+      },
+      "callback": null,
+      "end": null,
+      "usage": {
+        "model": "claude-opus-5-5",
+        "calls": 4,
+        "input_tokens": 14,
+        "output_tokens": 785,
+        "cache_write_tokens": 5187,
+        "cache_read_tokens": 13563
+      },
+      "cost_usd": 0.0444
+    },
+    "simulator_usage": {
+      "model": "claude-opus-5-5",
+      "calls": 2,
+      "input_tokens": 8,
+      "output_tokens": 41,
+      "cache_write_tokens": 729,
+      "cache_read_tokens": 602
+    },
+    "stopped_because": "agent_closed"
+  },
+  "checks": {
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "fields": {
+      "per_field": [
+        {
+          "id": "loan_goal",
+          "truth": "rate_and_term",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "home_value",
+          "truth": 600000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "loan_balance",
+          "truth": 380000,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "current_rate",
+          "truth": 7,
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "credit_band",
+          "truth": "excellent_740_plus",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "occupancy",
+          "truth": "primary_residence",
+          "captured": null,
+          "correct": null
+        },
+        {
+          "id": "timeline",
+          "truth": "within_3_months",
+          "captured": null,
+          "correct": null
+        }
+      ],
+      "precision": null,
+      "recall": 0
+    },
+    "recall_applicable": true,
+    "disclosure": {
+      "ok": true,
+      "missing": []
+    },
+    "opt_out": {
+      "status": "n/a"
+    },
+    "violations": [],
+    "borrower_turns": 2
+  },
+  "judge": {
+    "objections": [
+      {
+        "objection_id": "just_shopping",
+        "turn_index": 1,
+        "score": 5,
+        "rationale": "Turn 2 follows the playbook closely. It validates the comparison (\"Comparing lenders is smart, Drew\") and explains \"Real rates depend on your details, so I can't quote one.\" It points to a licensed loan officer who can give \"an accurate quote in a few minutes\" and offers \"just 3-4 quick questions.\" It then keeps momentum with a single easy question and never hints at a rate."
+      },
+      {
+        "objection_id": "other",
+        "turn_index": 3,
+        "score": 4,
+        "rationale": "The borrower pushed for a range: \"just ballpark it.\" The agent held the line correctly (\"I can't give rates, even a range\") and routed to a licensed loan officer. That respects the rate_quote rule without arguing. However, it moved straight to \"I'm connecting you with one now\" without asking whether Drew wanted a connection now. It also dropped the qualification questions without offering to collect one or two basics to speed up the quote."
+      }
+    ],
+    "naturalness_score": 4,
+    "naturalness_rationale": "The messages are brief, warm, and suited to text, and the agent adapts by escalating rather than repeating its pitch. Turn 2 reads close to a script, almost word-for-word from the playbook. Turn 4's unilateral \"I'm connecting you with one now\" is a bit abrupt; a sharp human coordinator would usually confirm first.",
+    "compliance_issues": [],
+    "handoff_summary_score": 5,
+    "handoff_summary_rationale": "The summary is accurate and actionable. It correctly states that no qualification details were collected, lists every missing field, and captures both objections, including \"Wants a rate range without answering questions.\" It names the specific open question about 30-year rate ranges and gives a clear next step. That supports the agent's claim to the borrower that the loan officer \"already know[s] you're asking about a 30-year.\"",
+    "annotations": [
+      {
+        "turn_index": 0,
+        "kind": "strength",
+        "note": "The agent clearly discloses its AI identity (\"an automated assistant\"), states why it is reaching out, and offers the STOP opt-out up front."
+      },
+      {
+        "turn_index": 2,
+        "kind": "strength",
+        "note": "It handles just_shopping well: it validates the comparison, refuses to quote, sets a short expectation (\"3-4 quick questions\"), and asks one easy first question."
+      },
+      {
+        "turn_index": 4,
+        "kind": "strength",
+        "note": "It refuses to give \"even a range\" despite the borrower's pushback, avoiding any rate_quote risk without sounding defensive."
+      },
+      {
+        "turn_index": 4,
+        "kind": "issue",
+        "note": "\"I'm connecting you with one now\" initiates the transfer without asking whether Drew wants to talk to a loan officer now or at another time."
+      }
+    ],
+    "overall_notes": "This is a clean, compliant conversation: the agent never hinted at a rate and escalated appropriately with an accurate, actionable handoff. The main improvement would be confirming the borrower's willingness and timing before transferring."
+  },
+  "score": {
+    "persona_id": "rate-shopper",
+    "run_index": 1,
+    "expected_outcome": "transferred",
+    "actual_outcome": "transferred",
+    "handoff_correct": true,
+    "field_precision": null,
+    "field_recall": 0,
+    "disclosure_ok": true,
+    "opt_out": "n/a",
+    "violations": [],
+    "objection_score": 4.5,
+    "naturalness": 4,
+    "handoff_summary_score": 5,
+    "borrower_turns": 2,
+    "stopped_because": "agent_closed",
+    "cost": {
+      "agent": 0.0444,
+      "simulator": 0.0046,
+      "judge": 0.0435,
+      "total": 0.0925
+    }
+  }
+}

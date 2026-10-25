@@ -152,7 +152,7 @@ compliance:
     # immediately with the canned reply. No model call is made.
     hard_stop_keywords: [stop, stopall, unsubscribe, cancel, end, quit, opt out, optout]
     # Softer phrasing ("please don't contact me again") is handled by the agent.
-    soft_signals: ["don't contact me", "do not contact", "stop texting", "leave me alone", "remove me", "not interested, stop"]
+    soft_signals: ["don't contact me", "do not contact", "stop texting", "stop messaging", "leave me alone", "remove me", "remove my number", "take me off", "not interested, stop"]
     canned_reply: >-
       You're opted out and won't receive further messages from Harborline Home Loans.
       Take care.
@@ -173,8 +173,12 @@ handoff:
   not_eligible_action: follow_up_by_email
   not_eligible_guidance: >-
     Do not transfer and do not say they don't qualify. Say a loan officer will review
-    their details and follow up by email with options, then end politely.
-  licensed_question_action: transfer_if_available   # rate/approval/advice questions go to a human
+    their details and follow up by email, then end politely. Do not imply that a lower
+    rate, lower payment, or approval is available.
+  licensed_question_action: transfer_if_available   # rate/approval/advice questions go to a human...
+  # ...but only once the loan officer has something to work with. (Eval finding, run 2026-10-25:
+  # a rate shopper was transferred with zero fields after asking "just ballpark it".)
+  licensed_question_min_fields: [loan_goal, home_value, loan_balance]
   transfer_message_guidance: >-
     Tell them you're connecting them with a licensed loan officer now, who already has
     the details they shared, so they won't need to repeat themselves.

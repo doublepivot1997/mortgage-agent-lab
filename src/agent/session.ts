@@ -1,4 +1,5 @@
-import Anthropic from "@anthropic-ai/sdk";
+import type Anthropic from "@anthropic-ai/sdk";
+import { FALLBACK_BETA, getClient } from "../lib/anthropic.js";
 import { loadLenderConfig, loadModelConfig, type LenderConfig, type ModelConfig } from "../lib/config.js";
 import { addUsage, costUsd, emptyTally, type UsageTally } from "../lib/cost.js";
 import { computeLtv, evaluateHandoff, mergeLeadFields, missingRequiredFields, type LeadFields } from "./lead.js";
@@ -68,19 +69,6 @@ export interface SessionOptions {
 }
 
 const MAX_TOOL_ROUNDS = 6;
-const FALLBACK_BETA = "server-side-fallback-2026-07-01";
-
-let sharedClient: Anthropic | null = null;
-function defaultClient(): Anthropic {
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key || key === "paste-your-key-here") {
-    throw new Error("ANTHROPIC_API_KEY is not set. Paste your key into .env.local (see .env.example).");
-  }
-  // Org-level keys (not scoped to a workspace) must name the workspace on every request.
-  const workspaceId = process.env.ANTHROPIC_WORKSPACE_ID?.trim();
-  sharedClient ??= new Anthropic(workspaceId ? { defaultHeaders: { "anthropic-workspace-id": workspaceId } } : {});
-  return sharedClient;
-}
 
 export class AgentSession {
   readonly cfg: LenderConfig;
@@ -162,7 +150,7 @@ export class AgentSession {
 
   private async runAgentTurn(): Promise<AgentReply> {
     const role = this.models.roles.agent;
-    const client = (this.client ??= defaultClient());
+    const client = (this.client ??= getClient());
     const texts: string[] = [];
     const events: ToolEvent[] = [];
 

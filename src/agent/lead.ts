@@ -159,6 +159,17 @@ export function evaluateHandoff(cfg: LenderConfig, lead: LeadFields, now: Date, 
     if (missing.length) return { action: "ask_more", missing, detail: `Still missing: ${missing.join(", ")}.` };
   }
 
+  if (reason !== "qualified") {
+    const missing = h.licensed_question_min_fields.filter((f) => lead[f] === undefined);
+    if (missing.length) {
+      return {
+        action: "ask_more",
+        missing,
+        detail: `Before a loan officer can answer that, collect: ${missing.join(", ")}. Tell the borrower the loan officer needs these to give a real answer.`,
+      };
+    }
+  }
+
   if (reason !== "qualified" && h.licensed_question_action === "book_callback") {
     return { action: "callback", detail: "This lender routes licensed questions to a scheduled callback." };
   }

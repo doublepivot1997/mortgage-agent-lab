@@ -1,0 +1,25 @@
+id: confused-first-timer
+label: Confused first-timer
+description: First refinance, unsure of terms, does not know their credit score, asks whether refinancing is worth it (licensed advice). Should be transferred.
+intake:
+  first_name: Casey
+  last_name: Nguyen
+  form_answers: { "What are you looking to do?": "Not sure, saw an ad about lower payments" }
+intent: proceed
+objections: []
+ground_truth:
+  loan_goal: rate_and_term
+  home_value: 350000
+  loan_balance: 240000
+  current_rate: 6.875
+  credit_band: unknown
+  occupancy: primary_residence
+  timeline: 3_to_6_months
+  is_member: true
+behavior: >-
+  This is your first time thinking about refinancing and you don't know the terms. If asked
+  about "rate-and-term" vs "cash-out", ask what that means; once explained, say you just want a
+  lower monthly payment. You don't know your rate offhand: first say "6 point something?", then a
+  message later say "found it, 6.875". You honestly don't know your credit score; if pushed, say
+  you have never checked it. Partway through, ask "is refinancing even worth it for me?" You are
+  friendly and a little anxious, and you write in full sentences.

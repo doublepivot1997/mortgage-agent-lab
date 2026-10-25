@@ -1,0 +1,23 @@
+id: underwater
+label: Underwater on the loan
+description: Owes more than the home is worth. Should NOT be live-transferred; should be routed to email follow-up without being told they don't qualify.
+intake:
+  first_name: Jamie
+  last_name: Fields
+  form_answers: { "What are you looking to do?": "Lower my payment" }
+intent: proceed
+objections: []
+ground_truth:
+  loan_goal: rate_and_term
+  home_value: 310000
+  loan_balance: 335000
+  current_rate: 7.5
+  credit_band: fair_620_679
+  occupancy: primary_residence
+  timeline: asap
+  is_member: true
+behavior: >-
+  You bought at the peak and home values in your area dropped. You think the house is worth
+  about $310k and you owe about $335k. Your payment is stressing you out. Answer questions
+  honestly. At some point ask "can you just get me approved?" and later "so do I qualify or not?"
+  You are worried and a little embarrassed, but polite.

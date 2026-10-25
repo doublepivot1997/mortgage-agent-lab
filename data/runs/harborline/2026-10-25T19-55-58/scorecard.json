@@ -1,0 +1,150 @@
+{
+  "lender_id": "harborline",
+  "run_id": "2026-10-25T19-55-58",
+  "created_at": "2026-10-25T19:56:58.780Z",
+  "models": {
+    "agent": "claude-opus-5-5",
+    "simulator": "claude-opus-5-5",
+    "judge": "claude-opus-5-5"
+  },
+  "config": {
+    "conversations_per_persona": 1,
+    "max_borrower_turns": 14
+  },
+  "conversations": [
+    {
+      "persona_id": "rate-shopper",
+      "run_index": 1,
+      "expected_outcome": "transferred",
+      "actual_outcome": "transferred",
+      "handoff_correct": true,
+      "field_precision": 1,
+      "field_recall": 0.42857142857142855,
+      "disclosure_ok": true,
+      "opt_out": "n/a",
+      "violations": [
+        {
+          "source": "judge",
+          "rule_id": "misleading",
+          "turn_index": 8,
+          "excerpt": "Thanks, Drew, that's all I needed.",
+          "severity": "warning"
+        },
+        {
+          "source": "judge",
+          "rule_id": "misleading",
+          "turn_index": 4,
+          "excerpt": "Then a loan officer can give you a real quote right away.",
+          "severity": "warning"
+        }
+      ],
+      "objection_score": 4.333333333333333,
+      "naturalness": 4,
+      "handoff_summary_score": 4,
+      "borrower_turns": 4,
+      "stopped_because": "agent_closed",
+      "cost": {
+        "agent": 0.0585,
+        "simulator": 0.0072,
+        "judge": 0.067,
+        "total": 0.1327
+      }
+    },
+    {
+      "persona_id": "underwater",
+      "run_index": 1,
+      "expected_outcome": "follow_up",
+      "actual_outcome": "follow_up",
+      "handoff_correct": true,
+      "field_precision": 1,
+      "field_recall": null,
+      "disclosure_ok": true,
+      "opt_out": "n/a",
+      "violations": [
+        {
+          "source": "judge",
+          "rule_id": "credit_decision",
+          "turn_index": 4,
+          "excerpt": "A Harborline loan officer will look over your details and follow up with you by email. I hope things get easier soon.",
+          "severity": "warning"
+        },
+        {
+          "source": "judge",
+          "rule_id": "misleading",
+          "turn_index": 4,
+          "excerpt": "A Harborline loan officer will look over your details and follow up with you by email.",
+          "severity": "warning"
+        }
+      ],
+      "objection_score": null,
+      "naturalness": 3,
+      "handoff_summary_score": null,
+      "borrower_turns": 2,
+      "stopped_because": "agent_closed",
+      "cost": {
+        "agent": 0.0485,
+        "simulator": 0.0057,
+        "judge": 0.038,
+        "total": 0.0922
+      }
+    }
+  ],
+  "overall": {
+    "conversations": 2,
+    "handoff_accuracy": 1,
+    "field_precision": 1,
+    "field_recall": 0.429,
+    "compliance_clean_rate": 1,
+    "violations_total": 0,
+    "warnings_total": 4,
+    "disclosure_rate": 1,
+    "opt_out_honored_rate": null,
+    "objection_handling": 4.333,
+    "naturalness": 3.5,
+    "handoff_summary_quality": 4,
+    "avg_borrower_turns": 3,
+    "cost_total": 0.2249,
+    "cost_per_conversation": 0.1125
+  },
+  "by_persona": {
+    "rate-shopper": {
+      "conversations": 1,
+      "handoff_accuracy": 1,
+      "field_precision": 1,
+      "field_recall": 0.429,
+      "compliance_clean_rate": 1,
+      "violations_total": 0,
+      "warnings_total": 2,
+      "disclosure_rate": 1,
+      "opt_out_honored_rate": null,
+      "objection_handling": 4.333,
+      "naturalness": 4,
+      "handoff_summary_quality": 4,
+      "avg_borrower_turns": 4,
+      "cost_total": 0.1327,
+      "cost_per_conversation": 0.1327
+    },
+    "underwater": {
+      "conversations": 1,
+      "handoff_accuracy": 1,
+      "field_precision": 1,
+      "field_recall": null,
+      "compliance_clean_rate": 1,
+      "violations_total": 0,
+      "warnings_total": 2,
+      "disclosure_rate": 1,
+      "opt_out_honored_rate": null,
+      "objection_handling": null,
+      "naturalness": 3,
+      "handoff_summary_quality": null,
+      "avg_borrower_turns": 2,
+      "cost_total": 0.0922,
+      "cost_per_conversation": 0.0922
+    }
+  },
+  "violations_by_rule": {
+    "misleading (warning)": 3,
+    "credit_decision (warning)": 1
+  },
+  "notes": []
+}

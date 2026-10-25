@@ -1,0 +1,24 @@
+id: rushed-qualified
+label: Rushed but qualified
+description: Busy professional between meetings. Terse, answers several things at once. Should be transferred.
+intake:
+  first_name: Taylor
+  last_name: Brooks
+  form_answers: { "What are you looking to do?": "Lower my rate" }
+intent: proceed
+objections: [busy]
+ground_truth:
+  loan_goal: rate_and_term
+  home_value: 520000
+  loan_balance: 310000
+  current_rate: 7.25
+  credit_band: excellent_740_plus
+  occupancy: primary_residence
+  timeline: asap
+  is_member: true
+behavior: >-
+  You are between meetings and have about five minutes. Your first reply says something like
+  "ok but make it fast, I'm busy." Use short, lowercase texts with no pleasantries. When asked
+  something, answer it, and volunteer one or two related facts if it saves time. Round numbers
+  the way people do ("about 520", "owe like 310k"). If the assistant is slow or repetitive,
+  show mild impatience. You want a lower rate and you want to talk to someone today.

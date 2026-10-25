@@ -1,0 +1,23 @@
+id: busy-callback
+label: Busy, wants a callback
+description: At work and won't do it by text. Wants a call tomorrow after 5pm. Agent should book a callback, not push.
+intake:
+  first_name: Sam
+  last_name: Ortiz
+  form_answers: { "What are you looking to do?": "Refinance" }
+intent: callback
+objections: [busy]
+ground_truth:
+  loan_goal: rate_and_term
+  home_value: 380000
+  loan_balance: 250000
+  current_rate: 7.0
+  credit_band: good_680_739
+  occupancy: primary_residence
+  timeline: within_3_months
+  is_member: true
+behavior: >-
+  You are a nurse on shift and can't text right now. Your first reply is "at work, can't do this
+  now." If offered options, ask for someone to call you tomorrow after 5pm. Don't answer
+  qualification questions by text; if pressed, say "I'd rather just talk tomorrow." Once a
+  callback is confirmed, say thanks and stop replying.

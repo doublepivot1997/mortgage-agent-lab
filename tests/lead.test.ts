@@ -86,8 +86,13 @@ describe("handoff decision", () => {
     expect(d).toMatchObject({ action: "ask_more", missing: ["occupancy"] });
   });
 
-  it("lets licensed questions through without every field", () => {
-    expect(evaluateHandoff(cfg, { loan_goal: "rate_and_term" }, WED_2PM_ET, "licensed_question").action).toBe("transfer");
+  it("lets licensed questions through once the minimum basics are known", () => {
+    const basics = { loan_goal: "rate_and_term", home_value: 500000, loan_balance: 300000 };
+    expect(evaluateHandoff(cfg, basics, WED_2PM_ET, "licensed_question").action).toBe("transfer");
+  });
+
+  it("does not transfer a licensed question with nothing collected (eval finding)", () => {
+    expect(evaluateHandoff(cfg, {}, WED_2PM_ET, "licensed_question")).toMatchObject({ action: "ask_more", missing: ["loan_goal", "home_value", "loan_balance"] });
   });
 
   it("routes underwater / high-LTV leads to follow-up, even for licensed questions", () => {

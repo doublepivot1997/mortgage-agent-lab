@@ -92,6 +92,7 @@ export const LenderConfigSchema = z
       not_eligible_action: z.enum(["follow_up_by_email", "book_callback"]),
       not_eligible_guidance: z.string(),
       licensed_question_action: z.enum(["transfer_if_available", "book_callback"]),
+      licensed_question_min_fields: z.array(z.string()).default([]),
       transfer_message_guidance: z.string(),
       after_hours_guidance: z.string().optional(),
     }),
@@ -110,6 +111,9 @@ export const LenderConfigSchema = z
     const h = cfg.handoff;
     if (h.live_transfer_available === "business_hours" && !h.business_hours) {
       ctx.addIssue({ code: "custom", message: "business_hours is required when live_transfer_available = business_hours" });
+    }
+    for (const f of h.licensed_question_min_fields) {
+      if (!ids.includes(f)) ctx.addIssue({ code: "custom", message: `licensed_question_min_fields: unknown field "${f}"` });
     }
     if (h.membership_required && (!h.membership_field || !ids.includes(h.membership_field))) {
       ctx.addIssue({ code: "custom", message: "membership_required needs a membership_field that exists in qualification.fields" });
@@ -147,6 +151,13 @@ export const ModelConfigSchema = z
   .object({
     roles: z.object({ agent: RoleSchema, simulator: RoleSchema, judge: RoleSchema }),
     pricing: z.record(z.string(), PriceSchema),
+    eval: z.object({
+      conversations_per_persona: z.number().int().min(1),
+      max_borrower_turns: z.number().int().min(2),
+      concurrency: z.number().int().min(1).max(16),
+      max_cost_usd: z.number().positive(),
+      default_cost_per_conversation: z.number().positive(),
+    }),
   })
   .superRefine((cfg, ctx) => {
     for (const [role, r] of Object.entries(cfg.roles)) {

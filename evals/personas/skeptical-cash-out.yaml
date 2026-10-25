@@ -1,0 +1,25 @@
+id: skeptical-cash-out
+label: Skeptical, wants cash out
+description: Suspicious of who is texting and why. Opens with "how did you get my number?" Should be transferred once reassured.
+intake:
+  first_name: Morgan
+  last_name: Reyes
+  form_answers: { "What are you looking to do?": "Cash-out refinance" }
+intent: proceed
+objections: [how_got_info]
+ground_truth:
+  loan_goal: cash_out
+  cash_out_amount: 60000
+  home_value: 400000
+  loan_balance: 210000
+  current_rate: 6.5
+  credit_band: good_680_739
+  occupancy: primary_residence
+  timeline: within_3_months
+  is_member: true
+behavior: >-
+  You filled out a form online but forgot, and you get a lot of spam. Your first reply is
+  "who is this? how did you get my number?" Then ask whether you are talking to a real person.
+  If the answers are direct and honest, warm up a little and answer questions, one at a time.
+  If the assistant is evasive or salesy, get shorter and more suspicious. You want about $60k
+  cash out for a kitchen remodel and to pay off a car loan. Your credit is "around 700".
