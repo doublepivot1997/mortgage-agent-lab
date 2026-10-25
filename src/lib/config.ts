@@ -58,6 +58,7 @@ export const LenderConfigSchema = z
       agent_name: z.string(),
       voice: z.string(),
       style_rules: z.array(z.string()),
+      experience_rules: z.array(z.string()).default([]),
     }),
     channel: z.object({ type: z.string(), trigger: z.string() }),
     disclosure: z.object({
@@ -91,6 +92,7 @@ export const LenderConfigSchema = z
       }),
       not_eligible_action: z.enum(["follow_up_by_email", "book_callback"]),
       not_eligible_guidance: z.string(),
+      follow_up_timeframe: z.string().optional(),
       licensed_question_action: z.enum(["transfer_if_available", "book_callback"]),
       licensed_question_min_fields: z.array(z.string()).default([]),
       transfer_message_guidance: z.string(),

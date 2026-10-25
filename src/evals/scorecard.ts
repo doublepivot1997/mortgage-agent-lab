@@ -17,6 +17,9 @@ export interface ConversationScore {
   violations: Violation[]; // severity "violation" only counts against compliance
   objection_score: number | null;
   naturalness: number | null;
+  borrower_experience: number | null;
+  clear_next_step: boolean | null;
+  borrower_end_state: string | null;
   handoff_summary_score: number | null;
   borrower_turns: number;
   stopped_because: string;
@@ -53,6 +56,9 @@ export function buildConversationScore(args: {
     violations: args.violations,
     objection_score: args.objection_score,
     naturalness: args.judge?.naturalness_score ?? null,
+    borrower_experience: args.judge?.borrower_experience_score ?? null,
+    clear_next_step: args.judge ? args.judge.clear_next_step : null,
+    borrower_end_state: args.judge?.borrower_end_state ?? null,
     handoff_summary_score: args.judge?.handoff_summary_score ?? null,
     borrower_turns: c.borrower_turns,
     stopped_because: args.stopped_because,
@@ -75,6 +81,9 @@ export interface Metrics {
   opt_out_honored_rate: number | null;
   objection_handling: number | null;
   naturalness: number | null;
+  borrower_experience: number | null;
+  clear_next_step_rate: number | null;
+  frustrated_or_confused_rate: number | null;
   handoff_summary_quality: number | null;
   avg_borrower_turns: number | null;
   cost_total: number;
@@ -122,6 +131,9 @@ export function aggregate(scores: ConversationScore[]): Metrics {
     opt_out_honored_rate: rate(scores.filter((s) => s.opt_out !== "n/a").map((s) => s.opt_out === "pass")),
     objection_handling: mean(scores.map((s) => s.objection_score)),
     naturalness: mean(scores.map((s) => s.naturalness)),
+    borrower_experience: mean(scores.map((s) => s.borrower_experience)),
+    clear_next_step_rate: rate(scores.filter((s) => s.clear_next_step !== null).map((s) => s.clear_next_step === true)),
+    frustrated_or_confused_rate: rate(scores.filter((s) => s.borrower_end_state !== null).map((s) => s.borrower_end_state === "frustrated" || s.borrower_end_state === "confused")),
     handoff_summary_quality: mean(scores.map((s) => s.handoff_summary_score)),
     avg_borrower_turns: mean(scores.map((s) => s.borrower_turns)),
     cost_total,
@@ -174,17 +186,20 @@ export function renderSummaryMarkdown(sc: Scorecard, labels: Record<string, stri
     `| Opt-out honored | ${pct(o.opt_out_honored_rate)} | Ended immediately, ≤1 message, no questions (rule-based) |`,
     `| Objection handling | ${five(o.objection_handling)} / 5 | LLM judge, per objection |`,
     `| Naturalness | ${five(o.naturalness)} / 5 | LLM judge |`,
+    `| Borrower experience | ${five(o.borrower_experience)} / 5 | LLM judge: respected, informed, honest expectations |`,
+    `| Ended with a clear next step | ${pct(o.clear_next_step_rate)} | LLM judge: knows who contacts them, how, and when |`,
+    `| Ended frustrated or confused | ${pct(o.frustrated_or_confused_rate)} | LLM judge (lower is better) |`,
     `| Handoff summary quality | ${five(o.handoff_summary_quality)} / 5 | LLM judge, transfers only |`,
     `| Avg borrower turns | ${o.avg_borrower_turns ?? "—"} | |`,
     `| Cost | ${usd(o.cost_total)} total, ${usd(o.cost_per_conversation)} per conversation | Measured from API token usage |`,
     ``,
     `## By persona`,
     ``,
-    `| Persona | n | Handoff | Recall | Clean | Objections | Natural | Cost/conv |`,
-    `|---|---|---|---|---|---|---|---|`,
+    `| Persona | n | Handoff | Recall | Clean | Objections | Natural | Experience | Next step | Cost/conv |`,
+    `|---|---|---|---|---|---|---|---|---|---|`,
     ...Object.entries(sc.by_persona).map(
       ([id, m]) =>
-        `| ${labels[id] ?? id} | ${m.conversations} | ${pct(m.handoff_accuracy)} | ${pct(m.field_recall)} | ${pct(m.compliance_clean_rate)} | ${five(m.objection_handling)} | ${five(m.naturalness)} | ${usd(m.cost_per_conversation)} |`,
+        `| ${labels[id] ?? id} | ${m.conversations} | ${pct(m.handoff_accuracy)} | ${pct(m.field_recall)} | ${pct(m.compliance_clean_rate)} | ${five(m.objection_handling)} | ${five(m.naturalness)} | ${five(m.borrower_experience)} | ${pct(m.clear_next_step_rate)} | ${usd(m.cost_per_conversation)} |`,
     ),
     ``,
   ];

@@ -211,7 +211,10 @@ export class AgentSession {
       case "schedule_callback": {
         this.callback = input as CallbackInput;
         this.status = "callback_booked";
-        return { result: "Callback booked. Confirm the time with the borrower in one short message and close.", is_error: false };
+        return {
+          result: `Callback booked. In one short message, confirm the time and say a licensed loan officer will call${this.cfg.handoff.follow_up_timeframe && this.callback.reason === "loan_officer_review" ? ` (${this.cfg.handoff.follow_up_timeframe} at the latest)` : ""}. Then close.`,
+          is_error: false,
+        };
       }
       case "end_conversation": {
         this.end = input as EndInput;
@@ -263,7 +266,13 @@ export class AgentSession {
         };
       case "follow_up":
         return {
-          result: `Not transferred. ${decision.detail} Use end_conversation with reason "${decision.why === "not_member" ? "not_a_member" : "follow_up_by_email"}".`,
+          result: `Not transferred. ${decision.detail} ${
+            decision.why === "not_member"
+              ? `Use end_conversation with reason "not_a_member".`
+              : this.cfg.handoff.not_eligible_action === "book_callback"
+                ? `Finish collecting any missing details first, then offer a call and use schedule_callback with reason "loan_officer_review".`
+                : `Use end_conversation with reason "follow_up_by_email".`
+          }`,
           is_error: true,
         };
     }

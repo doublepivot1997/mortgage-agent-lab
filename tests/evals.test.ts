@@ -74,9 +74,12 @@ describe("personas", () => {
   });
 
   it("maps session status to outcomes", () => {
-    expect(actualOutcome({ status: "ended", end: { reason: "follow_up_by_email", notes: "" } })).toBe("follow_up");
-    expect(actualOutcome({ status: "ended", end: { reason: "not_interested", notes: "" } })).toBe("ended_other");
-    expect(actualOutcome({ status: "active", end: null })).toBe("incomplete");
+    expect(actualOutcome({ status: "ended", end: { reason: "follow_up_by_email", notes: "" }, callback: null })).toBe("follow_up");
+    expect(actualOutcome({ status: "ended", end: { reason: "not_interested", notes: "" }, callback: null })).toBe("ended_other");
+    expect(actualOutcome({ status: "active", end: null, callback: null })).toBe("incomplete");
+    // A booked loan-officer review is follow-up; an ordinary callback is not.
+    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "loan_officer_review", preferred_time: "tomorrow", notes: "" } })).toBe("follow_up");
+    expect(actualOutcome({ status: "callback_booked", end: null, callback: { reason: "borrower_busy", preferred_time: "tomorrow", notes: "" } })).toBe("callback_booked");
   });
 });
 
@@ -226,6 +229,9 @@ describe("scorecard math", () => {
       violations: [],
       objection_score: null,
       naturalness: 4,
+      borrower_experience: 4,
+      clear_next_step: true,
+      borrower_end_state: "satisfied",
       handoff_summary_score: null,
       borrower_turns: 6,
       stopped_because: "agent_closed",
@@ -242,7 +248,7 @@ describe("scorecard math", () => {
   it("aggregates rates, means, and costs", () => {
     const m = aggregate([
       score({}),
-      score({ handoff_correct: false, field_recall: null, naturalness: 2, opt_out: "pass" }),
+      score({ handoff_correct: false, field_recall: null, naturalness: 2, opt_out: "pass", borrower_experience: 2, clear_next_step: false, borrower_end_state: "frustrated" }),
       score({ violations: [{ source: "rule", rule_id: "rate_quote", turn_index: 2, excerpt: "", severity: "violation" }], opt_out: "fail" }),
       score({ violations: [{ source: "judge", rule_id: "pressure", turn_index: 2, excerpt: "", severity: "warning" }], objection_score: 3 }),
     ]);
@@ -254,6 +260,9 @@ describe("scorecard math", () => {
     expect(m.opt_out_honored_rate).toBe(0.5);
     expect(m.objection_handling).toBe(3);
     expect(m.naturalness).toBe(3.5);
+    expect(m.borrower_experience).toBe(3.5);
+    expect(m.clear_next_step_rate).toBe(0.75);
+    expect(m.frustrated_or_confused_rate).toBe(0.25);
     expect(m.cost_total).toBe(1.4);
     expect(m.cost_per_conversation).toBe(0.35);
   });
@@ -293,6 +302,7 @@ describe("scorecard math", () => {
     const md = renderSummaryMarkdown(sc);
     expect(md).toMatch(/Synthetic evaluation/);
     expect(md).toMatch(/not legal guidance/);
+    expect(md).toContain("Ended with a clear next step");
     expect(md).toContain("expected **transferred**, got **incomplete**");
   });
 });

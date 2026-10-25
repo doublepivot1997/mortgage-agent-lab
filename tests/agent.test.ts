@@ -14,6 +14,9 @@ describe("prompt is built from config, not hard-coded", () => {
     expect(p).toContain("Just shopping rates");
     expect(p).toContain("Never state, estimate, or imply a specific interest rate");
     expect(p).toContain("at most 0.95");
+    expect(p).toContain("# Borrower experience (always)");
+    expect(p).toContain("Never make the next step sound faster, simpler, or more certain");
+    expect(p).toContain("within one business day");
   });
 
   it("changes completely when the config changes", () => {
@@ -127,21 +130,23 @@ describe("AgentSession (scripted model, no network)", () => {
     expect(s.transcript.at(-1)).toMatchObject({ role: "agent", deterministic: true });
   });
 
-  it("routes an underwater borrower to email follow-up instead of transfer", async () => {
+  it("routes an underwater borrower to a booked loan-officer review instead of a transfer", async () => {
     const under = { ...nulls, loan_goal: "rate_and_term", home_value: 300000, loan_balance: 340000 };
     const { client } = fakeClient([
       [{ type: "text", text: "Hi Jordan, this is Riley, an automated assistant with Harborline Home Loans." }],
       [{ type: "tool_use", name: "record_lead_info", input: under }, { type: "tool_use", name: "transfer_to_loan_officer", input: { ...handoffInput, reason: "licensed_question" } }],
-      [{ type: "tool_use", name: "end_conversation", input: { reason: "follow_up_by_email", notes: "High LTV" } }],
-      [{ type: "text", text: "A loan officer will review your details and follow up by email." }],
+      [{ type: "tool_use", name: "schedule_callback", input: { reason: "loan_officer_review", preferred_time: "tomorrow at noon", notes: "Owes more than value" } }],
+      [{ type: "text", text: "You're set: a licensed loan officer will call you tomorrow at noon to go over your situation." }],
     ]);
     const s = new AgentSession({ lender: harborline(), intake, now: WED_2PM_ET, client });
     await s.start();
     const r = await s.send("home's worth 300k, I owe 340k. what rate can I get?");
     expect(r.events[1]).toMatchObject({ is_error: true });
-    expect(r.events[1]!.result).toMatch(/follow_up_by_email/);
-    expect(s.status).toBe("ended");
+    expect(r.events[1]!.result).toMatch(/schedule_callback with reason "loan_officer_review"/);
+    expect(r.events[1]!.result).not.toMatch(/follow_up_by_email/);
+    expect(r.events[2]!.result).toMatch(/within one business day/);
+    expect(s.status).toBe("callback_booked");
     expect(s.handoff).toBeNull();
-    expect(s.end?.reason).toBe("follow_up_by_email");
+    expect(s.callback?.reason).toBe("loan_officer_review");
   });
 });

@@ -1,0 +1,149 @@
+{
+  "lender_id": "harborline",
+  "run_id": "2026-10-25T20-05-26",
+  "created_at": "2026-10-25T20:07:00.469Z",
+  "models": {
+    "agent": "claude-opus-5-5",
+    "simulator": "claude-opus-5-5",
+    "judge": "claude-opus-5-5"
+  },
+  "config": {
+    "conversations_per_persona": 1,
+    "max_borrower_turns": 14
+  },
+  "conversations": [
+    {
+      "persona_id": "rate-shopper",
+      "run_index": 1,
+      "expected_outcome": "transferred",
+      "actual_outcome": "transferred",
+      "handoff_correct": true,
+      "field_precision": 1,
+      "field_recall": 0.42857142857142855,
+      "disclosure_ok": true,
+      "opt_out": "n/a",
+      "violations": [
+        {
+          "source": "judge",
+          "rule_id": "misleading",
+          "turn_index": 8,
+          "excerpt": "your own estimate of your credit range (no credit check)",
+          "severity": "warning"
+        },
+        {
+          "source": "judge",
+          "rule_id": "misleading",
+          "turn_index": 8,
+          "excerpt": "they'll quickly check a few more details",
+          "severity": "warning"
+        }
+      ],
+      "objection_score": 5,
+      "naturalness": 4,
+      "borrower_experience": 4,
+      "clear_next_step": true,
+      "borrower_end_state": "neutral",
+      "handoff_summary_score": 5,
+      "borrower_turns": 4,
+      "stopped_because": "agent_closed",
+      "cost": {
+        "agent": 0.063,
+        "simulator": 0.0076,
+        "judge": 0.0569,
+        "total": 0.1275
+      }
+    },
+    {
+      "persona_id": "underwater",
+      "run_index": 1,
+      "expected_outcome": "follow_up",
+      "actual_outcome": "follow_up",
+      "handoff_correct": true,
+      "field_precision": 1,
+      "field_recall": null,
+      "disclosure_ok": true,
+      "opt_out": "n/a",
+      "violations": [],
+      "objection_score": 5,
+      "naturalness": 5,
+      "borrower_experience": 5,
+      "clear_next_step": true,
+      "borrower_end_state": "satisfied",
+      "handoff_summary_score": null,
+      "borrower_turns": 8,
+      "stopped_because": "agent_closed",
+      "cost": {
+        "agent": 0.1196,
+        "simulator": 0.0126,
+        "judge": 0.0553,
+        "total": 0.1875
+      }
+    }
+  ],
+  "overall": {
+    "conversations": 2,
+    "handoff_accuracy": 1,
+    "field_precision": 1,
+    "field_recall": 0.429,
+    "compliance_clean_rate": 1,
+    "violations_total": 0,
+    "warnings_total": 2,
+    "disclosure_rate": 1,
+    "opt_out_honored_rate": null,
+    "objection_handling": 5,
+    "naturalness": 4.5,
+    "borrower_experience": 4.5,
+    "clear_next_step_rate": 1,
+    "frustrated_or_confused_rate": 0,
+    "handoff_summary_quality": 5,
+    "avg_borrower_turns": 6,
+    "cost_total": 0.315,
+    "cost_per_conversation": 0.1575
+  },
+  "by_persona": {
+    "rate-shopper": {
+      "conversations": 1,
+      "handoff_accuracy": 1,
+      "field_precision": 1,
+      "field_recall": 0.429,
+      "compliance_clean_rate": 1,
+      "violations_total": 0,
+      "warnings_total": 2,
+      "disclosure_rate": 1,
+      "opt_out_honored_rate": null,
+      "objection_handling": 5,
+      "naturalness": 4,
+      "borrower_experience": 4,
+      "clear_next_step_rate": 1,
+      "frustrated_or_confused_rate": 0,
+      "handoff_summary_quality": 5,
+      "avg_borrower_turns": 4,
+      "cost_total": 0.1275,
+      "cost_per_conversation": 0.1275
+    },
+    "underwater": {
+      "conversations": 1,
+      "handoff_accuracy": 1,
+      "field_precision": 1,
+      "field_recall": null,
+      "compliance_clean_rate": 1,
+      "violations_total": 0,
+      "warnings_total": 0,
+      "disclosure_rate": 1,
+      "opt_out_honored_rate": null,
+      "objection_handling": 5,
+      "naturalness": 5,
+      "borrower_experience": 5,
+      "clear_next_step_rate": 1,
+      "frustrated_or_confused_rate": 0,
+      "handoff_summary_quality": null,
+      "avg_borrower_turns": 8,
+      "cost_total": 0.1875,
+      "cost_per_conversation": 0.1875
+    }
+  },
+  "violations_by_rule": {
+    "misleading (warning)": 2
+  },
+  "notes": []
+}

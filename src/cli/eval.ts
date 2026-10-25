@@ -117,7 +117,7 @@ async function runJob(job: (typeof jobs)[number]) {
   const hard = score.violations.filter((v) => v.severity === "violation").length;
   console.log(
     `  [${mark}] ${job.persona.id} #${job.runIndex}: ${score.actual_outcome} (expected ${score.expected_outcome}) · ${score.borrower_turns} turns · ` +
-      `${hard} violation(s) · natural ${score.naturalness ?? "—"} · $${score.cost.total.toFixed(3)}${result.error ? ` · ERROR ${result.error}` : ""}`,
+      `${hard} violation(s) · natural ${score.naturalness ?? "—"} · experience ${score.borrower_experience ?? "—"} (${score.borrower_end_state ?? "—"}) · $${score.cost.total.toFixed(3)}${result.error ? ` · ERROR ${result.error}` : ""}`,
   );
 }
 

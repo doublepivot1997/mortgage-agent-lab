@@ -37,3 +37,30 @@ specific, and give a timeframe. This is a lender policy question to confirm with
 recommended next steps per lender, clarify ambiguous timelines ("next few months").
 
 Caveat: n=1 per persona. A full run (3 conversations each) is needed before trusting the rates.
+
+## 2026-10-25 · Harborline · experience changes + re-test (`2026-10-25T20-05-26`, 2 conversations, $0.32)
+
+Direction from review: no overpromising, be transparent about requirements, no abrupt closes,
+never leave a borrower frustrated.
+- Added `persona.experience_rules` (transparency, always a clear next step, acknowledge stress,
+  never imply rejection).
+- Non-transferable leads now get a booked loan-officer review (`not_eligible_action: book_callback`,
+  `follow_up_timeframe: within one business day`) instead of an email-only close.
+- Judge now scores borrower experience (1-5), clear next step (yes/no), and end state.
+- Result: underwater went from "quiet rejection" to experience 5/5, "satisfied," call booked.
+  Rate shopper named the remaining details at handoff instead of "that's all I needed."
+- Judge caught "(no credit check)" applied to the loan officer's process; credit question wording
+  now scopes "no credit check" to the agent's question only.
+
+## 2026-10-25 · Harborline · first full run (`2026-10-25T20-07-26`, 21 conversations, $2.46)
+
+Handoff correctness 100% · zero violations · opt-out honored 100% · ended frustrated 0% ·
+experience 4.3/5 · clear next step 86% · recall 83% (rate shopper 57% by design).
+
+**Open: transfer wording I wrote in the config causes most warnings (10, all "warning").**
+- "You won't need to repeat yourself" (from `transfer_message_guidance`) is flagged as an
+  overpromise, since the loan officer confirms details.
+- The config never says *how* a transfer reaches the borrower (call? text? how soon?).
+  Skeptical cash-out ended without a clear next step in 3 of 3 runs.
+- "Your situation is one a loan officer should review personally" (from `not_eligible_guidance`)
+  reads as hinting at a problem; "You're all set" reads as an approval.

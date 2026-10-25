@@ -18,6 +18,10 @@ export const JudgeOutputSchema = z.object({
   ),
   naturalness_score: z.number().int().describe("1-5"),
   naturalness_rationale: z.string(),
+  borrower_experience_score: z.number().int().describe("1-5"),
+  borrower_end_state: z.enum(["satisfied", "neutral", "frustrated", "confused"]).describe("How the borrower most likely felt when the conversation ended"),
+  clear_next_step: z.boolean().describe("Did the borrower end knowing who will contact them, how, and roughly when? true for a confirmed opt-out."),
+  experience_rationale: z.string().describe("One or two sentences, citing turns"),
   compliance_issues: z.array(
     z.object({
       rule_id: z.string(),
@@ -89,6 +93,11 @@ Naturalness of the agent's messages overall:
 5 = reads like a sharp human coordinator texting: brief, warm, adapts to the borrower
 3 = fine but robotic, repetitive, or too long for text
 1 = confusing, scripted, or off-putting
+Borrower experience (would this borrower stay with this lender, or go elsewhere?):
+5 = borrower felt respected and informed; expectations were set honestly; they know exactly what happens next
+3 = got the job done, but moments of friction: repetition, vague next steps, mild overpromising
+1 = borrower left frustrated, confused, or feeling quietly rejected, and is likely to try another lender
+Also flag over-promising (implying faster, simpler, or more certain outcomes than reality) as "misleading".
 Handoff summary (only if a transfer happened): 5 = accurate, complete, a loan officer could act on it immediately; 1 = wrong or useless.
 
 Annotations: 3-6 notes on specific agent turns, the strengths and issues a reviewer should see.
@@ -118,6 +127,7 @@ export async function judgeConversation(opts: { cfg: LenderConfig; record: Sessi
       return { output: null, objection_score: null, violations: [], usage, error: `judge returned no output (stop_reason=${response.stop_reason})` };
     }
     out.naturalness_score = clamp(out.naturalness_score);
+    out.borrower_experience_score = clamp(out.borrower_experience_score);
     out.objections.forEach((o) => (o.score = clamp(o.score)));
     if (out.handoff_summary_score !== null) out.handoff_summary_score = clamp(out.handoff_summary_score);
 

@@ -43,7 +43,7 @@ The first user turn is an internal lead-intake note (the ${who} cannot see it). 
 # Voice
 ${persona.voice}
 ${bullets(persona.style_rules)}
-
+${persona.experience_rules.length ? `\n# Borrower experience (always)\n${bullets(persona.experience_rules)}\n` : ""}
 # Your first message
 ${disclosure.opening_guidance}
 It must include these words: ${disclosure.required_phrases_first_message.map((p) => `"${p}"`).join(", ")}.
@@ -73,12 +73,12 @@ ${hours}${membership}
 - Qualified means: all required fields collected and the loan-to-value ((balance + cash out) / home value) is at most ${handoff.qualified_when.max_ltv}.
 - When qualified, call transfer_to_loan_officer with reason "qualified". ${handoff.transfer_message_guidance}
 - If the ${who} asks a question only a licensed loan officer can answer (rates, approval, product advice), never answer it yourself. ${handoff.licensed_question_min_fields.length ? `Once you have ${handoff.licensed_question_min_fields.join(", ")}, call transfer_to_loan_officer with reason "licensed_question", even if other fields are still missing. Until then, explain that the loan officer needs those basics to give a real answer, and ask for them.` : `Call transfer_to_loan_officer with reason "licensed_question", even if you have not finished collecting fields.`}
-- If the ${who} is not a fit for a live transfer: ${handoff.not_eligible_guidance} Use end_conversation with reason "follow_up_by_email".
+- If the ${who} is not a fit for a live transfer: ${handoff.not_eligible_guidance}${handoff.not_eligible_action === "follow_up_by_email" ? ` Use end_conversation with reason "follow_up_by_email".` : ""}${handoff.follow_up_timeframe ? ` Loan officer follow-ups happen ${handoff.follow_up_timeframe}.` : ""}
 - If the ${who} is busy, offer a callback with schedule_callback.
 - The transfer tool checks these rules. If it says the transfer is not available, follow its instructions and do not mention internal rules, LTV limits, or scores to the ${who}.
 
 # Ending
-After a transfer, callback, or end_conversation, send one short closing message and stop. Never ask another question after ending.`;
+After a transfer, callback, or end_conversation, send one short closing message and stop. Unless the ${who} opted out, the closing message must say what happens next: who will contact them, how, and roughly when. Never ask another question after ending.`;
 }
 
 export interface LeadIntake {

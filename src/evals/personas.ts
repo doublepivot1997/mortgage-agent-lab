@@ -92,12 +92,13 @@ export function expectedOutcome(cfg: LenderConfig, p: Persona): Outcome {
   }
 }
 
-export function actualOutcome(r: Pick<SessionRecord, "status" | "end">): Outcome {
+export function actualOutcome(r: Pick<SessionRecord, "status" | "end" | "callback">): Outcome {
   switch (r.status) {
     case "transferred":
       return "transferred";
     case "callback_booked":
-      return "callback_booked";
+      // A booked loan-officer review is this lender's form of follow-up for non-transferable leads.
+      return r.callback?.reason === "loan_officer_review" ? "follow_up" : "callback_booked";
     case "opted_out":
       return "opted_out";
     case "ended":
