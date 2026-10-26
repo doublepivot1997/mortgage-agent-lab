@@ -1,5 +1,7 @@
 # Mortgage Agent Lab
 
+_Built by **Samson D'Amato**._
+
 **A forward-deployed product manager (PM) prototype:** an AI assistant that follows up with
 people who ask a mortgage lender about refinancing. It was adapted for a second lender without
 changing any code, and every change was tested against simulated borrowers before it shipped.
