@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { lenders } from "../../src/web/data";
-import { liveChatLimits } from "../../src/web/ratelimit";
+import { liveChatLimits, rateLimitBackend } from "../../src/web/ratelimit";
 import { SCENARIOS } from "../../src/web/chat-service";
 import { ChatClient, type LenderInfo } from "./ChatClient";
 
@@ -29,7 +29,7 @@ export default function ChatPage() {
         You&apos;re a borrower who just submitted a refinance inquiry. The agent texts first. Try being busy, skeptical, pushy about rates, or
         replying STOP. Nothing leaves this page: no real texts, no real loan officers.
       </p>
-      <ChatClient lenders={info} scenarios={scenarios} enabled={limits.enabled} maxChars={limits.maxMessageChars} />
+      <ChatClient lenders={info} scenarios={scenarios} enabled={limits.enabled && rateLimitBackend() !== "missing"} maxChars={limits.maxMessageChars} />
     </main>
   );
 }

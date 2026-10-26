@@ -66,9 +66,30 @@ export class MemoryLimiter implements Limiter {
 
 /** Upstash credentials, from either Upstash's own names or the names Vercel's Upstash integration sets. */
 export function upstashCredentials(env: Record<string, string | undefined> = process.env): { url: string; token: string } | null {
-  const url = env.UPSTASH_REDIS_REST_URL ?? env.KV_REST_API_URL;
-  const token = env.UPSTASH_REDIS_REST_TOKEN ?? env.KV_REST_API_TOKEN;
-  return url && token ? { url, token } : null;
+  // Exact names first, then any prefixed variant (Vercel lets you add a custom prefix,
+  // e.g. STORAGE_KV_REST_API_URL). The read-only token is never used: limits need writes.
+  const pairs: [string, string][] = [
+    ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"],
+    ["KV_REST_API_URL", "KV_REST_API_TOKEN"],
+  ];
+  for (const [u, t] of pairs) if (env[u] && env[t]) return { url: env[u]!, token: env[t]! };
+  for (const name of Object.keys(env).sort()) {
+    for (const [u, t] of pairs) {
+      if (name.endsWith(`_${u}`)) {
+        const prefix = name.slice(0, -u.length);
+        const url = env[name];
+        const token = env[`${prefix}${t}`];
+        if (url && token) return { url, token };
+      }
+    }
+  }
+  return null;
+}
+
+/** Which rate-limit backend this deployment would use. Safe to expose: no values, just a label. */
+export function rateLimitBackend(env: Record<string, string | undefined> = process.env): "upstash" | "memory" | "missing" {
+  if (upstashCredentials(env)) return "upstash";
+  return env.NODE_ENV === "production" && env.LIVE_CHAT_ALLOW_MEMORY_LIMITER !== "true" ? "missing" : "memory";
 }
 
 class UpstashLimiter implements Limiter {

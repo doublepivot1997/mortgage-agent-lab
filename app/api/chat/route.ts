@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { handleChat, type ChatRequest } from "../../../src/web/chat-service";
-import { getLimiter, liveChatLimits } from "../../../src/web/ratelimit";
+import { getLimiter, liveChatLimits, rateLimitBackend } from "../../../src/web/ratelimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,7 +13,8 @@ function clientIp(req: Request): string {
 
 export async function GET() {
   const l = liveChatLimits();
-  return NextResponse.json({ enabled: l.enabled, max_messages: l.maxMessagesPerConversation, max_chars: l.maxMessageChars });
+  const backend = rateLimitBackend();
+  return NextResponse.json({ enabled: l.enabled && backend !== "missing", rate_limit: backend, max_messages: l.maxMessagesPerConversation, max_chars: l.maxMessageChars });
 }
 
 export async function POST(req: Request) {

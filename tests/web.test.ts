@@ -142,5 +142,10 @@ describe("deploy config", () => {
     expect(upstashCredentials({ UPSTASH_REDIS_REST_URL: "u", UPSTASH_REDIS_REST_TOKEN: "t" })).toEqual({ url: "u", token: "t" });
     expect(upstashCredentials({ KV_REST_API_URL: "u2", KV_REST_API_TOKEN: "t2" })).toEqual({ url: "u2", token: "t2" });
     expect(upstashCredentials({ KV_REST_API_URL: "u2" })).toBeNull();
+    expect(upstashCredentials({ STORAGE_KV_REST_API_URL: "u3", STORAGE_KV_REST_API_TOKEN: "t3", STORAGE_KV_REST_API_READ_ONLY_TOKEN: "ro" })).toEqual({ url: "u3", token: "t3" });
+    const { rateLimitBackend } = await import("../src/web/ratelimit");
+    expect(rateLimitBackend({ NODE_ENV: "production" })).toBe("missing");
+    expect(rateLimitBackend({ NODE_ENV: "production", KV_REST_API_URL: "u", KV_REST_API_TOKEN: "t" })).toBe("upstash");
+    expect(rateLimitBackend({ NODE_ENV: "development" })).toBe("memory");
   });
 });
