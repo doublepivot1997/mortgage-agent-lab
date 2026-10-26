@@ -47,7 +47,18 @@ lender's compliance team):
 - Transparency: if the agent uses remembered information, it says so ("from our last
   conversation").
 
-## 2. Real integrations
+## 2. A lender-approved FAQ
+
+The assistant should answer common questions (how to join the credit union, branch hours,
+documents a loan officer will ask for) from an FAQ the lender approves, and nothing else. Every
+question it can't answer is logged, reviewed weekly, and becomes either a new FAQ entry or a
+rule to route that question to a person. Seen in testing: a non-member asked whether they could
+open an account online, and the assistant correctly said it didn't know.
+- Needs: an `faq` section in the lender settings file (question, approved answer, when to hand
+  off), a log of unanswered questions, and an eval check that the assistant never answers
+  outside the FAQ.
+
+## 3. Real integrations
 
 - **CRM / lead intake:** receive leads from the lender's web forms and partners in real time,
   including lead source (the health view showed source matters) and consent records.
@@ -57,13 +68,13 @@ lender's compliance team):
 - **Scheduling:** book callbacks into loan officers' actual calendars instead of free text.
 - **Licensing data:** route only to loan officers licensed in the borrower's state.
 
-## 3. Voice
+## 4. Voice
 
 Phone is where most of these conversations happen. Add a voice channel on the same configs and
 evals, plus voice-specific checks: interruptions, latency, mishearing numbers ("fifteen" vs
 "fifty"), and a spoken AI disclosure. Test calls only ever go to numbers the team owns.
 
-## 4. Production monitoring
+## 5. Production monitoring
 
 - The account health view on live data instead of synthetic, refreshed daily.
 - Alerts on the escalation triggers from the README playbook (opt-out spike, transfer connect
@@ -71,7 +82,7 @@ evals, plus voice-specific checks: interruptions, latency, mishearing numbers ("
 - Sample real conversations weekly for human review alongside the LLM judge, and track how
   often the judge and humans disagree.
 
-## 5. Eval harness, grown up
+## 6. Eval harness, grown up
 
 - Turn real (consented, anonymized) conversations that went wrong into new eval personas.
 - Run the suite automatically on every config change, and block the change if handoff
@@ -80,7 +91,7 @@ evals, plus voice-specific checks: interruptions, latency, mishearing numbers ("
   improvements.
 - Calibrate the judge against human ratings on a labeled sample.
 
-## 6. Lender self-serve
+## 7. Lender self-serve
 
 A safe way for a lender's team to change wording (opener, objection responses) without an
 engineer, with the eval suite running before anything goes live and a clear diff of what
