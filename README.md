@@ -4,8 +4,8 @@
 people who ask a mortgage lender about refinancing. It was adapted for a second lender without
 changing any code, and every change was tested against simulated borrowers before it shipped.
 
-**Live demo:** _link added at deploy_ · chat with the assistant, replay recorded conversations,
-read the scorecards, and see the account health view.
+**Live demo: [mortgage-agent-lab.vercel.app](https://mortgage-agent-lab.vercel.app)** · chat with the
+assistant, replay recorded conversations, read the scorecards, and see the account health view.
 
 > Everything here is fictional. Harborline Home Loans and Bayview Community Credit Union are
 > made-up lenders. All metrics come from simulated conversations or synthetic data, not
