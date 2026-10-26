@@ -135,3 +135,12 @@ describe("site data", () => {
     expect(Object.values(runNotes())).toContain("first full run");
   });
 });
+
+describe("deploy config", () => {
+  it("accepts Upstash credentials under either naming scheme", async () => {
+    const { upstashCredentials } = await import("../src/web/ratelimit");
+    expect(upstashCredentials({ UPSTASH_REDIS_REST_URL: "u", UPSTASH_REDIS_REST_TOKEN: "t" })).toEqual({ url: "u", token: "t" });
+    expect(upstashCredentials({ KV_REST_API_URL: "u2", KV_REST_API_TOKEN: "t2" })).toEqual({ url: "u2", token: "t2" });
+    expect(upstashCredentials({ KV_REST_API_URL: "u2" })).toBeNull();
+  });
+});

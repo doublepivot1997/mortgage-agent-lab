@@ -64,9 +64,16 @@ export class MemoryLimiter implements Limiter {
   }
 }
 
+/** Upstash credentials, from either Upstash's own names or the names Vercel's Upstash integration sets. */
+export function upstashCredentials(env: Record<string, string | undefined> = process.env): { url: string; token: string } | null {
+  const url = env.UPSTASH_REDIS_REST_URL ?? env.KV_REST_API_URL;
+  const token = env.UPSTASH_REDIS_REST_TOKEN ?? env.KV_REST_API_TOKEN;
+  return url && token ? { url, token } : null;
+}
+
 class UpstashLimiter implements Limiter {
   readonly kind = "upstash" as const;
-  private redis = Redis.fromEnv();
+  private redis = new Redis(upstashCredentials()!);
   private cache = new Map<string, Ratelimit>();
 
   async hit(bucket: string, key: string, max: number, windowSec: number): Promise<LimitResult> {
@@ -84,7 +91,7 @@ class UpstashLimiter implements Limiter {
 let limiter: Limiter | null = null;
 export function getLimiter(): Limiter {
   if (!limiter) {
-    const hasUpstash = !!process.env.UPSTASH_REDIS_REST_URL && !!process.env.UPSTASH_REDIS_REST_TOKEN;
+    const hasUpstash = upstashCredentials() !== null;
     if (!hasUpstash && process.env.NODE_ENV === "production" && process.env.LIVE_CHAT_ALLOW_MEMORY_LIMITER !== "true") {
       throw new Error("Live chat in production needs Upstash Redis (UPSTASH_REDIS_REST_URL/TOKEN) for rate limiting.");
     }
