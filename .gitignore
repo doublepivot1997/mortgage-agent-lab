@@ -18,3 +18,6 @@ data/chats/
 # Next.js
 next-env.d.ts
 *.tsbuildinfo
+
+# Private application materials (not published)
+deliverables/
